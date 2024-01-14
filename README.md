@@ -1,5 +1,5 @@
 
-## About LRMS - Leave Request Management System
+## About RMS - Consolidated Transcript Request Processing and Result Confirmation System for Nigeria Tertiary Instution
 
 ### To Build the docker Container
 `docker-compose build`
