@@ -1,0 +1,64 @@
+
+.center {
+  justify-content: center;
+  align-items: center;
+  z-index: 1000000000;
+  position: fixed;
+  top: 0px;
+  background-color: transparent;
+  width: 100vw;
+  height: 100vh;
+
+}
+  .spinner {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 12px solid #3498db;
+    border-bottom: 12px solid #3498db;
+    margin:0 auto;
+    background:#f7f7f7;
+    position:absolute;
+    width: 90px;
+    height: 90px;
+    left:25%;
+    top:50%;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+  }
+
+  @-webkit-keyframes spin {
+      0% { -webkit-transform: rotate(0deg); }
+      100% { -webkit-transform: rotate(360deg); }
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    #home {
+     background-image: url("/assets/spms2.jpg") !important;
+     background-size: cover !important;
+     height: 100vh !important;
+    }
+
+
+    @media (min-width: 768px) {
+
+      #home {
+        /* overflow: hidden; */
+       }
+    
+    }
+
+
+
+
+
+    .vertical-center-old {
+      margin: 0;
+      position: absolute;
+      top: 50%;
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+    }
