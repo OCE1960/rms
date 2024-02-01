@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'LRMS',
+    'title' => 'RMS',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'logo' => '<b>LRMS</b>',
+    'logo' => '<b>RMS</b>',
     'logo_img' => 'assets/icon.jpeg',
     'logo_img_class' => 'brand-image img-circle elevation-5',
     'logo_img_xl' => null,
@@ -234,21 +234,14 @@ return [
             'text' => 'Dashboard',
             'route'  => 'dashboard',
             'icon' => 'fas fa-tachometer-alt',
-            'can' => ['Admin','Manager', 'Staff'],
+            'can' => ['Super Admin', 'Result Compiler', 'Checking Officer'],
         ],
 
         [
             'text' => 'Staff',
             'route'  => 'users',
             'icon' => 'fas fa-users',
-            'can' => [ 'Admin', 'Manager'],
-        ],
- 
-        [
-            'text' => 'Leave Request',
-            'route'  => 'leave.requests',
-            'icon' => 'fas fa-school',
-            'can' => ['Admin', 'Manager', 'Staff'],
+            'can' => ['Super Admin', 'Result Compiler', 'Checking Officer'],
         ],
     ],
     /*

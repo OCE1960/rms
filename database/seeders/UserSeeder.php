@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\LeaveRequest;
 use App\Models\User;
 use App\Models\Role;
 use Illuminate\Database\Seeder;
@@ -14,10 +13,6 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $admin = new Role;
-        $admin->role = 'Admin';
-        $admin->status = true;
-        $admin->save();
 
         $user1 = new User;
         $user1->name = 'Okeke Chukwuemeka';
@@ -26,12 +21,9 @@ class UserSeeder extends Seeder
         $user1->password = bcrypt('password');
         $user1->save();
 
-        $user1->roles()->attach($admin->id);
+        $superAdmin = Role::where('key', 'super-admin')->firstOrFail();
 
-        $manager = new Role;
-        $manager->role = 'Manager';
-        $manager->status = true;
-        $manager->save();
+        $user1->roles()->attach($superAdmin->id);
 
         $user2 = new User;
         $user2->name = 'Chukwuma Macqueen';
@@ -40,12 +32,9 @@ class UserSeeder extends Seeder
         $user2->password = bcrypt('password');
         $user2->save();
 
-        $user2->roles()->attach($manager->id);
+        $resultCompiler = Role::where('key', 'result-compiler')->firstOrFail();
 
-        $staff = new Role;
-        $staff->role = 'Staff';
-        $staff->status = true;
-        $staff->save();
+        $user2->roles()->attach($resultCompiler->id);
 
         $user3 = new User;
         $user3->name = 'Aruni Yusuf Samuel';
@@ -54,30 +43,8 @@ class UserSeeder extends Seeder
         $user3->password = bcrypt('password');
         $user3->save();
 
-        $user3->roles()->attach($staff->id);
+        $checkingOfficer = Role::where('key', 'checking-officer')->firstOrFail();
 
-        $leaveRequest1 = new LeaveRequest;
-        $leaveRequest1->user_id = $user1->id;
-        $leaveRequest1->title = 'Summer Leave';
-        $leaveRequest1->description = 'I kindly Request for Summer Leave';
-        $leaveRequest1->start_date = '2023-10-23';
-        $leaveRequest1->end_date = '2023-10-29';
-        $leaveRequest1->save();
-
-        $leaveRequest1 = new LeaveRequest;
-        $leaveRequest1->user_id = $user2->id;
-        $leaveRequest1->title = 'Summer Leave 2';
-        $leaveRequest1->description = 'I kindly Request for Summer Leave 2';
-        $leaveRequest1->start_date = '2023-10-23';
-        $leaveRequest1->end_date = '2023-10-29';
-        $leaveRequest1->save();
-
-        $leaveRequest1 = new LeaveRequest;
-        $leaveRequest1->user_id = $user3->id;
-        $leaveRequest1->title = 'Summer Leave 3';
-        $leaveRequest1->description = 'I kindly Request for Summer Leave 3';
-        $leaveRequest1->start_date = '2023-10-23';
-        $leaveRequest1->end_date = '2023-10-29';
-        $leaveRequest1->save();
+        $user3->roles()->attach($checkingOfficer->id);
     }
 }

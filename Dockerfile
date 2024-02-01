@@ -57,7 +57,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends\
   && docker-php-ext-enable pcov \
   && apt-get update && apt-get install -y --no-install-recommends supervisor
 
-WORKDIR /var/www/hrms
+WORKDIR /var/www/rms
 
 #Restoring the phpdbg
 COPY --from=php-cli /usr/local/bin/phpdbg /usr/local/bin/

@@ -24,19 +24,22 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('Admin', function ($user) {
-            $admin =  Role::where('role', 'Admin')->first();
-            return $user->roles()->where('user_id', $user->id)->where('role_id', $admin->id)->first();
+        Gate::define('Super Admin', function ($user) {
+            $superAdmin =  Role::where('key', 'super-admin')->first();
+
+            return $user->roles()->where('user_id', $user->id)->where('role_id', $superAdmin->id)->first();
         });
 
-        Gate::define('Manager', function ($user) {
-            $manager =  Role::where('role', 'Manager')->first();
-            return $user->roles()->where('user_id', $user->id)->where('role_id', $manager->id)->first();
+        Gate::define('Result Compiler', function ($user) {
+            $resultCompiler =  Role::where('key', 'result-compiler')->first();
+
+            return $user->roles()->where('user_id', $user->id)->where('role_id', $resultCompiler->id)->first();
         });
 
-        Gate::define('Staff', function ($user) {
-            $staff =  Role::where('role', 'Staff')->first();
-            return $user->roles()->where('user_id', $user->id)->where('role_id', $staff->id)->first();
+        Gate::define('Checking Officer', function ($user) {
+            $checkingOfficer =  Role::where('key', 'checking-officer')->first();
+
+            return $user->roles()->where('user_id', $user->id)->where('role_id', $checkingOfficer->id)->first();
         });
     }
 }

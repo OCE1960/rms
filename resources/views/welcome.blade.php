@@ -45,7 +45,7 @@
 
             <div class="max-w-7xl mx-auto p-6 lg:p-8">
                 <div class="flex justify-center">
-                    Application of DevOps in the Design and Development of Employee Leave Request Management System
+                    Transcript Request Processing and Result Verification System
                 </div>
 
                 <div class="mt-16">
