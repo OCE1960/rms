@@ -237,6 +237,12 @@ return [
             'can' => ['Super Admin', 'Result Compiler', 'Checking Officer'],
         ],
         [
+            'text' => 'Assign Tasks',
+            'route'  => 'users',
+            'icon' => 'fa fa-folder-open',
+            'can' => ['Super Admin', 'Result Compiler', 'Checking Officer'],
+        ],
+        [
             'text' => 'Transcripts Requests',
             'route'  => 'users',
             'icon' => 'fa fa-briefcase',
