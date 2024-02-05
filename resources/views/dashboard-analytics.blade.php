@@ -34,9 +34,9 @@
                 <!-- Apply any bg-* class to to the icon to color it -->
                 <span class="info-box-icon bg-primary"><i class="fas fa-university"></i></span>
                 <div class="info-box-content">
-                    <a href="{{ route('leave.requests') }}">
-                        <span class="info-box-text">Leave Requests</span>
-                        <span class="info-box-number"> {{ count($leaveRequets) }} </span>
+                    <a href="#">
+                        <span class="info-box-text">Transcript Requests</span>
+                        <span class="info-box-number"> 0 </span>
                     </a>
                 </div>
                 <!-- /.info-box-content -->

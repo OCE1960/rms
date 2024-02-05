@@ -50,7 +50,7 @@ return [
     'logo_img_class' => 'brand-image img-circle elevation-5',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'LRMS',
+    'logo_img_alt' => 'RMS',
 
     /*
     |--------------------------------------------------------------------------
@@ -236,12 +236,49 @@ return [
             'icon' => 'fas fa-tachometer-alt',
             'can' => ['Super Admin', 'Result Compiler', 'Checking Officer'],
         ],
-
         [
-            'text' => 'Staff',
+            'text' => 'Transcripts Requests',
+            'route'  => 'users',
+            'icon' => 'fa fa-briefcase',
+            'can' => ['Super Admin', 'Result Compiler', 'Checking Officer'],
+        ],
+        [
+            'text' => 'Verification Requests',
+            'route'  => 'users',
+            'icon' => 'fas fa-wallet',
+            'can' => ['Super Admin', 'Result Compiler', 'Checking Officer'],
+        ],
+        [
+            'text' => 'Schools',
+            'route'  => 'users',
+            'icon' => 'fas fa-school',
+            'can' => ['Super Admin', 'Result Compiler', 'Checking Officer'],
+        ],
+        [
+            'text' => 'Students',
             'route'  => 'users',
             'icon' => 'fas fa-users',
-            'can' => ['Super Admin', 'Result Compiler', 'Checking Officer'],
+            'can'  => ['Super Admin'],
+        ],
+        [
+            'text' => 'Staffs',
+            'route'  => 'users',
+            'icon' => 'fas fa-user-friends',
+            'can'  => ['Super Admin'],
+        ],
+
+        ['header' => 'account_settings'],
+        [
+            'text' => 'profile',
+            'route'  => 'users',
+            'icon' => 'fas fa-fw fa-user',
+            'can'  => ['Super Admin', 'Result Compiler', 'Checking Officer'],
+        ],
+        [
+            'text' => 'change_password',
+            'route'  => 'users',
+            'icon' => 'fas fa-fw fa-lock',
+            'can'  => ['Super Admin', 'Result Compiler', 'Checking Officer'],
         ],
     ],
     /*

@@ -16,23 +16,23 @@
 
 @section('content')
              
-    @canany(['Admin', 'Manager'])
+    @canany(['Super Admin'])
             @include('dashboard-analytics')
     @endcanany 
     
     <div class="row shadow p-3 bg-white rounded" id="info">
 
-        @canany(['Admin', 'Manager'])
+        @canany(['Super Admin'])
             @include('partials.admin-dashboard-content')
         @endcanany
         
-        @canany(['Staff'])
+        @canany(['Super Admin'])
             @include('partials.staff-dashboard-content')
         @endcanany
 
-        @include('modals.view-leave-request-modal')
+        <!-- @include('modals.view-leave-request-modal') -->
 
-        @canany(['Admin', 'Manager'])
+        @canany(['Super Admin'])
             @include('modals.leave-request-approval-modal')
         @endcanany
 

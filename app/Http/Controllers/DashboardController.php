@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use App\Models\LeaveRequest;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -15,10 +14,9 @@ class DashboardController extends Controller
     {
         $roles = Role::all();
         $users = User::all();
-        $leaveRequets = LeaveRequest::all();
+
         return view('dashboard')->with('roles', $roles)
-            ->with('users', $users)
-            ->with('leaveRequets', $leaveRequets); 
+            ->with('users', $users); 
     }
 
     public function getUsers()

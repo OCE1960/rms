@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
 
         $user1 = new User;
         $user1->name = 'Okeke Chukwuemeka';
-        $user1->email = 'admin@hrms.com';
+        $user1->email = 'admin@rms.com';
         $user1->phone_no = '07033792383';
         $user1->password = bcrypt('password');
         $user1->save();
@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
 
         $user2 = new User;
         $user2->name = 'Chukwuma Macqueen';
-        $user2->email = 'manager@hrms.com';
+        $user2->email = 'manager@rms.com';
         $user2->phone_no = '07033793213';
         $user2->password = bcrypt('password');
         $user2->save();
@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
 
         $user3 = new User;
         $user3->name = 'Aruni Yusuf Samuel';
-        $user3->email = 'staff@hrms.com';
+        $user3->email = 'staff@rms.com';
         $user3->phone_no = '07033022383';
         $user3->password = bcrypt('password');
         $user3->save();

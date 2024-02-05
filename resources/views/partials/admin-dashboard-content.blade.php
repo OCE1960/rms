@@ -1,4 +1,4 @@
-@if(isset($leaveRequets) & count($leaveRequets) > 0)
+@if(isset($leaveRequets))
     <div class="table-responsive">
         <h4 class="text-primary"> List of Submitted Leave Requests</h4>
         <table id="leave-requets" class="table table-striped table-hover">
@@ -20,7 +20,7 @@
                     $x = 0;
                 @endphp
 
-                @foreach($leaveRequets as $leaveRequet)
+                <!-- @foreach($leaveRequets as $leaveRequet)
 
                     <tr>
                         <th scope="row"> {{ ++$x }} </th>
@@ -53,7 +53,7 @@
                         </td>
                     </tr>
             
-                @endforeach
+                @endforeach -->
                 
 
 

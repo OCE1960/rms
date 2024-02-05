@@ -1,4 +1,4 @@
-@if(isset($leaveRequets) & count($leaveRequets) > 0)
+@if(isset($leaveRequets))
     <div class="table-responsive">
         <h4 class="text-primary"> List of Submitted Leave Requests</h4>
         <table id="leave-requets" class="table table-striped table-hover">
@@ -59,7 +59,7 @@
         </table>
     </div>
 @else
-    @if ($y == 0)
-        <div class="text-center text-danger col-sm-12"> No Submitted Leave Request</div> 
-    @endif         
+    
+    <div class="text-center text-danger col-sm-12"> No Submitted Leave Request</div> 
+    
 @endif 
