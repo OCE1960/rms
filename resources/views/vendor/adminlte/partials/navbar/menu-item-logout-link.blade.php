@@ -7,6 +7,13 @@
 @endif
 
 <li class="nav-item">
+    <a class="nav-link" href="#">
+        
+         {{ auth()->user()->name }}
+    </a>
+</li>
+
+<li class="nav-item">
     <a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
         <i class="fa fa-fw fa-power-off text-red"></i>
         {{ __('adminlte::adminlte.log_out') }}

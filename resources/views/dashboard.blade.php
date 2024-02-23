@@ -17,7 +17,7 @@
 @section('content')
              
     @canany(['Super Admin'])
-            @include('dashboard-analytics')
+            @include('partials.dashboard-analytics')
     @endcanany 
     
     <div class="row shadow p-3 bg-white rounded" id="info">
