@@ -61,5 +61,5 @@
         </table>
     </div>
 @else
-    <div class="text-center text-danger col-sm-12"> No Submitted Leave Request</div>          
+    <div class="text-center text-danger col-sm-12"> No content</div>          
 @endif 

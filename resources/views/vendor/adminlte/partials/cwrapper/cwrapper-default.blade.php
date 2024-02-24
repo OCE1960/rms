@@ -21,6 +21,23 @@
     {{-- Main Content --}}
     <div class="content">
         <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
+            @if(session('success'))
+                <div class="alert alert-success">
+                    <i class="fas fa-check-double"></i>      {{ session('success') }}
+                </div> 
+            @endif
+
+            @if(session('error-message'))
+                <div class="alert alert-danger">
+                    <i class="fa fa-bug"></i>      {{ session('error-message') }}
+                </div> 
+            @endif
+
+            @if(session('error'))
+                <div class="alert alert-danger">
+                    <i class="fa fa-bug"></i>      {{ session('error') }}
+                </div> 
+            @endif
             @yield('content')
         </div>
     </div>

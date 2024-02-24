@@ -54,7 +54,7 @@ class LoginController extends Controller
 
        // $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'is_disabled'=>0, 'is_staff'=>1], $request->remember)) {
             // Authentication passed...
             return redirect()->intended('dashboard');
             

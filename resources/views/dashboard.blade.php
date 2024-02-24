@@ -26,16 +26,9 @@
             @include('partials.admin-dashboard-content')
         @endcanany
         
-        @canany(['Super Admin'])
+        @canany(['Result Compiler', 'Checking Officer'])
             @include('partials.staff-dashboard-content')
         @endcanany
-
-        <!-- @include('modals.view-leave-request-modal') -->
-
-        @canany(['Super Admin'])
-            @include('modals.leave-request-approval-modal')
-        @endcanany
-
     </div> <!-- /#info-box -->
 
 @stop

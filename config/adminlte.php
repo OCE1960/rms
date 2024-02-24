@@ -276,13 +276,13 @@ return [
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
-            'route'  => 'users',
+            'route'  => 'users.profile',
             'icon' => 'fas fa-fw fa-user',
             'can'  => ['Super Admin', 'Result Compiler', 'Checking Officer'],
         ],
         [
             'text' => 'change_password',
-            'route'  => 'users',
+            'route'  => 'change.password',
             'icon' => 'fas fa-fw fa-lock',
             'can'  => ['Super Admin', 'Result Compiler', 'Checking Officer'],
         ],

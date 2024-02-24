@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -45,6 +46,13 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['full_name'];
+
     public function adminlte_image()
     {
         return 'https://picsum.photos/300/300';
@@ -72,6 +80,13 @@ class User extends Authenticatable
 
         return false;
     
+    }
+
+    protected function fullName(): Attribute
+    {
+        return new Attribute(
+            get: fn () => $this->last_name .', '.$this->first_name . ' ' . $this->middle_name,
+        );
     }
 
     public function leaveRequests()

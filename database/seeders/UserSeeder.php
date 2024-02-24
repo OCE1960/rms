@@ -15,9 +15,11 @@ class UserSeeder extends Seeder
     {
 
         $user1 = new User;
-        $user1->name = 'Okeke Chukwuemeka';
+        $user1->first_name = 'Chukwuemeka';
+        $user1->last_name = 'Okeke';
         $user1->email = 'admin@rms.com';
         $user1->phone_no = '07033792383';
+        $user1->is_staff = true;
         $user1->password = bcrypt('password');
         $user1->save();
 
@@ -26,9 +28,11 @@ class UserSeeder extends Seeder
         $user1->roles()->attach($superAdmin->id);
 
         $user2 = new User;
-        $user2->name = 'Chukwuma Macqueen';
+        $user2->first_name = 'Macqueen';
+        $user2->last_name = 'Chukwuma';
         $user2->email = 'manager@rms.com';
         $user2->phone_no = '07033793213';
+        $user1->is_staff = true;
         $user2->password = bcrypt('password');
         $user2->save();
 
@@ -37,9 +41,11 @@ class UserSeeder extends Seeder
         $user2->roles()->attach($resultCompiler->id);
 
         $user3 = new User;
-        $user3->name = 'Aruni Yusuf Samuel';
+        $user3->first_name = 'Aruni';
+        $user3->last_name = 'Samuel';
         $user3->email = 'staff@rms.com';
         $user3->phone_no = '07033022383';
+        $user1->is_staff = true;
         $user3->password = bcrypt('password');
         $user3->save();
 

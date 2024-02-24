@@ -24,6 +24,12 @@
     <form action="{{ $login_url }}" method="post">
         @csrf
 
+        @if (session('invalid-details'))
+            <div class="alert alert-danger">
+                {{ session('invalid-details') }}
+            </div>
+        @endif
+
         {{-- Email field --}}
         <div class="input-group mb-3">
             <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
@@ -44,12 +50,13 @@
 
         {{-- Password field --}}
         <div class="input-group mb-3">
-            <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
+            <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror"
                    placeholder="{{ __('adminlte::adminlte.password') }}">
 
             <div class="input-group-append">
                 <div class="input-group-text">
-                    <span class="fas fa-lock {{ config('adminlte.classes_auth_icon', '') }}"></span>
+                    <span class="fa fa-eye-slash" id="eyeSlash" onclick="visibility3()" style="display: none;"></span>
+                    <span class="fa fa-eye" id="eyeShow" onclick="visibility3()" ></span>
                 </div>
             </div>
 
@@ -102,3 +109,20 @@
         </p>
     @endif
 @stop
+
+@push('js')
+    <script>
+        function visibility3() {
+            let x = document.getElementById('password');
+            if (x.type === 'password') {
+                x.type = "text";
+                $('#eyeShow').hide();
+                $('#eyeSlash').show();
+            }else {
+                x.type = "password";
+                $('#eyeShow').show();
+                $('#eyeSlash').hide();
+            }
+        }
+    </script>
+@endpush

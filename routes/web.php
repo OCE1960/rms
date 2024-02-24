@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\LeaveRequestController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,8 +39,22 @@ Route::prefix('dashboard')->group(function() {
             Route::get('/users', 'getUsers')->name('users');
         });
 
-        Route::controller(LeaveRequestController::class)->group(function () {
-            Route::get('/leave-requests', 'index')->name('leave.requests');
+        Route::controller(UserController::class)->group(function () {
+           
+            Route::get('/users/change-password', 'showChangePasswordForm' )->name('change.password');
+            Route::post('/users/change-password', 'processPasswordChange')->name('process.change.password');
+            Route::get('/users/profile', 'showProfile' )->name('users.profile');
+            // Route::get('/users', 'index')->name('auth.users');
+            // Route::get('/users/select/{department_id}', 'showDepartmentUsers' )->name('users.selects.department');
+            // Route::get('/users/change-password', 'showChangePasswordForm' )->name('users.change.password');
+            // 
+            // 
+            // Route::post('/users/update/{id}', 'update')->name('users.update');
+            // Route::post('/users/store', 'store')->name('users.store');
+            // Route::post('/users/change/password', 'changePassword')->name('users.channge.password');
+            // Route::post('/users/disable-account/{id}', 'disableAccount')->name('users.disable.account');
+            // Route::post('/users/reset/{id}', 'resetPassword')->name('users.password.reset');
+            // Route::get('/students', 'index')->name('student.users');
         });
     });
 });

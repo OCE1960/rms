@@ -24,6 +24,14 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        Gate::define('student', function ($user) {
+            return $user->is_student;
+        });
+
+        Gate::define('result-verifier', function ($user) {
+            return $user->is_result_verifier;
+        });
+
         Gate::define('Super Admin', function ($user) {
             $superAdmin =  Role::where('key', 'super-admin')->first();
 
