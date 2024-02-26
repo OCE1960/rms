@@ -256,7 +256,7 @@ return [
         ],
         [
             'text' => 'Schools',
-            'route'  => 'users',
+            'route'  => 'schools',
             'icon' => 'fas fa-school',
             'can' => ['Super Admin', 'Result Compiler', 'Checking Officer'],
         ],
