@@ -15,10 +15,7 @@ return new class extends Migration
             $table->uuid('id');
             $table->foreignUuid('user_id')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignUuid('school_id')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('gender')->nullable();
-            $table->date('date_of_birth')->nullable();
-            $table->string('nationality')->nullable();
-            $table->string('state_of_origin')->nullable();
+            
             $table->date('date_of_entry')->nullable();
             $table->timestamps();
             $table->primary('id');

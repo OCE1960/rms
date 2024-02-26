@@ -30,6 +30,9 @@ return new class extends Migration
             $table->boolean('is_account_activated')->default(true);
             $table->boolean('is_first_login')->default(false);
             $table->timestamp('email_verified_at')->nullable();
+            $table->date('date_of_birth')->nullable();
+            $table->string('nationality')->nullable();
+            $table->string('state_of_origin')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

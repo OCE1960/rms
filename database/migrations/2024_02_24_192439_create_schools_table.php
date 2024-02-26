@@ -13,12 +13,17 @@ return new class extends Migration
     {
         Schema::create('schools', function (Blueprint $table) {
             $table->uuid('id');
-            $table->string('name');
-            $table->string('short_name')->nullable();
-            $table->string('address')->nullable();
+            $table->string('full_name')->unique();
+            $table->string('short_name')->nullable()->unique();
+            $table->string('address_street')->nullable();
+            $table->string('address_mailbox')->nullable();
+            $table->string('address_town')->nullable();
             $table->string('state')->nullable();
-            $table->string('region')->nullable();
-            $table->string('website')->nullable();
+            $table->string('geo_zone')->nullable();
+            $table->string('type')->nullable();
+            $table->string('official_phone')->nullable();
+            $table->string('official_email')->nullable();
+            $table->string('official_website')->nullable();
             $table->timestamps();
             $table->primary('id');
         });

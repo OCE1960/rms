@@ -10,4 +10,24 @@ class School extends Model
 {
     use HasFactory;
     use HasUuids;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'full_name',
+        'short_name',
+        'address_street',
+        'address_mailbox',
+        'address_mailbox',
+        'address_town',
+        'state',
+        'geo_zone',
+        'type',
+        'official_phone',
+        'official_email',
+        'official_website',
+    ];
 }
