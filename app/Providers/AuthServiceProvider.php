@@ -28,8 +28,8 @@ class AuthServiceProvider extends ServiceProvider
             return $user->is_student;
         });
 
-        Gate::define('result-verifier', function ($user) {
-            return $user->is_result_verifier;
+        Gate::define('result-enquirer', function ($user) {
+            return $user->is_result_enquirer;
         });
 
         Gate::define('Super Admin', function ($user) {

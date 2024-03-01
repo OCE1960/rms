@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->uuid('id');
+            $table->foreignUuid('school_id')->nullable()->constrained('schools')->onUpdate('cascade')->onDelete('cascade');
             $table->string('course_code')->nullable();
             $table->string('course_name')->nullable();
             $table->string('unit')->nullable();
