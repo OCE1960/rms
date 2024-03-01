@@ -8,7 +8,7 @@
                 <div class="info-box-content">
                     <a href="{{ route('users') }}">
                         <span class="info-box-text">Schools</span>
-                        <span class="info-box-number"> {{ count($users) }} </span>
+                        <span class="info-box-number"> {{ count($schools) }} </span>
                     </a>
                 </div>
                 <!-- /.info-box-content -->
@@ -36,7 +36,7 @@
                 <div class="info-box-content">
                     <a href="#">
                         <span class="info-box-text">Verification Requests </span>
-                        <span class="info-box-number"> {{ count($roles) }} </span>
+                        <span class="info-box-number"> {{ count($resultVerificationRequets) }} </span>
                     </a>
                 </div>
                 <!-- /.info-box-content -->
@@ -50,7 +50,7 @@
                 <div class="info-box-content">
                     <a href="#">
                         <span class="info-box-text">Transcript Requests</span>
-                        <span class="info-box-number"> 0 </span>
+                        <span class="info-box-number"> {{ count($transcriptRequets) }} </span>
                     </a>
                 </div>
                 <!-- /.info-box-content -->

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use App\Models\Role;
+use App\Models\ResultVerificationRequest;
+use App\Models\School;
+use App\Models\TranscriptRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -12,11 +14,15 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
-        $roles = Role::all();
+        $transcriptRequets = TranscriptRequest::all();
+        $resultVerificationRequets = ResultVerificationRequest::all();
+        $schools = School::all();
         $users = User::all();
 
-        return view('dashboard')->with('roles', $roles)
-            ->with('users', $users); 
+        return view('dashboard')->with('transcriptRequets', $transcriptRequets)
+            ->with('users', $users)
+            ->with('resultVerificationRequets', $resultVerificationRequets)
+            ->with('schools', $schools); 
     }
 
     public function getUsers()

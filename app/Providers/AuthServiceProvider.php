@@ -39,7 +39,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('Result Compiler', function ($user) {
-            $resultCompiler =  Role::where('key', 'result-compiler')->first();
+            $resultCompiler =  Role::where('key', 'result-compiling-officer')->first();
 
             return $user->roles()->where('user_id', $user->id)->where('role_id', $resultCompiler->id)->first();
         });

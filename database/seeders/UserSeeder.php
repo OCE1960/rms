@@ -14,15 +14,21 @@ class UserSeeder extends Seeder
     public function run(): void
     {
 
-        $user1 = new User;
-        $user1->first_name = 'Chukwuemeka';
-        $user1->last_name = 'Okeke';
-        $user1->email = 'admin@rms.com';
-        $user1->phone_no = '07033792383';
-        $user1->is_staff = true;
-        $user1->password = bcrypt('password');
-        $user1->save();
-
+        $user1 = User::updateOrCreate(
+            [
+                'email' => 'admin@rms.com',
+                'phone_no' => '07033792383',
+            ],
+            [
+                'first_name' => 'Chukwuemeka',
+                'last_name' => 'Okeke',
+                'is_staff' => true,
+                'password' => bcrypt('password')
+            ]
+        );
+     
         $superAdmin = Role::where('key', 'super-admin')->firstOrFail();
+
+        $user1->roles()->attach($superAdmin->id);
     }
 }
