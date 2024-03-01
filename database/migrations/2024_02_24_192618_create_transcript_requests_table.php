@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('transcript_requests', function (Blueprint $table) {
             $table->uuid('id');
             $table->foreignUuid('user_id')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('send_by');
-            $table->string('type');
-            $table->string('destination_country');
-            $table->string('receiving_institution');
-            $table->string('program');
+            $table->foreignUuid('school_id')->nullable()->constrained('schools')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('send_by')->nullable();
+            $table->string('type')->nullable();
+            $table->string('destination_country')->nullable();
+            $table->string('receiving_institution')->nullable();
+            $table->string('program')->nullable();
             $table->boolean('processing_status')->default(false);
             $table->boolean('is_result_compiled')->default(false);
             $table->boolean('is_result_checked')->default(false);

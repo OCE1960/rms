@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('result_verification_requests', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('verifier_user_id')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignUuid('enquirer_user_id')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignUuid('school_id')->nullable()->constrained('schools')->onUpdate('cascade')->onDelete('cascade');
             $table->string('student_first_name');
             $table->string('student_middle_name')->nullable();
             $table->string('student_last_name');

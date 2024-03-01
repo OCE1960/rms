@@ -96,4 +96,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(LeaveRequest::class, 'user_id', 'id');
     }
+
+    public function student()
+    {
+        return $this->hasOne(Student::class, 'user_id', 'id');
+    }
 }
