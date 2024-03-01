@@ -28,8 +28,8 @@ class RoleSeeder extends Seeder
         $resultEnquirer->save();
 
         $resultEnquirer = new Role;
-        $resultEnquirer->key = 'result-compiler';
-        $resultEnquirer->label = 'Result Compiler';
+        $resultEnquirer->key = 'result-compiling-officer';
+        $resultEnquirer->label = 'Result Compiling Officer';
         $resultEnquirer->save();
 
         $checkingOfficer = new Role;
