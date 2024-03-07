@@ -15,7 +15,12 @@ class RoleSeeder extends Seeder
         $superAdmin = new Role;
         $superAdmin->key = 'super-admin';
         $superAdmin->label = 'Super Admin';
-        $superAdmin->save();#
+        $superAdmin->save();
+
+        $superAdmin = new Role;
+        $superAdmin->key = 'registry';
+        $superAdmin->label = 'Registry';
+        $superAdmin->save();
 
         $student = new Role;
         $student->key = 'student';

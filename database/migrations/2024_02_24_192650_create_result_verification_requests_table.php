@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('student_middle_name')->nullable();
             $table->string('student_last_name');
             $table->string('registration_no');
+            $table->string('title_of_request')->nullable();
+            $table->text('reason_for_request')->nullable();
             $table->boolean('has_paid')->default(false);
             $table->boolean('processing_status')->default(false);
             $table->boolean('is_result_verified')->default(false);

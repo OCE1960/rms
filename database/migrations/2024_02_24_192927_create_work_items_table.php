@@ -15,9 +15,6 @@ return new class extends Migration
             $table->uuid('id');
             $table->foreignUuid('transcript_request_id')->nullable()->constrained('transcript_requests')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignUuid('result_verification_request_id')->nullable()->constrained('result_verification_requests')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignUuid('send_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignUuid('send_to')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('status')->nullable();
             $table->boolean('is_completed')->default(false);
             $table->timestamps();
             $table->primary('id');

@@ -16,10 +16,12 @@ return new class extends Migration
             $table->foreignUuid('user_id')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignUuid('school_id')->nullable()->constrained('schools')->onUpdate('cascade')->onDelete('cascade');
             $table->string('send_by')->nullable();
-            $table->string('type')->nullable();
+            $table->string('title_of_request')->nullable();
+            $table->text('reason_for_request')->nullable();
             $table->string('destination_country')->nullable();
             $table->string('receiving_institution')->nullable();
             $table->string('program')->nullable();
+            $table->boolean('has_consent_letter')->default(false);
             $table->boolean('processing_status')->default(false);
             $table->boolean('is_result_compiled')->default(false);
             $table->boolean('is_result_checked')->default(false);

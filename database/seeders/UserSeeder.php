@@ -30,5 +30,22 @@ class UserSeeder extends Seeder
         $superAdmin = Role::where('key', 'super-admin')->firstOrFail();
 
         $user1->roles()->attach($superAdmin->id);
+
+        $user2 = User::updateOrCreate(
+            [
+                'email' => 'registry@rms.com',
+                'phone_no' => '07045692383',
+            ],
+            [
+                'first_name' => 'RMS',
+                'last_name' => 'registry',
+                'is_staff' => true,
+                'password' => bcrypt('password')
+            ]
+        );
+     
+        $registry = Role::where('key', 'registry')->firstOrFail();
+
+        $user2->roles()->attach($registry->id);
     }
 }
