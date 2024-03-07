@@ -92,9 +92,9 @@ class User extends Authenticatable
         );
     }
 
-    public function leaveRequests()
+    public function assignTasks()
     {
-        return $this->hasMany(LeaveRequest::class, 'user_id', 'id');
+        return $this->hasMany(TaskAssignment::class, 'send_to', 'id');
     }
 
     public function student()

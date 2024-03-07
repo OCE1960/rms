@@ -13,7 +13,9 @@ class TaskAssignmentController extends Controller
      */
     public function index()
     {
-        //
+
+        $assignTasks = auth()->user()->assignTasks()->activeTasks()->orderBy('created_at')->get();
+        return view('tasks.index')->with('assignTasks', $assignTasks); 
     }
 
     /**

@@ -16,7 +16,7 @@
 
 @section('content')
              
-    @canany(['Super Admin'])
+    @canany(['Super Admin', 'Registry'])
             @include('partials.dashboard-analytics')
     @endcanany 
     

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\TaskAssignmentController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -60,6 +61,10 @@ Route::prefix('dashboard')->group(function() {
 
         Route::controller(SchoolController::class)->group(function () {
             Route::get('/schools', 'index')->name('schools');
+        });
+
+        Route::controller(TaskAssignmentController::class)->group(function () {
+            Route::get('/tasks', 'index')->name('tasks');
         });
 
 

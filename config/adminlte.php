@@ -234,31 +234,43 @@ return [
             'text' => 'Dashboard',
             'route'  => 'dashboard',
             'icon' => 'fas fa-tachometer-alt',
-            'can' => ['Super Admin', 'Result Compiler', 'Checking Officer'],
+            'can' => [
+                'Super Admin', 'Result Compiler', 'Checking Officer', 'Registry','Dispatching Officer',
+                'Recommending Officer', 'Approving Officer', 'School Admin', 'Result Uploader',
+            ],
         ],
         [
             'text' => 'Assign Tasks',
-            'route'  => 'users',
+            'route'  => 'tasks',
             'icon' => 'fa fa-folder-open',
-            'can' => ['Super Admin', 'Result Compiler', 'Checking Officer'],
+            'can' => [
+                'Super Admin', 'Result Compiler', 'Checking Officer', 'Registry','Dispatching Officer',
+                'Recommending Officer', 'Approving Officer', 'School Admin', 'Result Uploader',
+            ],
         ],
         [
             'text' => 'Transcripts Requests',
             'route'  => 'users',
             'icon' => 'fa fa-briefcase',
-            'can' => ['Super Admin', 'Result Compiler', 'Checking Officer'],
+            'can' => [
+                'Super Admin', 'Result Compiler', 'Checking Officer', 'Registry','Dispatching Officer',
+                'Recommending Officer', 'Approving Officer', 'School Admin', 'Result Uploader',
+            ],
         ],
         [
             'text' => 'Verification Requests',
             'route'  => 'users',
             'icon' => 'fas fa-wallet',
-            'can' => ['Super Admin', 'Result Compiler', 'Checking Officer'],
+            'can' => [
+                'Super Admin', 'Result Compiler', 'Checking Officer', 'Registry','Dispatching Officer',
+                'Recommending Officer', 'Approving Officer', 'School Admin', 'Result Uploader',
+            ],
         ],
         [
             'text' => 'Schools',
             'route'  => 'schools',
             'icon' => 'fas fa-school',
-            'can' => ['Super Admin', 'Result Compiler', 'Checking Officer'],
+            'can' => ['Super Admin'],
         ],
         [
             'text' => 'Students',
@@ -278,13 +290,19 @@ return [
             'text' => 'profile',
             'route'  => 'users.profile',
             'icon' => 'fas fa-fw fa-user',
-            'can'  => ['Super Admin', 'Result Compiler', 'Checking Officer'],
+            'can' => [
+                'Super Admin', 'Result Compiler', 'Checking Officer', 'Registry','Dispatching Officer',
+                'Recommending Officer', 'Approving Officer', 'School Admin', 'Result Uploader',
+            ],
         ],
         [
             'text' => 'change_password',
             'route'  => 'change.password',
             'icon' => 'fas fa-fw fa-lock',
-            'can'  => ['Super Admin', 'Result Compiler', 'Checking Officer'],
+            'can' => [
+                'Super Admin', 'Result Compiler', 'Checking Officer', 'Registry','Dispatching Officer',
+                'Recommending Officer', 'Approving Officer', 'School Admin', 'Result Uploader',
+            ],
         ],
     ],
     /*

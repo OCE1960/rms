@@ -49,5 +49,41 @@ class AuthServiceProvider extends ServiceProvider
 
             return $user->roles()->where('user_id', $user->id)->where('role_id', $checkingOfficer->id)->first();
         });
+
+        Gate::define('Registry', function ($user) {
+            $registry =  Role::where('key', 'registry')->first();
+
+            return $user->roles()->where('user_id', $user->id)->where('role_id', $registry->id)->first();
+        });
+
+        Gate::define('Recommending Officer', function ($user) {
+            $recommendingOfficer =  Role::where('key', 'recommending-officer')->first();
+
+            return $user->roles()->where('user_id', $user->id)->where('role_id', $recommendingOfficer->id)->first();
+        });
+
+        Gate::define('Approving Officer', function ($user) {
+            $approvingOfficer =  Role::where('key', 'approving-officer')->first();
+
+            return $user->roles()->where('user_id', $user->id)->where('role_id', $approvingOfficer->id)->first();
+        });
+
+        Gate::define('School Admin', function ($user) {
+            $schoolAdmin =  Role::where('key', 'school-admin')->first();
+
+            return $user->roles()->where('user_id', $user->id)->where('role_id', $schoolAdmin->id)->first();
+        });
+
+        Gate::define('Result Uploader', function ($user) {
+            $resultUploader =  Role::where('key', 'result-uploader')->first();
+
+            return $user->roles()->where('user_id', $user->id)->where('role_id', $resultUploader->id)->first();
+        });
+
+        Gate::define('Dispatching Officer', function ($user) {
+            $dispatchingOfficer =  Role::where('key', 'dispatching-officer')->first();
+
+            return $user->roles()->where('user_id', $user->id)->where('role_id', $dispatchingOfficer->id)->first();
+        });
     }
 }
