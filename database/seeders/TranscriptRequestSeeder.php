@@ -51,6 +51,7 @@ class TranscriptRequestSeeder extends Seeder
             [
                 'send_by' => $user->id,
                 'send_to' => $registry->id,
+                'status' => 'new',
             ]
         );
     }

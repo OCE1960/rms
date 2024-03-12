@@ -10,4 +10,21 @@ class Semester extends Model
 {
     use HasFactory;
     use HasUuids;
+
+    public function studentSemesterResult($userId)
+    {
+        return AcademicResult::where('semester_id', $this->id)->where('user_id', $userId)->get();
+    }
+
+    public function studentSemesterTotalCourseUnit($userId)
+    {
+        return AcademicResult::where('semester_id', $this->id)->where('user_id', $userId)
+        ->sum('grade_point');
+    }
+
+    public function studentSemesterTotalGradePoint($userId)
+    {
+        return AcademicResult::where('semester_id', $this->id)->where('user_id', $userId)
+        ->sum('grade_point');
+    }
 }

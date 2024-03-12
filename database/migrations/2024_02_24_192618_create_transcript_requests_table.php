@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('reason_for_request')->nullable();
             $table->string('destination_country')->nullable();
             $table->string('receiving_institution')->nullable();
+            $table->string('receiving_institution_corresponding_email')->nullable();
             $table->string('program')->nullable();
             $table->boolean('has_consent_letter')->default(false);
             $table->boolean('processing_status')->default(false);

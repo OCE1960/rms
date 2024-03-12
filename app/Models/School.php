@@ -30,4 +30,9 @@ class School extends Model
         'official_email',
         'official_website',
     ];
+
+    public function semesters()
+    {
+        return $this->hasMany(Semester::class, 'school_id', 'id');
+    }
 }

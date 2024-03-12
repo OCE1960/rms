@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('grades', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->foreignUuid('school_id')->nullable()->constrained('schools')->onUpdate('cascade')->onDelete('cascade');
             $table->string('code')->unique();
             $table->string('label')->unique();
             $table->integer('point')->nullable();

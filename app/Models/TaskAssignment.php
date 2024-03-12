@@ -34,4 +34,16 @@ class TaskAssignment extends Model
     {
         return $this->belongsTo(WorkItem::class, 'work_item_id', 'id');
     }
+
+    public function fileHistory($work_item_id)
+    {
+        return TaskAssignment::where('work_item_id', $work_item_id)->orderBy('created_at', 'asc')
+            ->get();
+    }
+
+    public function verifyResultFileHistory($verify_result_request_id)
+    {
+        return WorkItem::where('verify_result_request_id', $verify_result_request_id)->orderBy('created_at', 'asc')
+            ->where('status', '<>', 'new')->get();
+    }
 }

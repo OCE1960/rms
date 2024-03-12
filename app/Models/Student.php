@@ -19,4 +19,9 @@ class Student extends Model
     protected $fillable = [
         'user_id', 'school_id',  'date_of_birth', 'department', 'mode_of_entry'
     ];
+
+    public function school()
+    {
+        return $this->belongsTo(School::class, 'school_id', 'id');
+    }
 }

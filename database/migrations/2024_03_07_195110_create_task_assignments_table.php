@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignUuid('work_item_id')->nullable()->constrained('work_items')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignUuid('send_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignUuid('send_to')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('status')->nullable();
             $table->boolean('is_task_completed')->default(false);
             $table->timestamps();
             $table->primary('id');

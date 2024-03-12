@@ -101,4 +101,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Student::class, 'user_id', 'id');
     }
+
+    public function assignedTaskCount()
+    {
+        return WorkItem::where('send_to', $this->id)->where('is_completed', false)->count();
+    }
 }

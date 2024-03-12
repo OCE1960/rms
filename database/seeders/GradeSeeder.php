@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Grade;
+use App\Models\School;
 use Illuminate\Database\Seeder;
 
 class GradeSeeder extends Seeder
@@ -12,63 +13,69 @@ class GradeSeeder extends Seeder
      */
     public function run(): void
     {
+        $school = School::where('short_name', 'FUTO')->firstOrFail();
         Grade::updateOrCreate(
             [
                 'code' => 'A',
-                'label' => 'Excellent',
+                'school_id' => $school->id,
             ],
             [
                 'point' => 5,
                 'lower_band_score' => 70,
                 'higher_band_score' => 100,
+                'label' => 'Excellent',
             ],
         );
 
         Grade::updateOrCreate(
             [
                 'code' => 'B',
-                'label' => 'Very Good',
+                'school_id' => $school->id,
             ],
             [
                 'point' => 4,
                 'lower_band_score' => 60,
                 'higher_band_score' => 69,
+                'label' => 'Very Good',
             ],
         );
 
         Grade::updateOrCreate(
             [
                 'code' => 'C',
-                'label' => 'Good',
+                'school_id' => $school->id,
             ],
             [
                 'point' => 3,
                 'lower_band_score' => 50,
                 'higher_band_score' => 59,
+                'label' => 'Good',
             ],
         );
 
         Grade::updateOrCreate(
             [
                 'code' => 'D',
-                'label' => 'Pass',
+                'school_id' => $school->id,
             ],
             [
                 'point' => 2,
                 'lower_band_score' => 46,
                 'higher_band_score' => 49,
+                'label' => 'Pass',
             ],
         );
 
         Grade::updateOrCreate(
             [
                 'code' => 'E',
-                'label' => 'Poor Pass',
+                'school_id' => $school->id,
             ],
             [
                 'point' => 1,
                 'lower_band_score' => 40,
                 'higher_band_score' => 45,
+                'label' => 'Poor Pass',
             ],
         );
 
@@ -76,6 +83,7 @@ class GradeSeeder extends Seeder
             [
                 'code' => 'F',
                 'label' => 'Failure',
+                'school_id' => $school->id,
             ],
             [
                 'point' => 0,

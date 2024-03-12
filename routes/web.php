@@ -65,6 +65,7 @@ Route::prefix('dashboard')->group(function() {
 
         Route::controller(TaskAssignmentController::class)->group(function () {
             Route::get('/tasks', 'index')->name('tasks');
+            Route::get('/tasks/{id}', 'viewTask')->name('view-tasks');
         });
 
 
