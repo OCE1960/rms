@@ -17,11 +17,9 @@
 
         
                 <div class="col-sm-12 mb-4">
-                    @if (count($semesters) > 0)
                         <button type="button" class="btn btn-info btn-sm float-right" id="add-semester-result" data-toggle="modal" data-target="#">
                             <i class="fas fa-plus mr-2"></i> Add Semester Result
                         </button> 
-                    @endif
                     
                     <button type="button" class="btn btn-warning btn-sm float-right mr-4" id="add-semester" data-toggle="modal" data-target="#">
                         <i class="fas fa-plus mr-2"></i> Add Semester
@@ -30,7 +28,7 @@
                 </div>
 
                 <div class="col-12">
-                    @if (count($semesters) > 0)
+                    @if (isset($semesters) && count($semesters) > 0)
 
                         
                         @php

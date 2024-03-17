@@ -108,7 +108,8 @@
     {{-- Custom Scripts --}}
     @yield('adminlte_js')
     <script type="text/javascript">
-        $("select").css('width', '60%');
+        $("select").css('width', '90%');
+        $("select").css('padding', 20px);
         $('.select2').select2();
         // $('.textarea').summernote({
         //     height: 400,

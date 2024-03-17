@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-md " role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="roleModalLable">Edit Semester for <strong>{{ ($selectedTask) ? $userRequestingTranscript->full_name : "" }} </strong> </h5>
+          <h5 class="modal-title" id="roleModalLable">Add Semester for <strong>{{ ($selectedTask) ? $userRequestingTranscript->full_name : "" }} </strong> </h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -24,6 +24,20 @@
                   <input type="hidden" class="form-control" id="grade-transcript-request-id" name="transcript-request-id" value="{{ (($selectedTask)) ? $selectedTask->transcript_request_id : "" }}">
                   <input type="hidden" class="form-control" id="grade-point" name="grade-point" >
 
+                  <div class="form-group col-md-12">
+                    <label for="semester">Semester</label>
+                    <select id="grade-semester" name="grade-semester" class="form-control select2">
+                        <option value="">Choose... </option>
+                        @if ( ($selectedTask) && count($semesters) > 0)
+
+                          @foreach ($semesters as $semester)
+                            <option value="{{ $semester->id }}" >{{ $semester->session }}  {{ $semester->semester_name }}</option>
+                          @endforeach
+                            
+                        @endif
+                        
+                    </select>
+                  </div> 
 
                   <div class="form-group col-md-12">
                     <label for="course-code">Course Code</label>
@@ -43,11 +57,17 @@
                     value="{{  old('unit') }}"  >
                 </div>
 
-              <div class="form-group col-md-12">
+                <div class="form-group col-md-12">
                 <label for="grade">Grade</label>
                 <select id="grade" name="grade" class="form-control select2">
                     <option value="">Choose... </option>
-                   
+                    @if (count($grades) > 0)
+
+                      @foreach ($grades as $grade)
+                        <option value="{{ $grade->code }}" >{{ $grade->code }} </option>
+                      @endforeach
+                            
+                    @endif
                 </select>
               </div>  
   

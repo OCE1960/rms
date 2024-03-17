@@ -29,7 +29,7 @@
                           <label for="edit-grade-semester">Semester</label>
                           <select id="edit-grade-semester" name="edit-grade-semester" class="form-control select2">
                               <option value="">Choose... </option>
-                              @if ( ($selectedTask) && count($semesters) > 0)
+                              @if ( isset($semesters) && ($selectedTask) && count($semesters) > 0)
                                 @foreach ($semesters as $semester)
                                   <option value="{{ $semester->id }}" >{{ $semester->session }}  {{ $semester->semester_name }}</option>
                                 @endforeach

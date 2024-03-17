@@ -1,6 +1,6 @@
 
 <div class="col-12">
-    @if ( ($selectedTask) && count($semesters) > 0)
+    @if ( isset($semesters) && ($selectedTask) && count($semesters) > 0)
 
         
         @php
