@@ -19,9 +19,9 @@
 
             <div class="form-row">
 
-              <input type="hidden" class="form-control" id="user-id" name="user-id" value="{{ (($selectedTask) && ($userRequestingTranscript)) ? $userRequestingTranscript->id : "" }}">
-              <input type="hidden" class="form-control" id="work-item-id" name="work-item-id" value="{{ (($selectedTask)) ? $selectedTask->id : "" }}">
-              <input type="hidden" class="form-control" id="transcript-request-id" name="transcript-request-id" value="{{ (($selectedTask)) ? $selectedTask->transcript_request_id : "" }}">
+              <input type="hidden" class="form-control" id="user-id" name="user-id" value="{{ (($selectedTask) && ($userRequestingTranscript)) ? $userRequestingTranscript->id : '' }}">
+              <input type="hidden" class="form-control" id="work-item-id" name="work-item-id" value="{{ (($selectedTask)) ? $selectedTask->id : '' }}">
+              <input type="hidden" class="form-control" id="transcript-request-id" name="transcript-request-id" value="{{ (($selectedTask)) ? $selectedTask->workItem->transcript_request_id : ''}}">
 
               <div class="form-group col-md-4">
                 <label for="gender">Gender</label>
@@ -65,7 +65,7 @@
               <div class="form-group col-md-12">
                 <label for="school">School</label>
                 <input type="text" class="form-control" id="school" name="school" 
-                value="{{ (($selectedTask) && ($userRequestingTranscript) && ($userRequestingTranscript->student) && ($userRequestingTranscript->student->school) ) ? $userRequestingTranscript->student->school : old('school') }}">
+                value="{{ (($selectedTask) && ($userRequestingTranscript) && ($userRequestingTranscript->student) && ($userRequestingTranscript->student->school) ) ? $userRequestingTranscript->student->school->full_name : old('school') }}" readonly>
               </div>
 
               <div class="form-group col-md-12">
@@ -74,11 +74,11 @@
                 value="{{ (($selectedTask) && ($userRequestingTranscript) && ($userRequestingTranscript->student) && ($userRequestingTranscript->student->department) ) ? $userRequestingTranscript->student->department : old('department') }}"  >
               </div>
 
-              <div class="form-group col-md-6">
+              <!-- <div class="form-group col-md-6">
                 <label for="option">Option</label>
                 <input type="text" class="form-control" id="option" name="option" 
                 value="{{ (($selectedTask) && ($userRequestingTranscript) && ($userRequestingTranscript->student) && ($userRequestingTranscript->student->option) ) ? $userRequestingTranscript->student->option : old('option') }}">
-              </div>
+              </div> -->
 
 
               <div class="form-group col-md-6">
@@ -101,7 +101,7 @@
   </div>
 </div>
 
-@push('scripts')
+@push('js')
 
     <script>
             
@@ -132,14 +132,13 @@
               formData.append('nationality', $('#nationality').val());
               formData.append('department', $('#department').val());
               formData.append('school', $('#school').val());
-              formData.append('option', $('#option').val());
               formData.append('state_of_origin', $('#state-of-origin').val());
               formData.append('date_of_entry', $('#date-of-entry').val());
               formData.append('mode_of_entry', $('#mode-of-entry').val());
               formData.append('workItemId', $('#work-item-id').val());
               formData.append('transcriptRequestId', $('#transcript-request-id').val());
     
-              let url = "#";
+              let url = "{{ route('compile-results') }}";
                 
               $.ajax({
               url: url,

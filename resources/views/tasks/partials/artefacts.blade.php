@@ -37,7 +37,7 @@
                             $x = 0;
                             $totalUnitArray = [];
                             $totalGradePointArray = [];
-                            $semesters = $userRequestingTranscript->semesters()->orderBy('session', 'asc')->orderBy('semester_name', 'asc')->get();
+                            $semesters = $userRequestingTranscript->student->school->semesters()->orderBy('session', 'asc')->orderBy('semester_name', 'asc')->get();
                         @endphp
 
                         @foreach($semesters as $semester)
@@ -55,7 +55,7 @@
                                 <div class="text-center mb-3"> 
                                     <span style="font-size: 20px;"> <strong>{{ $semester->session }}  {{ $semester->semester_name }} </strong> </span> 
 
-                                    @if ($selectedTask->transcript_request->is_result_approved == false)
+                                    @if ($selectedTask->workItem->transcriptRequest->is_result_approved == false)
                                         <button class="btn btn-xs btn-success ml-3 mr-3" data-edit-semester="{{ $semester->id }}"> <i class="fas fa-edit"></i>   </button>
                                         <button class="btn btn-xs btn-danger mr-3" data-delete-semester="{{ $semester->id }}"> <i class="fas fa-trash"></i>  </button>
                                     @endif
