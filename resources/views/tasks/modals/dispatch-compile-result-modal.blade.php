@@ -60,7 +60,7 @@
   </div>
 </div>
 
-@push('scripts')
+@push('js')
 
     <script>
             

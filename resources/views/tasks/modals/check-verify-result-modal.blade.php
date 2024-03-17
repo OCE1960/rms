@@ -16,7 +16,7 @@
                 <div class="center spms-loader" id="spms-loader" >
                     <div class="spinner " id="spinner-1"></div>
                 </div>
-                @include('backend.assign-tasks.partials.verify-result-content')
+                @include('tasks.partials.verify-result-content')
 
             </div> <!-- end of col-md-9 -->
             <div class="col-3">
@@ -75,7 +75,7 @@
   </div>
 </div>
 
-@push('scripts')
+@push('js')
 
     <script>
             

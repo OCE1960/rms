@@ -11,7 +11,7 @@
 <div class="tab-content" id="nav-tabContent">
     <div class="tab-pane fade show active" id="nav-result" role="tabpanel" aria-labelledby="nav-result-tab">
         
-        @if ($selectedTask->workItem->transcriptRequest->is_result_compiled)
+        @if ($transcriptRequest->is_result_compiled)
 
             <div class="row mt-2">
 
@@ -37,7 +37,6 @@
                             $x = 0;
                             $totalUnitArray = [];
                             $totalGradePointArray = [];
-                            $semesters = $userRequestingTranscript->student->school->semesters()->orderBy('session', 'asc')->orderBy('semester_name', 'asc')->get();
                         @endphp
 
                         @foreach($semesters as $semester)
@@ -55,16 +54,12 @@
                                 <div class="text-center mb-3"> 
                                     <span style="font-size: 20px;"> <strong>{{ $semester->session }}  {{ $semester->semester_name }} </strong> </span> 
 
-                                    @if ($selectedTask->workItem->transcriptRequest->is_result_approved == false)
+                                    @if ($transcriptRequest->is_result_approved == false)
                                         <button class="btn btn-xs btn-success ml-3 mr-3" data-edit-semester="{{ $semester->id }}"> <i class="fas fa-edit"></i>   </button>
                                         <button class="btn btn-xs btn-danger mr-3" data-delete-semester="{{ $semester->id }}"> <i class="fas fa-trash"></i>  </button>
                                     @endif
                                      
                                 </div>
-                                
-
-
-                                        
 
                                         @if (count($semesterResults) > 0)
 
@@ -153,9 +148,9 @@
     </div>
     <div class="tab-pane fade" id="nav-comment" role="tabpanel" aria-labelledby="nav-comment-tab">
 
-        @if (count($selectedTask->workItem->transcriptRequest->comments) > 0)
+        @if (count($transcriptRequest->comments) > 0)
             @php
-                $comments = $selectedTask->workItem->transcriptRequest->comments()->orderBy('created_at', 'desc')->get();
+                $comments = $transcriptRequest->comments()->orderBy('created_at', 'desc')->get();
             @endphp
             <div class="row">
                 @foreach ($comments as $comment)
@@ -212,11 +207,11 @@
 
     <div class="tab-pane fade" id="nav-transcript-result" role="tabpanel" aria-labelledby="nav-transcript-result-tab">
 
-        @if ( ($selectedTask) && ($selectedTask->workItem->transcriptRequest) && count($selectedTask->workItem->transcriptRequest->originalTranscript()) > 0)
+        @if ( ($selectedTask) && ($transcriptRequest) && count($transcriptRequest->originalTranscript()) > 0)
 
             <div class="row mt-3">
 
-                @foreach ($selectedTask->workItem->transcriptRequest->originalTranscript() as $attachment)
+                @foreach ($transcriptRequest->originalTranscript() as $attachment)
                     <div class="col-12 shadow-sm p-1 mb-2 rounded">
                       
                          <a href="{{ asset($attachment->file_path) }}" class="text-success" target="_blank">  {{ $attachment->label }} </a> <br>
