@@ -16,7 +16,7 @@ class AcademicResult extends Model
         return $this->belongsTo(Semester::class, 'semester_id', 'id');
     }
 
-    public function student()
+    public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }

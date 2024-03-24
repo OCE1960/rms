@@ -13,67 +13,75 @@
                     <div class="spinner " id="spinner-1"></div>
                 </div>
 
-                <form>
-                    @csrf
-                    <div id="role_error" class="backend-json-response"></div>
-        
-                      <div class="form-row">
-        
-                        <input type="hidden" class="form-control" id="edit-grade-user-id" name="grade-user-id" value="{{ (($selectedTask) && ($userRequestingTranscript)) ? $userRequestingTranscript->id : "" }}">
-                        <input type="hidden" class="form-control" id="edit-grade-work-item-id" name="work-item-id" value="{{ (($selectedTask)) ? $selectedTask->id : "" }}">
-                        <input type="hidden" class="form-control" id="edit-grade-transcript-request-id" name="transcript-request-id" value="{{ (($selectedTask)) ? $selectedTask->transcript_request_id : "" }}">
-                        <input type="hidden" class="form-control edit-grade-point" id="edit-grade-point" name="edit-grade-point" >
-                        <input type="hidden" class="form-control semester-result-id" id="semester-result-id" name="semester-result-id" >
-      
-                        <div class="form-group col-md-12">
-                          <label for="edit-grade-semester">Semester</label>
-                          <select id="edit-grade-semester" name="edit-grade-semester" class="form-control select2">
-                              <option value="">Choose... </option>
-                              @if ( isset($semesters) && ($selectedTask) && count($semesters) > 0)
-                                @foreach ($semesters as $semester)
-                                  <option value="{{ $semester->id }}" >{{ $semester->session }}  {{ $semester->semester_name }}</option>
-                                @endforeach
-                                  
-                              @endif
-                              
-                          </select>
-                        </div>  
-      
-                        <div class="form-group col-md-12">
-                          <label for="edit-course-code">Course Code</label>
-                          <input type="text" class="form-control" id="edit-course-code" name="edit-course-code"
-                          value="{{  old('course_code') }}"  >
-                      </div>
-      
-                      <div class="form-group col-md-12">
-                          <label for="edit-course-name">Course Name</label>
-                          <input type="text" class="form-control" id="edit-course-name" name="edit-course-name"
-                          value="{{  old('course-name') }}"  >
-                      </div>
-      
-                      <div class="form-group col-md-12">
-                          <label for="edit-unit">Unit</label>
-                          <input type="number" class="form-control" id="edit-unit" name="edit-unit"
-                          value="{{  old('unit') }}"  >
-                      </div>
-      
+              <form>
+                @csrf
+                <div id="role_error" class="backend-json-response"></div>
+    
+                  <div class="form-row">
+    
+                    <input type="hidden" class="form-control" id="edit-grade-user-id" name="grade-user-id" value="{{ (($selectedTask) && ($userRequestingTranscript )) ? $userRequestingTranscript ->id : '' }}">
+                    <input type="hidden" class="form-control" id="edit-grade-work-item-id" name="work-item-id" value="{{ ($workItem) ? $workItem->id : '' }}">
+                    <input type="hidden" class="form-control" id="edit-grade-transcript-request-id" name="transcript-request-id" value="{{ ($transcriptRequest) ? $transcriptRequest->id : '' }}">
+                    <input type="hidden" class="form-control" id="edit-grade-school-id" name="school-id" value="{{ ($transcriptRequest) ? $transcriptRequest->school_id : '' }}">
+                    <input type="hidden" class="form-control" id="edit-grade-point" name="grade-point" >
+                    <input type="hidden" class="form-control" id="edit-grade-code" name="grade-code" >
+                    <input type="hidden" class="form-control semester-result-id" id="semester-result-id" name="semester-result-id" >
+
                     <div class="form-group col-md-12">
-                      <label for="edit-grade">Grade</label>
-                      <select id="edit-grade" name="edit-grade" class="form-control select2">
+                      <label for="semester">Semester</label>
+                      <select id="edit-grade-semester" name="grade-semester" class="form-control">
                           <option value="">Choose... </option>
-                          @if (count($grades) > 0)
-      
-                            @foreach ($grades as $grade)
-                              <option value="{{ $grade->code }}" >{{ $grade->code }} </option>
+                          @if ( ($selectedTask) && count($semesters) > 0)
+
+                            @foreach ($semesters as $semester)
+                              <option value="{{ $semester->id }}" >{{ $semester->semester_session }}  {{ $semester->semester_name }}</option>
+                            @endforeach
+                              
+                          @endif
+                          
+                      </select>
+                    </div> 
+
+                    <div class="form-group col-md-12">
+                      <label for="course">Course</label>
+                      <select id="edit-course" name="course" class="form-control select2">
+                          <option value="">Choose... </option>
+                          @if (count($courses) > 0)
+
+                            @foreach ($courses as $course)
+                              <option value="{{ $course->id }}" >{{ $course->course_code }} - {{ $course->course_name }} </option>
                             @endforeach
                                   
                           @endif
                       </select>
                     </div>  
-        
-                        
-                      </div>
-                  </form>
+    
+
+                  <div class="form-group col-md-12">
+                    <label for="grade">Grade</label>
+                    <select id="edit-grade" name="grade" class="form-control select2">
+                        <option value="">Choose... </option>
+                        @if (count($grades) > 0)
+
+                          @foreach ($grades as $grade)
+                            <option value="{{ $grade->id }}" >{{ $grade->code }} </option>
+                          @endforeach
+                                
+                        @endif
+                    </select>
+                  </div> 
+                  
+                  <div class="form-group col-md-12">
+                      <label for="course-code">Score</label>
+                      <input type="number" class="form-control" id="edit-score" name="score"
+                      value="{{  old('score') }}"  >
+                  </div>
+    
+                    
+                  </div>
+              </form>
+
+                
       </div>
         <div class="modal-footer">
           
@@ -99,20 +107,20 @@
                     _token: $('input[name="_token"]').val(),
                     id: $(this).attr('data-edit-semester-result')
                     }
-               const url = "#"+formData.id;
+                const url = "{{ route('semester.results.show','') }}/"+formData.id;
                $('.spms-loader').show();
                $.ajax({
                             url: url,
                             success: function(result){
                                 
                                     $('.spms-loader').hide();
-                                    $('#edit-grade-point').val(result.data.semesterResult.grade_point);
-                                    $('#semester-result-id').val(result.data.semesterResult.id);
-                                    $('#edit-course-code').val(result.data.semesterResult.course_code);
-                                    $('#edit-course-name').val(result.data.semesterResult.course_name);
-                                    $('#edit-unit').val(result.data.semesterResult.unit);
-                                    $('#edit-grade-semester').select2().val(result.data.semesterResult.semester_id).trigger("change");
-                                    $('#edit-grade').select2().val(result.data.semesterResult.grade).trigger("change");
+                                    $('#semester-result-id').val(result.data.academicResult.id);
+                                    $('#edit-grade').val(result.data.grade.id);
+                                    $('#edit-grade-code').val(result.data.academicResult.grade);
+                                    $('#edit-course').val(result.data.academicResult.course_id);
+                                    $('#edit-unit').val(result.data.academicResult.unit);
+                                    $('#edit-score').val(result.data.academicResult.score);
+                                    $('#edit-grade-semester').val(result.data.academicResult.semester_id);
 
                                     $('.backend-json-response').html('');
                                     $.fn.modal.Constructor.prototype._enforceFocus = function() {};
@@ -138,17 +146,18 @@
                 $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val()}});
                 const formData = {
                     _token: $('input[name="_token"]').val(),
-                    code: gradeValue
+                    id: gradeValue
                 }
                 $('#save-edit-semester-result').attr('disabled', true);
-                const url = "#"+formData.code;
+                const url = "{{ route('grading-systems.view.details','') }}/"+formData.id;
                 $('.spms-loader').show();
                 $.ajax({
                     url: url,
                     success: function(result){
                       $('.spms-loader').hide();
                       $('#save-edit-semester-result').attr('disabled', false);
-                      $('#edit-grade-point').val(result.data.gradingSystem.point);  
+                      $('#edit-grade-point').val(result.data.grade.point);
+                      $('#edit-grade-code').val(result.data.grade.code);   
                     },
                     error : function(response, textStatus, errorThrown){              
                       $('.spms-loader').hide();
@@ -174,18 +183,17 @@
               $('.spms-loader').show();
               const id = $('#semester-result-id').val();
               let formData = new FormData();
-              formData.append('_token', $('input[name="_token"]').val());
               formData.append('user_id', $('#edit-grade-user-id').val());
+              formData.append('score', $('#edit-score').val());
+              formData.append('course_id', $('#edit-course').val());
+              formData.append('school_id', $('#edit-grade-school-id').val());
+              formData.append('grade', $('#edit-grade-code').val());
               formData.append('grade_point', $('#edit-grade-point').val());
-              formData.append('id', id);
               formData.append('semester_id', $('#edit-grade-semester').val());
-              formData.append('course_code', $('#edit-course-code').val());
-              formData.append('course_name', $('#edit-course-name').val());
-              formData.append('unit', $('#edit-unit').val());
-              formData.append('grade', $('#edit-grade').val());
+              formData.append('id', id);
     
 
-              const url = "#"+id;
+              const url = "{{ route('semester.results.update','') }}/"+id;
 
               $.ajax({
                     url: url,

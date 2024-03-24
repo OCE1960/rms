@@ -64,6 +64,7 @@ class UpdateAcademicResultRequest extends FormRequest
     public function course_exist(){
         return AcademicResult::where('user_id', $this->user_id)
             ->where('course_id', $this->course_id)
+            ->where('id','<>', $this->id)
             ->where('semester_id', $this->semester_id)->get();
     }
 

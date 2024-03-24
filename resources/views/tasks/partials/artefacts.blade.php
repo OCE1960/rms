@@ -54,7 +54,7 @@
 
                                     @if ($transcriptRequest->is_result_approved == false)
                                         <button class="btn btn-xs btn-success ml-3 mr-3" data-edit-semester="{{ $semester->id }}"> <i class="fas fa-edit"></i>   </button>
-                                        <button class="btn btn-xs btn-danger mr-3" data-delete-semester="{{ $semester->id }}"> <i class="fas fa-trash"></i>  </button>
+                                        <!-- <button class="btn btn-xs btn-danger mr-3" data-delete-semester="{{ $semester->id }}"> <i class="fas fa-trash"></i>  </button> -->
                                     @endif
                                      
                                 </div>
@@ -229,7 +229,7 @@
     </div>
 </div>
 
-@push('scripts')
+@push('js')
 
     <script>
             
@@ -278,12 +278,12 @@
             $(document).on('click','[data-delete-semester-result]',function(e) {
                 e.preventDefault();
                 $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
-                let edit = window.confirm('Are you sure you want to delete this Semester Result Rrcord');
+                let edit = window.confirm('Are you sure you want to delete this Semester Result Record');
                 const formData = {
                     _token: $('input[name="_token"]').val(),
                     id: $(this).attr('data-delete-semester-result')
                 }
-                const url = "#"+formData.id;
+                const url = "{{ route('semester.results.delete','') }}/"+formData.id;
                 if(edit == true){
                     $.ajax({
                         url:url,

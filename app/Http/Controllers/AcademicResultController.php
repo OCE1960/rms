@@ -6,6 +6,7 @@ use App\Http\Requests\StoreAcademicResultRequest;
 use App\Http\Requests\UpdateAcademicResultRequest;
 use App\Models\AcademicResult;
 use App\Models\Course;
+use App\Models\Grade;
 use App\Models\User;
 
 class AcademicResultController extends Controller
@@ -51,13 +52,19 @@ class AcademicResultController extends Controller
     public function show($id)
     {
         $academicResult = AcademicResult::find($id);
+        $schoolId = $academicResult->user->student->school_id;
 
         //Redirect to the Role page if validation fails.
          if (empty($academicResult)) { 
            return $this->sendErrorResponse(['Semester Result does not exist']);
         }
 
-       $data = ['academicResult' => $academicResult];
+        $grade = Grade::where('school_id', $schoolId)->where('code', $academicResult->grade)->first();
+
+       $data = [
+            'academicResult' => $academicResult,
+            'grade' => $grade
+        ];
 
        return $this->sendSuccessResponse('Semester Result Record Successfully Retrived',$data);
     }
@@ -85,7 +92,7 @@ class AcademicResultController extends Controller
         $academicResult->created_by = $authUser->id;
         $academicResult->grade = $request->grade;
         $academicResult->user_id = $request->user_id;
-        $academicResult->grade_point = $courset->unit * $request->grade_point;
+        $academicResult->grade_point = $course->unit * $request->grade_point;
         $academicResult->semester_id = $request->semester_id;
         $academicResult->save();
 

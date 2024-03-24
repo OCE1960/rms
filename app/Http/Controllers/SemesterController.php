@@ -69,7 +69,7 @@ class SemesterController extends Controller
         }
 
 
-        $semester->session = $request->semester_session;
+        $semester->semester_session = $request->semester_session;
         $semester->created_by = $authUser->id;
         $semester->semester_name = $request->semester_name;
         $semester->save();

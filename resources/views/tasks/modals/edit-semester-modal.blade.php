@@ -19,14 +19,13 @@
 
               <div class="form-row">
 
-                <input type="hidden" class="form-control" id="edit-user-id" name="user-id" value="{{ (($selectedTask) && ($userRequestingTranscript)) ? $userRequestingTranscript->id : "" }}">
-                <input type="hidden" class="form-control" id="edit-work-item-id" name="work-item-id" value="{{ (($selectedTask)) ? $selectedTask->id : "" }}">
-                <input type="hidden" class="form-control" id="edit-transcript-request-id" name="transcript-request-id" value="{{ (($selectedTask)) ? $selectedTask->transcript_request_id : "" }}">
+                <input type="hidden" class="form-control" id="edit-user-id" name="user-id" value="{{ (($selectedTask) && ($userRequestingTranscript)) ? $userRequestingTranscript->id : '' }}">
+                <input type="hidden" class="form-control" id="edit-semester-school-id" name="edit-semester-school-id" value="{{ ($transcriptRequest) ? $transcriptRequest->school_id : '' }}">
                 <input type="hidden" class="form-control" id="semester-id" name="semester-id" >
 
                 <div class="form-group col-md-12">
                   <label for="edit-session">Session</label>
-                  <select id="edit-session" name="edit-session" class="form-control select2">
+                  <select id="edit-session" name="edit-session" class="form-control">
                       @php
                           $date = date("Y", strtotime(now()));
                           $count = 50;
@@ -70,32 +69,33 @@
                     _token: $('input[name="_token"]').val(),
                     id: $(this).attr('data-edit-semester')
                     }
-               const url = "#"+formData.id;
+               const url = "{{ route('semesters.show','') }}/"+formData.id;
                $('.spms-loader').show();
                $.ajax({
-                            url: url,
-                            success: function(result){
-                                
-                                    $('.spms-loader').hide();
-                                    $('#semester-id').val(result.data.semester.id);
-                                    $('#edit-semester-name').val(result.data.semester.semester_name);
-                                    $('#edit-session').select2().val(result.data.semester.session).trigger("change");
+                  url: url,
+                  success: function(result){
+                      
+                    $('.spms-loader').hide();
+                    $('#semester-id').val(result.data.semester.id);
+                    $('#edit-semester-name').val(result.data.semester.semester_name);
+                    $('#edit-session').val(result.data.semester.semester_session);
+                    //$('#edit-session').select2().val(result.data.semester.session).trigger("change");
 
-                                    $('.backend-json-response').html('');
-                                    $.fn.modal.Constructor.prototype._enforceFocus = function() {};
-                                    $('#edit-semester-modal').modal('show');
-                                },
-                                error : function(response, textStatus, errorThrown){
-                                                
-                                            $('#spms-loader').hide();
-                                            $('#save-new-user').attr('disabled', false);
-                                            $('.backend-json-response').html('');
-                                            $.each(response.responseJSON.errors, function(key, value){
-                                                    $('.backend-json-response').append('<span class="alert alert-danger mr-4" style="display:inline-block;"> <i class="fa fa-times mr-2"></i>  '+value+'</span>');
-                                            }); 
-                                },
-                                  dataType: 'json'
-                        });
+                    $('.backend-json-response').html('');
+                    $.fn.modal.Constructor.prototype._enforceFocus = function() {};
+                    $('#edit-semester-modal').modal('show');
+                  },
+                  error : function(response, textStatus, errorThrown){
+                                  
+                    $('#spms-loader').hide();
+                    $('#save-new-user').attr('disabled', false);
+                    $('.backend-json-response').html('');
+                    $.each(response.responseJSON.errors, function(key, value){
+                            $('.backend-json-response').append('<span class="alert alert-danger mr-4" style="display:inline-block;"> <i class="fa fa-times mr-2"></i>  '+value+'</span>');
+                    }); 
+                  },
+                    dataType: 'json'
+                });
             })
 
 
@@ -110,13 +110,13 @@
               const id = $('#semester-id').val();
               let formData = new FormData();
               formData.append('_token', $('input[name="_token"]').val());
-              formData.append('user_id', $('#edit-user-id').val());
+              formData.append('school_id', $('#edit-semester-school-id').val());
               formData.append('semester_session', $('#edit-session').val());
               formData.append('id', id);
               formData.append('semester_name', $('#edit-semester-name').val());
     
 
-              const url = "#"+id;
+              const url = "{{ route('semesters.update','') }}/"+id;
 
               $.ajax({
                     url: url,
