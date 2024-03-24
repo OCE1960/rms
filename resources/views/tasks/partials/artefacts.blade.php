@@ -37,10 +37,10 @@
                             $totalGradePointArray = [];
                         @endphp
 
-                        @foreach($academicResults as $academicResult)
+                        @foreach($academicResults as $semesterId => $semesterResults)
 
                         @php
-                            $semesterResults = $semester->studentSemesterResult($userRequestingTranscript->id);
+                            $semester = $semesterResults[0]->semester;
                             $semesterTotalCourseUnit = $semester->studentSemesterTotalCourseUnit($userRequestingTranscript->id);
                             $semesterTotalGradePoint = $semester->studentSemesterTotalGradePoint($userRequestingTranscript->id);
                             array_push($totalUnitArray, $semesterTotalCourseUnit);
@@ -50,7 +50,7 @@
                             <div class="table-responsive mt-2">
 
                                 <div class="text-center mb-3"> 
-                                    <span style="font-size: 20px;"> <strong>{{ $semester->session }}  {{ $semester->semester_name }} </strong> </span> 
+                                    <span style="font-size: 20px;"> <strong>{{ $semester->semester_session }}  {{ $semester->semester_name }} </strong> </span> 
 
                                     @if ($transcriptRequest->is_result_approved == false)
                                         <button class="btn btn-xs btn-success ml-3 mr-3" data-edit-semester="{{ $semester->id }}"> <i class="fas fa-edit"></i>   </button>
@@ -63,16 +63,11 @@
 
                                             <table id="departments" class="table table-bordered">
                                                 <thead>
-                                                    {{-- <tr>
-                                                        
-                                                        <th colspan="2">Title of Course</th>
-                                                        <th colspan="2">Option</th>
-                                                        <th colspan="2">Grade</th>
-                                                    </tr> --}}
                                                     <tr>
                                                     <th scope="col">Course <br> Code</th>
                                                     <th scope="col">Title of Course</th>
                                                     <th scope="col">Units</th>
+                                                    <th scope="col">Score</th>
                                                     <th scope="col">Grade</th>
                                                     <th scope="col">Total Grade <br> Points</th>
                                                     <th scope="col">Cum <br> G.P.A</th>
@@ -80,24 +75,26 @@
                                                 </thead>
                                                 <tbody>
 
-                                                    @foreach ($semesterResults as $semesterResult)
+                                                    @foreach ($semesterResults as $academicResult)
                                                         @php
                                                             
                                                         @endphp
 
                                                         <tr class="grade-result">
-                                                            <td scope="col">{{ $semesterResult->course_code }}</td>
+                                                            <td scope="col">{{ $academicResult->course->course_code }}</td>
                                                             <td scope="col">
-                                                                {{ $semesterResult->course_name }}
-                                                                @if ($selectedTask->transcript_request->is_result_approved == false)
-                                                                    <button class="btn btn-xs btn-success ml-3 mr-3" data-edit-semester-result="{{ $semesterResult->id }}"> <i class="fas fa-edit"></i>  </button>
-                                                                    <button class="btn btn-xs btn-danger mr-3" data-delete-semester-result="{{ $semesterResult->id }}"> <i class="fas fa-trash"></i>  </button>
+                                                                {{ $academicResult->course->course_name }} <br/>
+                                                                @if ($transcriptRequest->is_result_approved == false)
+                                                                    <button class="btn btn-xs btn-success ml-3 mr-3" data-edit-semester-result="{{ $academicResult->id }}"> <i class="fas fa-edit"></i>  </button>
+                                                                    <button class="btn btn-xs btn-danger mr-3" data-delete-semester-result="{{ $academicResult->id }}"> <i class="fas fa-trash"></i>  </button>
                                                                 @endif
                                                                 
                                                             </td>
-                                                            <td scope="col">{{ $semesterResult->unit }}</td>
-                                                            <td scope="col">{{ $semesterResult->grade }}</td>
-                                                            <td scope="col">{{ $semesterResult->grade_point }}</td>
+                                                            
+                                                            <td scope="col">{{ $academicResult->unit }}</td>
+                                                            <td scope="col">{{ $academicResult->score }}</td>
+                                                            <td scope="col">{{ $academicResult->grade }}</td>
+                                                            <td scope="col">{{ $academicResult->grade_point }}</td>
                                                             <td scope="col"></td>
                                                         </tr>
                                                         
@@ -106,14 +103,13 @@
                                             
 
                                                     <tr class="grade-display">
-                                                        <td scope="col"></td>
-                                                        <td scope="col" >
-                                                            
-                                                        </td>
-                                                        <td scope="col" cellpadding="20" > <strong> {{ $semesterTotalCourseUnit }}</strong> </td>
-                                                        <td scope="col" ></td>
-                                                        <td scope="col" > <strong> {{ $semesterTotalGradePoint }} </strong> </td>
-                                                        <td scope="col" >  <strong> {{  number_format(array_sum($totalGradePointArray) / array_sum($totalUnitArray), 2) }} </strong> </td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td> <strong> {{ $semesterTotalCourseUnit }}</strong> </td>
+                                                        <td> </td>
+                                                        <td> </td>
+                                                        <td> <strong> {{ $semesterTotalGradePoint }} </strong> </td>
+                                                        <td>  <strong> {{  number_format(array_sum($totalGradePointArray) / array_sum($totalUnitArray), 2) }} </strong> </td>
                                                     </tr>
 
                                                 </tbody>

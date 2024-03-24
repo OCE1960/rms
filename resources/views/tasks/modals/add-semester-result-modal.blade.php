@@ -24,6 +24,7 @@
                   <input type="hidden" class="form-control" id="grade-transcript-request-id" name="transcript-request-id" value="{{ ($transcriptRequest) ? $transcriptRequest->id : '' }}">
                   <input type="hidden" class="form-control" id="grade-school-id" name="school-id" value="{{ ($transcriptRequest) ? $transcriptRequest->school_id : '' }}">
                   <input type="hidden" class="form-control" id="grade-point" name="grade-point" >
+                  <input type="hidden" class="form-control" id="grade-code" name="grade-code" >
 
                   <div class="form-group col-md-12">
                     <label for="semester">Semester</label>
@@ -121,7 +122,8 @@
                     success: function(result){
                       $('.spms-loader').hide();
                       $('#save-add-semester-result').attr('disabled', false);
-                      $('#grade-point').val(result.data.grade.point);  
+                      $('#grade-point').val(result.data.grade.point);
+                      $('#grade-code').val(result.data.grade.code);   
                     },
                     error : function(response, textStatus, errorThrown){              
                       $('.spms-loader').hide();
@@ -150,7 +152,7 @@
                 formData.append('score', $('#score').val());
                 formData.append('course_id', $('#course').val());
                 formData.append('school_id', $('#grade-school-id').val());
-                formData.append('grade', $('#grade').val());
+                formData.append('grade', $('#grade-code').val());
                 formData.append('grade_point', $('#grade-point').val());
                 formData.append('semester_id', $('#grade-semester').val());
       

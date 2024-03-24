@@ -11,13 +11,19 @@ class AcademicResult extends Model
     use HasFactory;
     use HasUuids;
 
-    public function semesters()
+    public function semester()
     {
-        return $this->hasMany(Semester::class, 'school_id', 'id');
+        return $this->belongsTo(Semester::class, 'semester_id', 'id');
     }
 
     public function student()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class, 'course_id', 'id');
+    }
+
 }

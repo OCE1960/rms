@@ -34,6 +34,7 @@ class AcademicResultController extends Controller
         $academicResult->created_by = $authUser->id;
         $academicResult->grade = $request->grade;
         $academicResult->user_id = $request->user_id;
+        $academicResult->unit = $course->unit;
         $academicResult->grade_point = $course->unit * $request->grade_point;
         $academicResult->semester_id = $request->semester_id;
         $academicResult->save();

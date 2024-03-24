@@ -19,12 +19,17 @@ class Semester extends Model
     public function studentSemesterTotalCourseUnit($userId)
     {
         return AcademicResult::where('semester_id', $this->id)->where('user_id', $userId)
-        ->sum('grade_point');
+         ->sum('unit');
     }
 
     public function studentSemesterTotalGradePoint($userId)
     {
         return AcademicResult::where('semester_id', $this->id)->where('user_id', $userId)
-        ->sum('grade_point');
+         ->sum('grade_point');
+    }
+
+    public function semesters()
+    {
+        return $this->hasMany(AcademicResult::class, 'school_id', 'id');
     }
 }
