@@ -22,6 +22,7 @@
                   <input type="hidden" class="form-control" id="grade-user-id" name="grade-user-id" value="{{ (($selectedTask) && ($userRequestingTranscript )) ? $userRequestingTranscript ->id : '' }}">
                   <input type="hidden" class="form-control" id="grade-work-item-id" name="work-item-id" value="{{ ($workItem) ? $workItem->id : '' }}">
                   <input type="hidden" class="form-control" id="grade-transcript-request-id" name="transcript-request-id" value="{{ ($transcriptRequest) ? $transcriptRequest->id : '' }}">
+                  <input type="hidden" class="form-control" id="grade-school-id" name="school-id" value="{{ ($transcriptRequest) ? $transcriptRequest->school_id : '' }}">
                   <input type="hidden" class="form-control" id="grade-point" name="grade-point" >
 
                   <div class="form-group col-md-12">
@@ -40,36 +41,39 @@
                   </div> 
 
                   <div class="form-group col-md-12">
-                    <label for="course-code">Course Code</label>
-                    <input type="text" class="form-control" id="course-code" name="course-code"
-                    value="{{  old('course_code') }}"  >
-                </div>
+                    <label for="course">Course</label>
+                    <select id="course" name="course" class="form-control select2">
+                        <option value="">Choose... </option>
+                        @if (count($courses) > 0)
+
+                          @foreach ($courses as $course)
+                            <option value="{{ $course->id }}" >{{ $course->course_code }} - {{ $course->course_name }} </option>
+                          @endforeach
+                                
+                        @endif
+                    </select>
+                  </div>  
+  
 
                 <div class="form-group col-md-12">
-                    <label for="course-name">Course Name</label>
-                    <input type="text" class="form-control" id="course-name" name="course-name"
-                    value="{{  old('course-name') }}"  >
-                </div>
+                  <label for="grade">Grade</label>
+                  <select id="grade" name="grade" class="form-control select2">
+                      <option value="">Choose... </option>
+                      @if (count($grades) > 0)
 
+                        @foreach ($grades as $grade)
+                          <option value="{{ $grade->id }}" >{{ $grade->code }} </option>
+                        @endforeach
+                              
+                      @endif
+                  </select>
+                </div> 
+                
                 <div class="form-group col-md-12">
-                    <label for="unit">Unit</label>
-                    <input type="number" class="form-control" id="unit" name="unit"
-                    value="{{  old('unit') }}"  >
+                    <label for="course-code">Score</label>
+                    <input type="number" class="form-control" id="score" name="score"
+                    value="{{  old('score') }}"  >
                 </div>
-
-                <div class="form-group col-md-12">
-                <label for="grade">Grade</label>
-                <select id="grade" name="grade" class="form-control select2">
-                    <option value="">Choose... </option>
-                    @if (count($grades) > 0)
-
-                      @foreach ($grades as $grade)
-                        <option value="{{ $grade->code }}" >{{ $grade->code }} </option>
-                      @endforeach
-                            
-                    @endif
-                </select>
-              </div>  
   
                   
                 </div>
@@ -107,22 +111,22 @@
                 $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val()}});
                 const formData = {
                     _token: $('input[name="_token"]').val(),
-                    code: gradeValue
+                    id: gradeValue
                 }
-                $('#save-add-semester').attr('disabled', true);
-                const url = "#"+formData.code;
+                $('#save-add-semester-result').attr('disabled', true);
+                const url = "{{ route('grading-systems.view.details','') }}/"+formData.id;
                 $('.spms-loader').show();
                 $.ajax({
                     url: url,
                     success: function(result){
                       $('.spms-loader').hide();
-                      $('#save-add-semester').attr('disabled', false);
-                      $('#grade-point').val(result.data.gradingSystem.point);  
+                      $('#save-add-semester-result').attr('disabled', false);
+                      $('#grade-point').val(result.data.grade.point);  
                     },
                     error : function(response, textStatus, errorThrown){              
                       $('.spms-loader').hide();
                       $('.backend-json-response').html('');
-                      $('#save-add-semester').attr('disabled', false);
+                      $('#save-add-semester-result').attr('disabled', false);
                       $.each(response.responseJSON.errors, function(key, value){
                         $('.backend-json-response').append('<span class="alert alert-danger mr-4" style="display:inline-block;"> <i class="fa fa-times mr-2"></i>  '+value+'</span>');
                       }); 
@@ -143,14 +147,14 @@
                 let formData = new FormData();
                 formData.append('_token', $('input[name="_token"]').val());
                 formData.append('user_id', $('#grade-user-id').val());
-                formData.append('course_code', $('#course-code').val());
-                formData.append('course_name', $('#course-name').val());
-                formData.append('unit', $('#unit').val());
+                formData.append('score', $('#score').val());
+                formData.append('course_id', $('#course').val());
+                formData.append('school_id', $('#grade-school-id').val());
                 formData.append('grade', $('#grade').val());
                 formData.append('grade_point', $('#grade-point').val());
                 formData.append('semester_id', $('#grade-semester').val());
       
-                let url = "#";
+                let url = "{{ route('semester.results') }}";
                   
                 $.ajax({
                 url: url,

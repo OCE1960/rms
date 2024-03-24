@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCompileTranscriptRequest;
+use App\Models\Course;
 use App\Models\Grade;
 use App\Models\Student;
 use App\Models\TaskAssignment;
@@ -22,19 +23,27 @@ class TaskAssignmentController extends Controller
         $selectedTask = null;
         $assignTasks = auth()->user()->assignTasks()->activeTasks()->orderBy('created_at')->paginate(10);
         $grades = null;
+        $courses = null;
 
         if ($request->has('in') && ($request->query('in'))) {
             $workItemId = $request->query('in');
-            $grades = Grade::get();
+            $item = $request->input('item');
+            $schoolId = $selectedTask;
             
             $selectedTask = TaskAssignment::where('id',$workItemId)->where('send_to', $authUser->id)
                 ->activeTasks()->firstOrFail();
 
-            $grades = Grade::where('school_id', $selectedTask->school_id)->get();
+            $workItem = $selectedTask->workItem;
+
+            $taskItemMorph = $workItem->transcript_request_id ? $workItem->transcriptRequest : $workItem->resultVerificationRequest;
+
+            $grades = Grade::where('school_id', $taskItemMorph->school_id)->get();
+            $courses = Course::where('school_id', $taskItemMorph->school_id)->get();
         }
         return view('tasks.index')->with('assignTasks', $assignTasks)
             ->with('selectedTask', $selectedTask)
             ->with('viewStatus', $viewStatus)
+            ->with('courses', $courses)
             ->with('grades', $grades); 
     }
 

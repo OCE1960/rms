@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\AcademicResultController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GradeController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\TaskAssignmentController;
 use App\Http\Controllers\UserController;
@@ -49,5 +51,20 @@ Route::middleware('auth:sanctum')->group(function() {
         Route::get('/semesters/{id}', 'show')->name('semesters.show');
         Route::post('/semesters/{id}', 'update')->name('semesters.update');
         Route::post('/semesters/delete/{id}', 'destroy')->name('semesters.delete');
+    });
+
+    Route::controller(GradeController::class)->group(function () {
+        Route::get('/grading-systems', 'index')->name('grading-systems');
+        Route::post('/grading-systems/store', 'store')->name('grading-systems.store');
+        Route::get('/grading-systems/show/{id}', 'show')->name('grading-systems.show');
+        Route::post('/grading-systems/update/{id}', 'update')->name('grading-systems.update');
+        Route::get('/grading-systems/view-details/{id}', 'viewDetails')->name('grading-systems.view.details');
+    });
+
+    Route::controller(AcademicResultController::class)->group(function () {
+        Route::post('/semester-results', 'processAddSemesterResult')->name('semester.results');
+        Route::get('/semester-results/{id}', 'show')->name('semester.results.show');
+        Route::post('/semester-results/{id}', 'update')->name('semester.results.update');
+        Route::post('/semester-results/delete/{id}', 'destroy')->name('semester.results.delete');
     });
 });

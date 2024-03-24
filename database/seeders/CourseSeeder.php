@@ -33,8 +33,9 @@ class CourseSeeder extends Seeder
                     'course_name' => $course['course_name'],
                 ],
                 [
-                    'unit' => $course['unit']
-                ]
+                    'unit' => $course['unit'],
+                    'school_id' => $school->id,
+                ] 
             );
         }
     }
