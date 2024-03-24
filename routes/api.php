@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\TaskAssignmentController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -41,5 +42,12 @@ Route::middleware('auth:sanctum')->group(function() {
         Route::post('/recommend-verify-results', 'processRecommendVerifyResult')->name('recommend-verify-results');
         Route::post('/approve-verify-results', 'processApproveVerifyResult')->name('approve-verify-results');
         Route::post('/dispatch-verify-results', 'processDispatchVerifyResult')->name('dispatch-verify-results');
+    });
+
+    Route::controller(SemesterController::class)->group(function () {
+        Route::post('/semesters', 'processAddSemester')->name('semesters');
+        Route::get('/semesters/{id}', 'show')->name('semesters.show');
+        Route::post('/semesters/{id}', 'update')->name('semesters.update');
+        Route::post('/semesters/delete/{id}', 'destroy')->name('semesters.delete');
     });
 });

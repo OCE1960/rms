@@ -2,10 +2,10 @@
 
         @php
             $userRequestingTranscript = $selectedTask->workItem->transcriptRequest->requestedBy;
-            $semesters = $userRequestingTranscript->student->school->semesters()->orderBy('session', 'asc')->orderBy('semester_name', 'asc')->get();
+            $semesters = $userRequestingTranscript->student->school->semesters()->orderBy('semester_session', 'asc')->orderBy('semester_name', 'asc')->get();
             $workItem = $selectedTask->workItem;
             $transcriptRequest = $workItem->transcriptRequest;
-            $academicResults = $userRequestingTranscript->student->academicResults->get();
+            $academicResults = $userRequestingTranscript->academicResults()->get()->groupBy('semester_id');
         @endphp
 
         <p class=""><i class="fa fa-address-book mr-2" aria-hidden="true"></i> Student Name: <strong>{{ $selectedTask->workItem->transcriptRequest->requestedBy->full_name }} </strong> </p>

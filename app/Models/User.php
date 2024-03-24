@@ -106,4 +106,9 @@ class User extends Authenticatable
     {
         return WorkItem::where('send_to', $this->id)->where('is_completed', false)->count();
     }
+
+    public function academicResults()
+    {
+        return $this->hasMany(AcademicResult::class, 'user_id', 'id');
+    }
 }

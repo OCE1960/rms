@@ -5,62 +5,98 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreSemesterRequest;
 use App\Http\Requests\UpdateSemesterRequest;
 use App\Models\Semester;
+use App\Models\User;
 
 class SemesterController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
+     *
+     * @param  \App\Http\Requests\StoreSemesterRequest  $request
+     * @return \Illuminate\Http\Response
      */
-    public function store(StoreSemesterRequest $request)
+    public function processAddSemester(StoreSemesterRequest $request)
     {
-        //
+        $authUser = auth()->user();
+        $user = User::find($request->user_id);
+        
+        //Redirect to Compiled Result Modal.
+        if (empty($user)) { 
+            return $this->sendErrorResponse(['User does not exist']);
+        }
+
+        $semester = new Semester();
+        $semester->semester_session = $request->semester_session;
+        $semester->school_id = $request->school_id;
+        $semester->created_by = $authUser->id;
+        $semester->semester_name = $request->semester_name;
+        $semester->save();
+
+        return $this->sendSuccessMessage('Semester Successfully Created');
     }
 
     /**
      * Display the specified resource.
+     *
+     * @param  \App\Models\Semester  $semester
+     * @return \Illuminate\Http\Response
      */
-    public function show(Semester $semester)
+    public function show($id)
     {
-        //
+
+        $semester = Semester::find($id);
+
+        //Redirect to the Role page if validation fails.
+         if (empty($semester)) { 
+           return $this->sendErrorResponse(['Semester does not exist']);
+        }
+
+       $data = ['semester' => $semester];
+
+       return $this->sendSuccessResponse('Semester Record Successfully Retrived',$data);
+       
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Semester $semester)
+    public function update(UpdateSemesterRequest $request, $id)
     {
-        //
+        //dd($request);
+        $semester = Semester::find($id);
+        $authUser = auth()->user();
+
+        //Redirect to the Role page if validation fails.
+         if (empty($semester)) { 
+           return $this->sendErrorResponse(['Semester does not exist']);
+        }
+
+
+        $semester->session = $request->semester_session;
+        $semester->created_by = $authUser->id;
+        $semester->semester_name = $request->semester_name;
+        $semester->save();
+
+        return $this->sendSuccessMessage('Semester Successfully Updated');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateSemesterRequest $request, Semester $semester)
-    {
-        //
-    }
+
+
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Semester  $semester
+     * @return \Illuminate\Http\Response
      */
-    public function destroy(Semester $semester)
+    public function destroy($id)
     {
-        //
+        $semester = Semester::find($id);
+
+        //Redirect to the Role page if validation fails.
+         if (empty($semester)) { 
+           return $this->sendErrorResponse(['Semester deleted']);
+        }
+
+        $semester->delete();
+
+        return $this->sendSuccessMessage('Semester Successfully deleted');
     }
 }

@@ -28,7 +28,7 @@
                 </div>
 
                 <div class="col-12">
-                    @if (isset($semesters) && count($semesters) > 0)
+                    @if (isset($academicResults) && count($academicResults) > 0)
 
                         
                         @php
@@ -37,7 +37,7 @@
                             $totalGradePointArray = [];
                         @endphp
 
-                        @foreach($semesters as $semester)
+                        @foreach($academicResults as $academicResult)
 
                         @php
                             $semesterResults = $semester->studentSemesterResult($userRequestingTranscript->id);

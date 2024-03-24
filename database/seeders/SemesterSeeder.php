@@ -16,14 +16,14 @@ class SemesterSeeder extends Seeder
         $school = School::where('short_name', 'FUTO')->firstOrFail();
 
         $semesters = [
-            ['session' => '2008/2009', 'semester_name' => 'Harmattan Semester'],
-            ['session' => '2008/2009', 'semester_name' => 'Rain Semester'],
+            ['semester_session' => '2008/2009', 'semester_name' => 'Harmattan Semester'],
+            ['semester_session' => '2008/2009', 'semester_name' => 'Rain Semester'],
         ];
 
         foreach ($semesters as $semester) {
             Semester::updateOrCreate(
                 [
-                    'session' => $semester['session'],
+                    'semester_session' => $semester['semester_session'],
                     'semester_name' => $semester['semester_name'],
                     'school_id' => $school->id
                 ],

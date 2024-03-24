@@ -19,9 +19,9 @@
   
                 <div class="form-row">
   
-                  <input type="hidden" class="form-control" id="grade-user-id" name="grade-user-id" value="{{ (($selectedTask) && ($userRequestingTranscript )) ? $userRequestingTranscript ->id : "" }}">
-                  <input type="hidden" class="form-control" id="grade-work-item-id" name="work-item-id" value="{{ (($selectedTask)) ? $selectedTask->id : "" }}">
-                  <input type="hidden" class="form-control" id="grade-transcript-request-id" name="transcript-request-id" value="{{ (($selectedTask)) ? $selectedTask->transcript_request_id : "" }}">
+                  <input type="hidden" class="form-control" id="grade-user-id" name="grade-user-id" value="{{ (($selectedTask) && ($userRequestingTranscript )) ? $userRequestingTranscript ->id : '' }}">
+                  <input type="hidden" class="form-control" id="grade-work-item-id" name="work-item-id" value="{{ ($workItem) ? $workItem->id : '' }}">
+                  <input type="hidden" class="form-control" id="grade-transcript-request-id" name="transcript-request-id" value="{{ ($transcriptRequest) ? $transcriptRequest->id : '' }}">
                   <input type="hidden" class="form-control" id="grade-point" name="grade-point" >
 
                   <div class="form-group col-md-12">
@@ -31,7 +31,7 @@
                         @if ( ($selectedTask) && count($semesters) > 0)
 
                           @foreach ($semesters as $semester)
-                            <option value="{{ $semester->id }}" >{{ $semester->session }}  {{ $semester->semester_name }}</option>
+                            <option value="{{ $semester->id }}" >{{ $semester->semester_session }}  {{ $semester->semester_name }}</option>
                           @endforeach
                             
                         @endif

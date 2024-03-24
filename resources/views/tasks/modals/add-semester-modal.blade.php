@@ -20,9 +20,10 @@
 
             <div class="form-row">
 
-              <input type="hidden" class="form-control" id="user-id" name="user-id" value="{{ (($selectedTask) && ($userRequestingTranscript )) ? $userRequestingTranscript ->id : "" }}">
-              <input type="hidden" class="form-control" id="work-item-id" name="work-item-id" value="{{ (($selectedTask)) ? $selectedTask->id : "" }}">
-              <input type="hidden" class="form-control" id="transcript-request-id" name="transcript-request-id" value="{{ (($selectedTask)) ? $selectedTask->transcript_request_id : "" }}">
+              <input type="hidden" class="form-control" id="user-id" name="user-id" value="{{ (($selectedTask) && ($userRequestingTranscript )) ? $userRequestingTranscript->id : '' }}">
+              <input type="hidden" class="form-control" id="school-id" name="school-id" value="{{ ($transcriptRequest) ? $transcriptRequest->school_id : '' }}">
+              <input type="hidden" class="form-control" id="work-item-id" name="work-item-id" value="{{ ($workItem) ? $workItem->id : '' }}">
+              <input type="hidden" class="form-control" id="transcript-request-id" name="transcript-request-id" value="{{ ($transcriptRequest) ? $transcriptRequest->id : '' }}">
 
               <div class="form-group col-md-12">
                 <label for="session">Session</label>
@@ -42,7 +43,7 @@
   
 
               <div class="form-group col-md-12">
-                  <label for="semester-name">Semester</label>
+                  <label for="semester-name">Semester Name</label>
                   <input type="text" class="form-control" id="semester-name" name="semester-name"
                     value="{{  old('semester_name') }}"  >
               </div>
@@ -90,10 +91,11 @@
               let formData = new FormData();
               formData.append('_token', $('input[name="_token"]').val());
               formData.append('user_id', $('#user-id').val());
+              formData.append('school_id', $('#school-id').val());
               formData.append('semester_session', $('#session').val());
               formData.append('semester_name', $('#semester-name').val());
     
-              let url = "#";
+              let url = "{{ route('semesters') }}";
                 
               $.ajax({
               url: url,
