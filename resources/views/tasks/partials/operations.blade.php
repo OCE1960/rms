@@ -7,13 +7,13 @@
                 <i class="fa fa-folder mr-2" aria-hidden="true"></i> Compile Result
             </button>
 
-            @if (($selectedTask) && ($workItem) && ($workItem->transcriptRequest->is_result_compiled) )
+            @if (($selectedTask) && ($workItem) && ($transcriptRequest->is_result_compiled) )
                 <button type="button" class="btn btn-primary btn-sm mr-2 mb-3" id="check-compiled-result"  data-toggle="modal" data-target="#">
                     <i class="fa fa-check mr-2" aria-hidden="true"></i> Check Compiled Result
                 </button>
             @endif
 
-            @if (($selectedTask) && ($workItem) && ($workItem->transcriptRequest->is_result_checked) )
+            @if (($selectedTask) && ($workItem) && ($transcriptRequest->is_result_checked) )
 
                 <button type="button" class="btn btn-primary btn-sm mr-2 mb-3" id="recommend-compiled-result"  data-toggle="modal" data-target="#">
                     <i class="fa fa-thumbs-up mr-2" aria-hidden="true"></i> Recommend Compiled Result
@@ -21,7 +21,7 @@
                 
             @endif
 
-            @if (($selectedTask) && ($workItem) && ($workItem->transcriptRequest->is_result_recommended) )
+            @if (($selectedTask) && ($workItem) && ($transcriptRequest->is_result_recommended) )
 
                 <button type="button" class="btn btn-primary btn-sm mr-2 mb-3" id="approve-compiled-result"  data-toggle="modal" data-target="#">
                     <i class="fa fa-check-square mr-2" aria-hidden="true"></i> Approve Compiled Result
@@ -29,7 +29,7 @@
                 
             @endif
 
-            @if (($selectedTask) && ($workItem) && ($workItem->transcriptRequest->is_result_approved) )
+            @if (($selectedTask) && ($workItem) && ($transcriptRequest->is_result_approved) )
 
                 <button type="button" class="btn btn-primary btn-sm mr-2 mb-3" id="dispatch-compiled-result"  data-toggle="modal" data-target="#">
                     <i class="fa fa-envelope mr-2" aria-hidden="true"></i> Dispatched Compiled Result

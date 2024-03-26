@@ -10,4 +10,9 @@ class Comment extends Model
 {
     use HasFactory;
     use HasUuids;
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'comment_by', 'id');
+    }
 }

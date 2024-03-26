@@ -28,9 +28,9 @@
           
                       <div class="form-row">
           
-                        <input type="hidden" class="form-control" id="user-id" name="user-id" value="{{ (($selectedTask) && ($userRequestingTranscript)) ? $userRequestingTranscript->id : "" }}">
-                        <input type="hidden" class="form-control" id="work-item-id" name="work-item-id" value="{{ (($selectedTask)) ? $selectedTask->id : "" }}">
-                        <input type="hidden" class="form-control" id="check-result-transcript-request-id" name="transcript-request-id" value="{{ (($selectedTask)) ? $selectedTask->transcript_request_id : "" }}">
+                        <input type="hidden" class="form-control" id="user-id" name="user-id" value="{{ (($selectedTask) && ($userRequestingTranscript)) ? $userRequestingTranscript->id : '' }}">
+                        <input type="hidden" class="form-control" id="work-item-id" name="work-item-id" value="{{ ($workItem) ? $workItem->id : '' }}">
+                        <input type="hidden" class="form-control" id="check-result-transcript-request-id" name="transcript-request-id" value="{{ ($transcriptRequest) ? $transcriptRequest->id : '' }}">
           
                         <div class="form-group col-md-12">
                           <label for="session">Decision</label>
@@ -113,7 +113,7 @@
               formData.append('comment', $('#check-comment').val());
               formData.append('transcriptRequestId', $('#check-result-transcript-request-id').val());
     
-              let url = "#";
+              let url = "{{ route('check-compile-results') }}";
                 
                 $.ajax({
                     url: url,

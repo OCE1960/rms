@@ -29,6 +29,7 @@ return new class extends Migration
             $table->boolean('is_result_enquirer')->default(false);
             $table->boolean('is_account_activated')->default(true);
             $table->boolean('is_first_login')->default(false);
+            $table->boolean('has_compiled_result')->default(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->date('date_of_birth')->nullable();
             $table->string('nationality')->nullable();

@@ -153,7 +153,7 @@
                         <div> 
                             <i class="fa fa-user-circle mr-3" aria-hidden="true"></i>{{  $comment->user->full_name }} <br>
                             <i class="fa fa-cube mr-3" aria-hidden="true"></i> {{  $comment->comment }} 
-                            <small><span class="text-primary">{{ Carbon::parse($comment->created_at)->diffForHumans()  }} </span></small>
+                            <small><span class="text-primary">{{ \Carbon\Carbon::parse($comment->created_at)->diffForHumans()  }} </span></small>
                         </div>
                     </div>
                 @endforeach
@@ -180,7 +180,7 @@
                             <i class="fa fa-user-circle mr-3" aria-hidden="true"></i>{{  $workItem->sender->full_name }}  
                             <span class="mx-3">  >> </span>  
                             <i class="fa fa-user-circle mr-3" aria-hidden="true"></i>{{  $workItem->sendTo->full_name }}  <br>
-                            <small><span class="text-white">{{ Carbon::parse($workItem->created_at)->diffForHumans()  }} </span></small>
+                            <small><span class="text-white">{{ \Carbon\Carbon::parse($workItem->created_at)->diffForHumans()  }} </span></small>
                         </div>
                     </div>
                 @endforeach

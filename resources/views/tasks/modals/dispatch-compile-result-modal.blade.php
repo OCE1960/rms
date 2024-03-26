@@ -28,10 +28,10 @@
           
                       <div class="form-row">
           
-                        <input type="hidden" class="form-control" id="student-full-name" name="student-full-name" value="{{ (($selectedTask) && ($userRequestingTranscript)) ? $userRequestingTranscript->full_name : "" }}">
-                        <input type="hidden" class="form-control" id="student-registration-no" name="student-registration-no" value="{{ (($selectedTask) && ($userRequestingTranscript)) ? $userRequestingTranscript->registration_no : ""  }}">
-                        <input type="hidden" class="form-control" id="dispatch-result-transcript-request-id" name="dispatch-result-transcript-request-id" value="{{ (($selectedTask)) ? $selectedTask->transcript_request_id : "" }}">
-                        <input type="hidden" class="form-control" id="dispatch-result-transcript-request-file-path" name="dispatch-result-transcript-request-file-path" value="{{ (($selectedTask)) ? optional($selectedTask->workItem->transcriptRequest->originalTranscriptFilePath())->file_path : "" }}">
+                        <input type="hidden" class="form-control" id="student-full-name" name="student-full-name" value="{{ (($selectedTask) && ($userRequestingTranscript)) ? $userRequestingTranscript->full_name : '' }}">
+                        <input type="hidden" class="form-control" id="student-registration-no" name="student-registration-no" value="{{ (($selectedTask) && ($userRequestingTranscript)) ? $userRequestingTranscript->registration_no : ''  }}">
+                        <input type="hidden" class="form-control" id="dispatch-result-transcript-request-id" name="dispatch-result-transcript-request-id" value="{{ ($transcriptRequest) ? $transcriptRequest->id : '' }}">
+                        <input type="hidden" class="form-control" id="dispatch-result-transcript-request-file-path" name="dispatch-result-transcript-request-file-path" value="{{ ($transcriptRequest) ? optional($transcriptRequest->originalTranscriptFilePath())->file_path : '' }}">
 
           
                         <div class="form-group col-md-12">
@@ -97,7 +97,7 @@
               formData.append('file_path', $('#dispatch-result-transcript-request-file-path').val());
               formData.append('transcriptRequestId', $('#dispatch-result-transcript-request-id').val());
     
-              let url = "#";
+              let url = "{{ route('dispatch-compile-results') }}";
                 
                 $.ajax({
                     url: url,
