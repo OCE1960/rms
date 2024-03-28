@@ -6,6 +6,7 @@
             $workItem = $selectedTask->workItem;
             $transcriptRequest = $workItem->transcriptRequest;
             $academicResults = $userRequestingTranscript->academicResults()->get()->groupBy('semester_id');
+            $fileHistory = $selectedTask->fileHistory($selectedTask->work_item_id);
         @endphp
 
         <p class=""><i class="fa fa-address-book mr-2" aria-hidden="true"></i> Student Name: <strong>{{ $selectedTask->workItem->transcriptRequest->requestedBy->full_name }} </strong> </p>

@@ -169,18 +169,18 @@
     </div>
     <div class="tab-pane fade" id="nav-history" role="tabpanel" aria-labelledby="nav-history-tab">
 
-        @if ( ($selectedTask) && count($selectedTask->fileHistory($selectedTask->work_item__id)) > 0)
+        @if ( ($selectedTask) && count($fileHistory) > 0)
 
             <div class="row mt-3">
 
-                @foreach ($selectedTask->fileHistory($selectedTask->work_item_id) as $workItem)
+                @foreach ($fileHistory as $taskAssignment)
                     <div class="col-12 shadow-sm p-1 mb-2 bg-info rounded">
 
                         <div class="px-3"> 
-                            <i class="fa fa-user-circle mr-3" aria-hidden="true"></i>{{  $workItem->sender->full_name }}  
+                            <i class="fa fa-user-circle mr-3" aria-hidden="true"></i>{{  $taskAssignment->sendBy->full_name }}  
                             <span class="mx-3">  >> </span>  
-                            <i class="fa fa-user-circle mr-3" aria-hidden="true"></i>{{  $workItem->sendTo->full_name }}  <br>
-                            <small><span class="text-white">{{ \Carbon\Carbon::parse($workItem->created_at)->diffForHumans()  }} </span></small>
+                            <i class="fa fa-user-circle mr-3" aria-hidden="true"></i>{{  $taskAssignment->sendTo->full_name }}  <br>
+                            <small><span class="text-white">{{ \Carbon\Carbon::parse($taskAssignment->created_at)->diffForHumans()  }} </span></small>
                         </div>
                     </div>
                 @endforeach

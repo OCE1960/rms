@@ -32,7 +32,8 @@
                     $totalGradePointArray = [];
                 @endphp
 
-                <img src="{{ public_path('letter-head/header.jpg') }}" width="100%" height="65" />
+                <!-- <img src="{{ public_path('letter-head/header.jpg') }}" width="100%" height="65" /> -->
+                <h3>Transcript Results</h3>
                 @foreach($academicResults as $semesterId => $semesterResults)
 
                     @php
@@ -52,7 +53,7 @@
                     
 
                     <div class="text-center semester-heading"> 
-                    <!-- <span style="font-size: 20px;"> <strong>{{ $semester->semester_session }}  {{ $semester->semester_name }} </strong> </span> -->
+                    <span style="font-size: 20px;"> <strong>{{ $semester->semester_session }}  {{ $semester->semester_name }} </strong> </span>
                     </div>
                 
 
@@ -119,7 +120,7 @@
         
                      <pagebreak>
                     
-                      <!-- <img src="{{ public_path('letter-head/header.jpg') }}" width="100%" height="65" style="margin-bottom: 10px;" /> -->
+                      <h3>Transcript Results</h3>
                         
                     @endif
 

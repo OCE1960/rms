@@ -211,7 +211,7 @@ class TaskAssignmentController extends Controller
 
         // if ($attachment) {
 
-            $userRequestingTranscript->has_compiled_result = true;
+            //$userRequestingTranscript->has_compiled_result = true;
             $userRequestingTranscript->save();
 
             return $this->sendSuccessMessage('Compiled Result Successfully Approved');
