@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('staff', function (Blueprint $table) {
             $table->uuid('id');
             $table->foreignUuid('user_id')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignUuid('school_id')->nullable()->constrained('schools')->onUpdate('cascade')->onDelete('cascade');
             
             $table->date('date_of_entry')->nullable();
             $table->timestamps();

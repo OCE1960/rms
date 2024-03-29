@@ -19,30 +19,23 @@
 
             <div class="form-row">
 
-              <input type="hidden" class="form-control" id="move-work-item-id" name="work-item-id" value="{{ (($selectedTask)) ? $selectedTask->id : "" }}">
-              <input type="hidden" class="form-control" id="move-transcript-request-id" name="transcript-request-id" value="{{ (($selectedTask) && ($selectedTask->transcript_request_id)) ? $selectedTask->transcript_request_id : "" }}">
-              <input type="hidden" class="form-control" id="move-verify-result-request-id" name="move-verify-result-request-id" value="{{ (($selectedTask) && ($selectedTask->verify_result_request_id)) ? $selectedTask->verify_result_request_id : "" }}">
-
-                <div class="form-group col-md-12">
-                    <label for="move-department">Department</label>
-                    <select id="move-department" name="move-department" class="form-control select2">
-                        
-                        <option value="" > Choose ...</option>
-                        @if (count($departments) > 0)
-
-                            @foreach ($departments as $department)
-                                <option value="{{ $department->id }}" >{{ $department->name }}</option>
-                            @endforeach
-                            
-                        @endif
-                    
-                    </select>
-              </div> 
+              <input type="hidden" class="form-control" id="move-task-item-id" name="move-task-item-id" value="{{ (($selectedTask)) ? $selectedTask->id : '' }}">
+              <input type="hidden" class="form-control" id="move-work-item-id" name="move-work-item-id" value="{{ (($selectedTask)) ? $selectedTask->workItem->id : '' }}">
+              <input type="hidden" class="form-control" id="move-transcript-request-id" name="transcript-request-id" value="{{ (($selectedTask) && ($selectedTask->workItem->transcript_request_id)) ? $selectedTask->workItem->transcript_request_id : '' }}">
+              <input type="hidden" class="form-control" id="move-verify-result-request-id" name="move-verify-result-request-id" value="{{ (($selectedTask) && ($selectedTask->workItem->result_verification_request_id)) ? $selectedTask->workItem->result_verification_request_id : '' }}">
 
               <div class="form-group col-md-12">
                     <label for="move-staff">Staff</label>
                     <select id="move-staff" name="move-staff" class="form-control select2">
                         <option value="" > Choose ...</option>
+
+                        @if (count($users) > 0)
+
+                        @foreach ($users as $user)
+                          <option value="{{ $user->id }}" >{{ $user->full_name }} </option>
+                        @endforeach
+                              
+                      @endif
   
                     
                     </select>
@@ -85,48 +78,7 @@
               $('#move-file-modal').modal('show');
           })
 
-          $('#move-department').change(function(e) {
-              const departmentValue = $(this).val();
-              if (departmentValue != "") {
-                e.preventDefault();
-                $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val()}});
-                const formData = {
-                    _token: $('input[name="_token"]').val(),
-                    department_id: departmentValue
-                }
-                $('#save-move-file-decision').attr('disabled', true);
-                const url = "{{ route('users.selects.department','') }}/"+formData.department_id;
-                $('.spms-loader').show();
-                $.ajax({
-                    url: url,
-                    success: function(result){
-                      $('.spms-loader').hide();
-                      $('#save-move-file-decision').attr('disabled', false);
-                      const len = result.data.departmentUsers.length;
-                      const ajaxResponse = result.data.departmentUsers;
-                      $("#move-staff").empty();
-                      $("#move-staff").append("<option value=''>Choose ...</option>");
-                      for( let i = 0; i<len; i++){
-                            let id = ajaxResponse[i]['id'];
-                            const middle = (ajaxResponse[i].middle_name != null) ? ajaxResponse[i].middle_name : " ";
-                            let name = ajaxResponse[i]['first_name']+"  "+ middle +"  "+ajaxResponse[i]['last_name'];
-                            $("#move-staff").append("<option value='"+id+"'>"+name+"</option>");
-                        }
-                    },
-                    error : function(response, textStatus, errorThrown){              
-                      $('.spms-loader').hide();
-                      $('.backend-json-response').html('');
-                      $('#save-move-file-decision').attr('disabled', false);
-                      $.each(response.responseJSON.errors, function(key, value){
-                        $('.backend-json-response').append('<span class="alert alert-danger mr-4" style="display:inline-block;"> <i class="fa fa-times mr-2"></i>  '+value+'</span>');
-                      }); 
-                    },
-                    dataType: 'json'
-                });
-              } 
-            });
-
-            //Functionality to save New Entry
+          //Functionality to save New Entry
           $(document).on('click','#save-move-file-decision',function(e) {
               e.preventDefault();
               $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val()}});
@@ -134,15 +86,15 @@
               $('.spms-loader').show();
               let formData = new FormData();
               formData.append('_token', $('input[name="_token"]').val());
+              formData.append('taskItemId', $('#move-task-item-id').val());
               formData.append('workItemId', $('#move-work-item-id').val());
               formData.append('transcriptRequestId', $('#move-transcript-request-id').val());
               formData.append('verifyResultRequestId', $('#move-verify-result-request-id').val());
               formData.append('send_to', $('#move-staff').val());
               formData.append('comment', $('#move-comment').val());
-              formData.append('department', $('#move-department').val());
     
               let url = "{{ route('move-file') }}";
-              const task_url = "{{ route('assign-tasks') }}";
+              const task_url = "{{ route('tasks') }}";
                 
               $.ajax({
               url: url,

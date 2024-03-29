@@ -6,13 +6,13 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use App\Models\WorkItem;
+use App\Models\TaskAssignment;
 
 class MoveFile extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $workItem;
+    public $taskItem;
     public $sender;
     public $sendTo;
     public $url;
@@ -22,12 +22,12 @@ class MoveFile extends Mailable
      *
      * @return void
      */
-    public function __construct(WorkItem $workItem)
+    public function __construct(TaskAssignment $taskItem)
     {
-        $this->workItem = $workItem;
-        $this->sender = $workItem->sender->full_name;
-        $this->sendTo = $workItem->sendTo->full_name;
-        $this->url = route('assign-tasks',"in=".$workItem->id);
+        $this->taskItem = $taskItem;
+        $this->sender = $taskItem->sendBy->full_name;
+        $this->sendTo = $taskItem->sendTo->full_name;
+        $this->url = route('tasks',"in=".$taskItem->id);
     }
 
     /**

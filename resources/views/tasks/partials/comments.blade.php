@@ -4,31 +4,31 @@
         @if (isset($selectedTask) && isset($selectedTask->workItem->transcript_request_id))
 
             <ul class="list-group list-group-flush">
-                @if ($selectedTask->workItem->transcriptRequest->is_result_compiled)
+                @if ($transcriptRequest->is_result_compiled)
                     <li class="text-success list-group-item"> <i class="fa fa-check mr-1" aria-hidden="true"></i> Result Compilation has Commenced by <strong> {{ $selectedTask->workItem->transcriptRequest->compiler->full_name }} </strong> </li>
                 @else
                     <li class="text-danger list-group-item"> <i class="fa fa-exclamation-triangle mr-1" aria-hidden="true"></i> Result Compilation Task has not being carried out</li>
                 @endif
 
-                @if ($selectedTask->workItem->transcriptRequest->is_result_checked)
+                @if ($transcriptRequest->is_result_checked)
                     <li class="text-success list-group-item"> <i class="fa fa-check mr-1" aria-hidden="true"></i> Result Compiled has been Checked by <strong>  {{ $selectedTask->workItem->transcriptRequest->checker->full_name  }} </strong>   </li>
                 @else
                     <li class="text-danger list-group-item"> <i class="fa fa-exclamation-triangle mr-1" aria-hidden="true"></i>  Result Compiled has not being Checked</li>
                 @endif
 
-                @if ($selectedTask->workItem->transcriptRequest->is_result_recommended)
+                @if ($transcriptRequest->is_result_recommended)
                     <li class="text-success list-group-item"> <i class="fa fa-check mr-1" aria-hidden="true"></i> Result Compiled has been recommended by <strong>  {{ $selectedTask->workItem->transcriptRequest->recommender->full_name  }} </strong>   </li>
                 @else
                     <li class="text-danger list-group-item"> <i class="fa fa-exclamation-triangle mr-1" aria-hidden="true"></i>  Result Compiled has not being Recommended</li>
                 @endif
 
-                @if ($selectedTask->workItem->transcriptRequest->is_result_approved)
+                @if ($transcriptRequest->is_result_approved)
                     <li class="text-success list-group-item"> <i class="fa fa-check mr-1" aria-hidden="true"></i> Result Compiled has been approved by <strong> {{ $selectedTask->workItem->transcriptRequest->approver->full_name  }} </strong> </li>
                 @else
                     <li class="text-danger list-group-item"> <i class="fa fa-exclamation-triangle mr-1" aria-hidden="true"></i>  Result Compiled has not being approved</li>
                 @endif
 
-                @if ($selectedTask->workItem->transcriptRequest->is_result_dispatched)
+                @if ($transcriptRequest->is_result_dispatched)
                     <li class="text-success list-group-item"> <i class="fa fa-check mr-1" aria-hidden="true"></i> Result Compiled has been dispatcheed by <strong>  {{ $selectedTask->workItem->transcriptRequest->dispatcher->full_name  }} </strong> </li>
                 @else 
                     <li class="text-danger list-group-item"> <i class="fa fa-exclamation-triangle mr-1" aria-hidden="true"></i>  Result Compiled has not being dispatched </li>

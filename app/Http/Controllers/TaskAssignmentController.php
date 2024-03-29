@@ -5,17 +5,23 @@ namespace App\Http\Controllers;
 use App\Http\Requests\DispatchTranscriptRequest ;
 use App\Http\Requests\StoreCompileTranscriptRequest;
 use App\Http\Requests\StoreDecisionRequest;
+use App\Http\Requests\StoreMoveFileRequest;
 use App\Mail\DispatchTranscriptMail;
 use App\Mail\DispatchVerifyResultMail;
+use App\Mail\MoveFile;
 use App\Models\Attachment;
 use App\Models\Comment;
 use App\Models\Course;
 use App\Models\Grade;
+use App\Models\Role;
 use App\Models\Student;
 use App\Models\TaskAssignment;
 use App\Models\TranscriptRequest;
 use App\Models\User;
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class TaskAssignmentController extends Controller
@@ -27,10 +33,25 @@ class TaskAssignmentController extends Controller
     {
         $viewStatus = "in";
         $authUser = auth()->user();
+        $staff = $authUser->staff;
         $selectedTask = null;
         $assignTasks = auth()->user()->assignTasks()->activeTasks()->orderBy('created_at')->paginate(10);
         $grades = null;
         $courses = null;
+        $admin = Role::where('key', 'super-admin')->firstOrFail();
+        $registry = Role::where('key', 'registry')->firstOrFail();
+
+        if ($authUser->hasRole($admin->id) || $authUser->hasRole($registry->id)) {
+            $users = User::where('is_staff', true)->get();
+        } else {
+            $users = User::where('is_staff', true)->get();
+            // $users = User::where('is_staff')
+            //     ->join('staff', function (JoinClause $join) use ($staff) {
+            //         $join->on('users.id', '=', 'staff.user_id')
+            //             ->where('staff.school_id', $staff?->school_id);
+            //     })
+            //     ->get();
+        }
 
         if ($request->has('in') && ($request->query('in'))) {
             $workItemId = $request->query('in');
@@ -51,8 +72,53 @@ class TaskAssignmentController extends Controller
             ->with('selectedTask', $selectedTask)
             ->with('viewStatus', $viewStatus)
             ->with('courses', $courses)
+            ->with('users', $users)
             ->with('grades', $grades); 
     }
+
+    public function processMoveFile(StoreMoveFileRequest $request)
+    {
+
+        DB::beginTransaction();
+
+        try {
+            $oldTaskItem = TaskAssignment::find($request->taskItemId);
+            $authUser = auth()->user();
+            $sendTo = User::find($request->send_to);
+            $taskItem = new TaskAssignment();
+            $taskItem->work_item_id = $request->workItemId;
+            $taskItem->send_by = $authUser->id;
+            $taskItem->send_to =  $request->send_to; 
+            $taskItem->status = 're-assign'; 
+            $taskItem->save();
+
+            if ($request->comment) {
+                $comment = new Comment();
+                $comment->transcript_request_id = $request->transcriptRequestId;
+                // $comment->result_verification_request_id = $request->verifyResultRequestId;
+                $comment->comment_by = $authUser->id;
+                $comment->comment = $request->comment;
+                $comment->save();
+            }
+
+            $oldTaskItem->is_task_completed = true;
+            $oldTaskItem->save();
+
+            DB::commit();
+
+            Mail::to($sendTo->email)->send(new MoveFile($taskItem));
+
+            return $this->sendSuccessMessage('File Successfully Moved');
+        } catch (\Exception $e) {
+
+            DB::rollback();
+            Log::emergency(['error' => $e->getMessage()]);
+            return $this->sendErrorResponse(['Their was an error Moving this File '. $e->getMessage()]);
+        }
+
+        
+    }
+
 
     public function processCompileResult(StoreCompileTranscriptRequest $request)
     {
@@ -211,7 +277,7 @@ class TaskAssignmentController extends Controller
 
         // if ($attachment) {
 
-            //$userRequestingTranscript->has_compiled_result = true;
+            $userRequestingTranscript->has_compiled_result = true;
             $userRequestingTranscript->save();
 
             return $this->sendSuccessMessage('Compiled Result Successfully Approved');

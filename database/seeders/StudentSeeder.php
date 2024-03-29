@@ -23,11 +23,11 @@ class StudentSeeder extends Seeder
         $user1->is_student = true;
         $user1->registration_no = '20181599321';
         $user1->password = bcrypt('password');
+        $user1->school_id = $school->id;
         $user1->save();
 
         $student1 = new Student;
         $student1->user_id = $user1->id;
-        $student1->school_id = $school->id;
         $student1->department = 'Electrical and Electronics Engineering';
         $student1->date_of_entry = '2008-09-20';
         $student1->mode_of_entry = 'UME';
@@ -40,11 +40,11 @@ class StudentSeeder extends Seeder
         $user2->is_student = true;
         $user2->registration_no = '20181599322';
         $user2->password = bcrypt('password');
+        $user2->school_id = $school->id;
         $user2->save();
 
         $student2 = new Student;
         $student2->user_id = $user2->id;
-        $student2->school_id = $school->id;
         $student2->department = 'Electrical and Electronics Engineering';
         $student2->date_of_entry = '2008-09-20';
         $student2->mode_of_entry = 'UME';
@@ -57,11 +57,11 @@ class StudentSeeder extends Seeder
         $user3->is_student = true;
         $user3->registration_no = '20181599323';
         $user3->password = bcrypt('password');
+        $user3->school_id = $school->id;
         $user3->save();
 
         $student3 = new Student;
         $student3->user_id = $user3->id;
-        $student3->school_id = $school->id;
         $student3->department = 'Electrical and Electronics Engineering';
         $student3->date_of_entry = '2008-09-20';
         $student3->mode_of_entry = 'UME';

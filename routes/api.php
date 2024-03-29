@@ -44,6 +44,7 @@ Route::middleware('auth:sanctum')->group(function() {
         Route::post('/recommend-verify-results', 'processRecommendVerifyResult')->name('recommend-verify-results');
         Route::post('/approve-verify-results', 'processApproveVerifyResult')->name('approve-verify-results');
         Route::post('/dispatch-verify-results', 'processDispatchVerifyResult')->name('dispatch-verify-results');
+        Route::post('/move-file', 'processMoveFile')->name('move-file');
     });
 
     Route::controller(SemesterController::class)->group(function () {

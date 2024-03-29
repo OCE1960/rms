@@ -23,6 +23,7 @@ class StaffSeeder extends Seeder
                 'phone_no' => '07033793094',
             ],
             [
+                'school_id' => $school->id,
                 'first_name' => 'Macqueen',
                 'last_name' => 'Chukwuma',
                 'is_staff' => true,
@@ -35,7 +36,6 @@ class StaffSeeder extends Seeder
                 'user_id' => $user1->id,
             ],
             [
-                'school_id' => $school->id,
                 'date_of_entry' => '2008-09-21',
             ]
         );
@@ -54,6 +54,7 @@ class StaffSeeder extends Seeder
                 'last_name' => 'Malaky',
                 'is_staff' => true,
                 'password' => bcrypt('password'),
+                'school_id' => $school->id,
             ]
         );
 
@@ -62,7 +63,6 @@ class StaffSeeder extends Seeder
                 'user_id' => $user2->id,
             ],
             [
-                'school_id' => $school->id,
                 'date_of_entry' => '2008-09-21',
             ]
         );
@@ -81,6 +81,7 @@ class StaffSeeder extends Seeder
                 'last_name' => 'Obiakor',
                 'is_staff' => true,
                 'password' => bcrypt('password'),
+                'school_id' => $school->id,
             ]
         );
 
@@ -89,7 +90,6 @@ class StaffSeeder extends Seeder
                 'user_id' => $user3->id,
             ],
             [
-                'school_id' => $school->id,
                 'date_of_entry' => '2008-09-21',
             ]
         );
@@ -108,6 +108,7 @@ class StaffSeeder extends Seeder
                 'last_name' => 'Chukwuogoh',
                 'is_staff' => true,
                 'password' => bcrypt('password'),
+                'school_id' => $school->id,
             ]
         );
 
@@ -116,7 +117,6 @@ class StaffSeeder extends Seeder
                 'user_id' => $user4->id,
             ],
             [
-                'school_id' => $school->id,
                 'date_of_entry' => '2008-09-21',
             ]
         );
@@ -135,6 +135,7 @@ class StaffSeeder extends Seeder
                 'last_name' => 'Onwuchekwa',
                 'is_staff' => true,
                 'password' => bcrypt('password'),
+                'school_id' => $school->id,
             ]
         );
 
@@ -143,7 +144,6 @@ class StaffSeeder extends Seeder
                 'user_id' => $user1->id,
             ],
             [
-                'school_id' => $school->id,
                 'date_of_entry' => '2008-09-21',
             ]
         );
@@ -162,6 +162,7 @@ class StaffSeeder extends Seeder
                 'last_name' => 'Onyeso',
                 'is_staff' => true,
                 'password' => bcrypt('password'),
+                'school_id' => $school->id,
             ]
         );
 
@@ -170,7 +171,6 @@ class StaffSeeder extends Seeder
                 'user_id' => $user2->id,
             ],
             [
-                'school_id' => $school->id,
                 'date_of_entry' => '2008-09-21',
             ]
         );
@@ -189,6 +189,7 @@ class StaffSeeder extends Seeder
                 'last_name' => 'Bursari',
                 'is_staff' => true,
                 'password' => bcrypt('password'),
+                'school_id' => $school->id,
             ]
         );
 
@@ -197,7 +198,6 @@ class StaffSeeder extends Seeder
                 'user_id' => $user7->id,
             ],
             [
-                'school_id' => $school->id,
                 'date_of_entry' => '2008-09-21',
             ]
         );

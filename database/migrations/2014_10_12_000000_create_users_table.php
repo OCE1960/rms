@@ -35,6 +35,7 @@ return new class extends Migration
             $table->string('nationality')->nullable();
             $table->string('state_of_origin')->nullable();
             $table->string('password');
+            $table->foreignUuid('school_id')->nullable()->constrained('schools')->onUpdate('cascade')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
             $table->primary('id');

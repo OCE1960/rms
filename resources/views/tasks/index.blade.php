@@ -130,7 +130,7 @@
     </div> <!-- /#info-box -->
    
     
-    
+    @include('tasks.modals.move-file-modal')
     
 @stop
 
