@@ -33,25 +33,12 @@ class TaskAssignmentController extends Controller
     {
         $viewStatus = "in";
         $authUser = auth()->user();
-        $staff = $authUser->staff;
         $selectedTask = null;
         $assignTasks = auth()->user()->assignTasks()->activeTasks()->orderBy('created_at')->paginate(10);
         $grades = null;
         $courses = null;
         $admin = Role::where('key', 'super-admin')->firstOrFail();
         $registry = Role::where('key', 'registry')->firstOrFail();
-
-        if ($authUser->hasRole($admin->id) || $authUser->hasRole($registry->id)) {
-            $users = User::where('is_staff', true)->get();
-        } else {
-            $users = User::where('is_staff', true)->get();
-            // $users = User::where('is_staff')
-            //     ->join('staff', function (JoinClause $join) use ($staff) {
-            //         $join->on('users.id', '=', 'staff.user_id')
-            //             ->where('staff.school_id', $staff?->school_id);
-            //     })
-            //     ->get();
-        }
 
         if ($request->has('in') && ($request->query('in'))) {
             $workItemId = $request->query('in');
@@ -67,6 +54,13 @@ class TaskAssignmentController extends Controller
 
             $grades = Grade::where('school_id', $taskItemMorph->school_id)->get();
             $courses = Course::where('school_id', $taskItemMorph->school_id)->get();
+
+            if ($authUser->hasRole($admin->id) || $authUser->hasRole($registry->id)) {
+                $users = User::where('is_staff', true)->where('school_id', $taskItemMorph->school_id)->get();
+            } else {
+                $users = User::where('is_staff', true)
+                    ->where('school_id', $authUser->school_id)->get();
+            }
         }
         return view('tasks.index')->with('assignTasks', $assignTasks)
             ->with('selectedTask', $selectedTask)

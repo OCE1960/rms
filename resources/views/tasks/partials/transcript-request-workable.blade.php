@@ -2,7 +2,7 @@
 
         @php
             $userRequestingTranscript = $selectedTask->workItem->transcriptRequest->requestedBy;
-            $semesters = $userRequestingTranscript->student->school->semesters()->orderBy('semester_session', 'asc')->orderBy('semester_name', 'asc')->get();
+            $semesters = $userRequestingTranscript->school->semesters()->orderBy('semester_session', 'asc')->orderBy('semester_name', 'asc')->get();
             $workItem = $selectedTask->workItem;
             $transcriptRequest = $workItem->transcriptRequest;
             $academicResults = $userRequestingTranscript->academicResults()->get()->groupBy('semester_id');

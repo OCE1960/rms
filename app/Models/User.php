@@ -116,4 +116,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(AcademicResult::class, 'user_id', 'id');
     }
+
+    public function school()
+    {
+        return $this->belongsTo(School::class, 'school_id', 'id');
+    }
 }
