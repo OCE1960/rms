@@ -37,6 +37,7 @@ class TaskAssignmentController extends Controller
         $assignTasks = auth()->user()->assignTasks()->activeTasks()->orderBy('created_at')->paginate(10);
         $grades = null;
         $courses = null;
+        $users = null;
         $admin = Role::where('key', 'super-admin')->firstOrFail();
         $registry = Role::where('key', 'registry')->firstOrFail();
 

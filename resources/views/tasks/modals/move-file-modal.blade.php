@@ -29,7 +29,7 @@
                     <select id="move-staff" name="move-staff" class="form-control select2">
                         <option value="" > Choose ...</option>
 
-                        @if (count($users) > 0)
+                        @if (isset($users) && count($users) > 0)
 
                         @foreach ($users as $user)
                           <option value="{{ $user->id }}" >{{ $user->full_name }} </option>
