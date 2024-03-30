@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\DispatchTranscriptRequest ;
 use App\Http\Requests\StoreCompileTranscriptRequest;
 use App\Http\Requests\StoreDecisionRequest;
+use App\Http\Requests\StoreDispatchRequest;
 use App\Http\Requests\StoreMoveFileRequest;
 use App\Mail\DispatchTranscriptMail;
 use App\Mail\DispatchVerifyResultMail;
@@ -13,12 +14,12 @@ use App\Models\Attachment;
 use App\Models\Comment;
 use App\Models\Course;
 use App\Models\Grade;
+use App\Models\ResultVerificationRequest;
 use App\Models\Role;
 use App\Models\Student;
 use App\Models\TaskAssignment;
 use App\Models\TranscriptRequest;
 use App\Models\User;
-use Illuminate\Database\Query\JoinClause;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -106,7 +107,7 @@ class TaskAssignmentController extends Controller
             if ($request->comment) {
                 $comment = new Comment();
                 $comment->transcript_request_id = $request->transcriptRequestId;
-                // $comment->result_verification_request_id = $request->verifyResultRequestId;
+                $comment->result_verification_request_id = $request->verifyResultRequestId;
                 $comment->comment_by = $authUser->id;
                 $comment->comment = $request->comment;
                 $comment->save();
@@ -381,36 +382,15 @@ class TaskAssignmentController extends Controller
     public function processVerifyResult(StoreDecisionRequest $request)
     {
         $authUser = auth()->user();
-        //$user = User::find($request->user_id);
-        $verifyResultRequest = VerifyResultRequest::find($request->verifyResultRequestId);
+        $verifyResultRequest = ResultVerificationRequest::find($request->verifyResultRequestId);
 
-
-        //Redirect to Compiled Result Modal.
-        // if (empty($user)) { 
-        //     return $this->sendErrorResponse(['User does not exist']);
-        // }
-
-        //Redirect to Compiled Result Modal.
         if (empty($verifyResultRequest)) { 
             return $this->sendErrorResponse(['Verify Result Request does not exist']);
         }
 
-        $artifact_name = 'Verify-Result';
-        $taskManager = TaskManager::where('verify_result_request_id', $verifyResultRequest->id)
-            ->where('artifact', $artifact_name)->first();
-        
-        if ($taskManager == null) {
-            $taskManager = new TaskManager;
-        }
-
-        $taskManager->verify_result_request_id = $verifyResultRequest->id;
-        $taskManager->created_by = $authUser->id;
-        $taskManager->artifact = $artifact_name;
-        $taskManager->save();
-
         if ($request->comment) {
             $comment = new Comment();
-            $comment->verify_result_request_id = $verifyResultRequest->id;
+            $comment->result_verification_request_id = $verifyResultRequest->id;
             $comment->comment_by = $authUser->id;
             $comment->comment = $request->comment;
             $comment->save();
@@ -426,29 +406,16 @@ class TaskAssignmentController extends Controller
     public function processCheckVerifyResult(StoreDecisionRequest $request)
     {
         $authUser = auth()->user();
-        $verifyResultRequest = VerifyResultRequest::find($request->verifyResultRequestId);
+        $verifyResultRequest = ResultVerificationRequest::find($request->verifyResultRequestId);
 
         //Redirect to Compiled Result Modal.
         if (empty($verifyResultRequest)) { 
             return $this->sendErrorResponse(['Verify Result Request does not exist']);
         }
 
-        $artifact_name = 'Check-Verify-Result';
-        $taskManager = TaskManager::where('verify_result_request_id', $verifyResultRequest->id)
-            ->where('artifact', $artifact_name)->first();
-        
-        if ($taskManager == null) {
-            $taskManager = new TaskManager;
-        }
-
-        $taskManager->verify_result_request_id = $verifyResultRequest->id;
-        $taskManager->created_by = $authUser->id;
-        $taskManager->artifact = $artifact_name;
-        $taskManager->save();
-
         if ($request->comment) {
             $comment = new Comment();
-            $comment->verify_result_request_id = $verifyResultRequest->id;
+            $comment->result_verification_request_id  = $verifyResultRequest->id;
             $comment->comment_by = $authUser->id;
             $comment->comment = $request->comment;
             $comment->save();
@@ -464,29 +431,16 @@ class TaskAssignmentController extends Controller
     public function processRecommendVerifyResult(StoreDecisionRequest $request)
     {
         $authUser = auth()->user();
-        $verifyResultRequest = VerifyResultRequest::find($request->verifyResultRequestId);
+        $verifyResultRequest = ResultVerificationRequest::find($request->verifyResultRequestId);
 
         //Redirect to Compiled Result Modal.
         if (empty($verifyResultRequest)) { 
             return $this->sendErrorResponse(['Verify Result Request does not exist']);
         }
 
-        $artifact_name = 'Check-Verify-Result';
-        $taskManager = TaskManager::where('verify_result_request_id', $verifyResultRequest->id)
-            ->where('artifact', $artifact_name)->first();
-        
-        if ($taskManager == null) {
-            $taskManager = new TaskManager;
-        }
-
-        $taskManager->verify_result_request_id = $verifyResultRequest->id;
-        $taskManager->created_by = $authUser->id;
-        $taskManager->artifact = $artifact_name;
-        $taskManager->save();
-
         if ($request->comment) {
             $comment = new Comment();
-            $comment->verify_result_request_id = $verifyResultRequest->id;
+            $comment->result_verification_request_id  = $verifyResultRequest->id;
             $comment->comment_by = $authUser->id;
             $comment->comment = $request->comment;
             $comment->save();
@@ -502,29 +456,16 @@ class TaskAssignmentController extends Controller
     public function processApproveVerifyResult(StoreDecisionRequest $request)
     {
         $authUser = auth()->user();
-        $verifyResultRequest = VerifyResultRequest::find($request->verifyResultRequestId);
+        $verifyResultRequest = ResultVerificationRequest::find($request->verifyResultRequestId);
 
         //Redirect to Compiled Result Modal.
         if (empty($verifyResultRequest)) { 
             return $this->sendErrorResponse(['Verify Result Request does not exist']);
         }
 
-        $artifact_name = 'Approve-Verify-Result';
-        $taskManager = TaskManager::where('verify_result_request_id', $verifyResultRequest->id)
-            ->where('artifact', $artifact_name)->first();
-        
-        if ($taskManager == null) {
-            $taskManager = new TaskManager;
-        }
-
-        $taskManager->verify_result_request_id = $verifyResultRequest->id;
-        $taskManager->created_by = $authUser->id;
-        $taskManager->artifact = $artifact_name;
-        $taskManager->save();
-
         if ($request->comment) {
             $comment = new Comment();
-            $comment->verify_result_request_id = $verifyResultRequest->id;
+            $comment->result_verification_request_id  = $verifyResultRequest->id;
             $comment->comment_by = $authUser->id;
             $comment->comment = $request->comment;
             $comment->save();
@@ -540,32 +481,19 @@ class TaskAssignmentController extends Controller
     public function processDispatchVerifyResult(StoreDispatchRequest $request)
     {
         $authUser = auth()->user();
-        $verifyResultRequest = VerifyResultRequest::find($request->verifyResultRequestId);
+        $verifyResultRequest = ResultVerificationRequest::find($request->verifyResultRequestId);
 
         //Redirect to Compiled Result Modal.
         if (empty($verifyResultRequest)) { 
             return $this->sendErrorResponse(['Verify Result Request does not exist']);
         }
 
-        $artifact_name = 'Dispatch-Verify-Result-Response';
-        $taskManager = TaskManager::where('verify_result_request_id', $verifyResultRequest->id)
-            ->where('artifact', $artifact_name)->first();
-        
-        if ($taskManager == null) {
-            $taskManager = new TaskManager;
-        }
-
-        $taskManager->verify_result_request_id = $verifyResultRequest->id;
-        $taskManager->created_by = $authUser->id;
-        $taskManager->artifact = $artifact_name;
-        $taskManager->save();
-
         $response = $request->comment;
-        $VerifyResultTemplate = view("backend.templates.verify-result")
+        $VerifyResultTemplate = view("templates.verify-result")
             ->with('verifyResultRequest', $verifyResultRequest)
             ->with('response', $response);
 
-        $oldAttachments = Attachment::where('verify_result_request_id', $verifyResultRequest->id)
+        $oldAttachments = Attachment::where('result_verification_request_id', $verifyResultRequest->id)
             ->where('label', 'Result Verification')->get();
 
        // dd($oldAttachments);
@@ -587,7 +515,7 @@ class TaskAssignmentController extends Controller
         $verifyResultRequest->save();
 
 
-        $receiver = $verifyResultRequest->user;
+        $receiver = $verifyResultRequest->enquirer;
 
         Mail::to($receiver->email)->send(new DispatchVerifyResultMail($verifyResultRequest));
 

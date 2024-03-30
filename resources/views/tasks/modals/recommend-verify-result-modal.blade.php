@@ -2,7 +2,7 @@
   <div class="modal-dialog modal-xl " role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="roleModalLable">Recommend  <strong>{{ ($selectedTask) ? $userVerifyingResult->studentFullname() : "" }} </strong> Result </h5>
+        <h5 class="modal-title" id="roleModalLable">Recommend  <strong>{{ ($selectedTask) ? $resultVerificationRequest->studentFullname() : "" }} </strong> Result </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -15,7 +15,7 @@
                 <div class="center spms-loader" id="spms-loader" >
                     <div class="spinner " id="spinner-1"></div>
                 </div>
-                @include('backend.assign-tasks.partials.verify-result-content')
+                @include('tasks.partials.verify-result-content')
 
             </div> <!-- end of col-md-9 -->
             <div class="col-3">
@@ -28,8 +28,8 @@
           
                       <div class="form-row">
           
-                        <input type="hidden" class="form-control" id="work-item-id" name="work-item-id" value="{{ (($selectedTask)) ? $selectedTask->id : "" }}">
-                        <input type="hidden" class="form-control" id="recommend-verify-result-request-id" name="verify-result-request-id" value="{{ (($selectedTask)) ? $selectedTask->verify_result_request_id : "" }}">
+                        <input type="hidden" class="form-control" id="work-item-id" name="work-item-id" value="{{ (($selectedTask)) ? $selectedTask->id : '' }}">
+                        <input type="hidden" class="form-control" id="recommend-verify-result-request-id" name="verify-result-request-id" value="{{ ($resultVerificationRequest) ? $resultVerificationRequest->id : '' }}">
           
                         <div class="form-group col-md-12">
                           <label for="session">Decision</label>

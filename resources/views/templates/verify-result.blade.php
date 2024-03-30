@@ -22,14 +22,14 @@
 
         <div class="col-12">
 
-            <img src="{{ public_path('letter-head/header.jpg') }}" width="100%" height="65" />
+            <!-- <img src="{{ public_path('letter-head/header.jpg') }}" width="100%" height="65" /> -->
 
-            
+            <h3> Result Verification Response</h3>
 
             <div class="mt-5">
 
-                <h3>Dear {{ $verifyResultRequest->user->full_name }}, </h3>
-
+                <h3>Dear {{ $verifyResultRequest->enquirer->full_name }}, </h3>
+                
                 {!!  $response !!}
 
                 <br>

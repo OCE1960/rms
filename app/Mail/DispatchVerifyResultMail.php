@@ -3,10 +3,9 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use App\Models\VerifyResultRequest;
+use App\Models\ResultVerificationRequest;
 
 class DispatchVerifyResultMail extends Mailable
 {
@@ -21,10 +20,10 @@ class DispatchVerifyResultMail extends Mailable
      *
      * @return void
      */
-    public function __construct(VerifyResultRequest $verifyResultRequest)
+    public function __construct(ResultVerificationRequest $verifyResultRequest)
     {
         $this->full_name = $verifyResultRequest->student_first_name.' '.$verifyResultRequest->student_middle_name.' '.$verifyResultRequest->student_last_name;
-        $this->receiver = $verifyResultRequest->user->full_name;
+        $this->receiver = $verifyResultRequest->enquirer->full_name;
         $this->registration_no = $verifyResultRequest->registration_no;
         $this->file_path = $verifyResultRequest->resultVerificationResponseAttachment() ? $verifyResultRequest->resultVerificationResponseAttachment()->file_path : "";
     }

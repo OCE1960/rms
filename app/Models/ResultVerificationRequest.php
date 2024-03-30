@@ -48,23 +48,35 @@ class ResultVerificationRequest extends Model
 
     public function comments()
     {
-        return $this->hasMany(Comment::class, 'verify_result_request_id', 'id');
+        return $this->hasMany(Comment::class, 'result_verification_request_id', 'id');
     }
 
     public function attachments()
     {
-        return $this->hasMany(Attachment::class, 'verify_result_request_id', 'id');
+        return $this->hasMany(Attachment::class, 'result_verification_request_id', 'id');
     }
 
     public function submittedAttachment()
     {
-        return Attachment::where('verify_result_request_id', $this->id)->where('label', 'Result Verification Request')->first();
+        return Attachment::where('result_verification_request_id', $this->id)->where('label', 'Result Verification Request')->first();
 
     }
 
     public function resultVerificationResponseAttachment()
     {
-        return Attachment::where('verify_result_request_id', $this->id)->where('label', 'Result Verification')->first();
+        return Attachment::where('result_verification_request_id', $this->id)->where('label', 'Result Verification')->first();
 
+    }
+
+    public function studentFullname()
+    {
+        $item = ResultVerificationRequest::where('id', $this->id)->first();
+
+        return $item->student_first_name." ".$item->student_middle_name."  ".$item->student_last_name;
+    }
+
+    public function enquirer()
+    {
+        return $this->belongsTo(User::class, 'enquirer_user_id', 'id');
     }
 }

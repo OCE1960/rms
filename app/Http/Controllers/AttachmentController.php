@@ -69,7 +69,7 @@ class AttachmentController extends Controller
     public static function generateVerifyResult($verifyResultRequest, $template, $response)
     {
         $authUser = auth()->user();
-        $mpdf = new Mpdf();
+        $mpdf = new Mpdf(['tempDir'=>storage_path('tempdir')]);
         $mpdf->SetWatermarkText('Verify Result Response');
         $mpdf->showWatermarkText = true;
         $mpdf->setFooter('{PAGENO}');
@@ -89,7 +89,7 @@ class AttachmentController extends Controller
             $attachment->description = $response;
             $attachment->file_type =  "pdf";
             $attachment->requester_user_id =  $verifyResultRequest->verifier_user_id;
-            $attachment->verify_result_request_id =  $verifyResultRequest->id;
+            $attachment->result_verification_request_id =  $verifyResultRequest->id;
             $attachment->save();
 
             return true;

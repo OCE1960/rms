@@ -3,7 +3,7 @@
   <div class="modal-dialog modal-xl " role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="roleModalLable">Approve  <strong>{{ ($selectedTask) ? $userVerifyingResult->studentFullname() : "" }} </strong> Result </h5>
+        <h5 class="modal-title" id="roleModalLable">Approve  <strong>{{ ($selectedTask) ? $resultVerificationRequest->studentFullname() : "" }} </strong> Result </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -29,8 +29,8 @@
           
                       <div class="form-row">
           
-                        <input type="hidden" class="form-control" id="work-item-id" name="work-item-id" value="{{ (($selectedTask)) ? $selectedTask->id : "" }}">
-                        <input type="hidden" class="form-control" id="approve-verify-result-request-id" name="verify-result-request-id" value="{{ (($selectedTask)) ? $selectedTask->verify_result_request_id : "" }}">
+                        <input type="hidden" class="form-control" id="work-item-id" name="work-item-id" value="{{ (($selectedTask)) ? $selectedTask->id : '' }}">
+                        <input type="hidden" class="form-control" id="approve-verify-result-request-id" name="verify-result-request-id" value="{{ ($resultVerificationRequest) ? $resultVerificationRequest->id : '' }}">
           
                         <div class="form-group col-md-12">
                           <label for="session">Decision</label>

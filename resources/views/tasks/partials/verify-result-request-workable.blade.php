@@ -5,6 +5,8 @@
             $workItem = $selectedTask->workItem;
             $resultVerificationRequest = $workItem->resultVerificationRequest;
             $fileHistory = $selectedTask->fileHistory($selectedTask->work_item_id);
+            $attachments = $resultVerificationRequest->attachments()->orderBy('created_at', 'desc')->get();
+            $comments = $resultVerificationRequest->comments()->orderBy('created_at', 'desc')->get();
         @endphp
 
         <p class=""><i class="fa fa-address-book mr-2" aria-hidden="true"></i> Student Name: <strong>{{ $userVerifyingResult?->full_name }} </strong> </p>
@@ -17,6 +19,14 @@
         @if ($viewStatus == "in")
             @include('tasks.partials.operations') 
         @endif
+
+        @include('tasks.partials.verify-result-artefacts')
+
+        @include('tasks.modals.verify-result-modal')
+        @include('tasks.modals.check-verify-result-modal')
+        @include('tasks.modals.recommend-verify-result-modal')
+        @include('tasks.modals.approve-verify-result-modal')
+        @include('tasks.modals.dispatch-verify-result-modal')
         
     @endif
     

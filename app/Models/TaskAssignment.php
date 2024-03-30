@@ -43,7 +43,7 @@ class TaskAssignment extends Model
 
     public function verifyResultFileHistory($verify_result_request_id)
     {
-        return WorkItem::where('verify_result_request_id', $verify_result_request_id)->orderBy('created_at', 'asc')
+        return WorkItem::where('result_verification_request_id', $verify_result_request_id)->orderBy('created_at', 'asc')
             ->where('status', '<>', 'new')->get();
     }
 }

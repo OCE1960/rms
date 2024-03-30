@@ -9,10 +9,7 @@
 </nav>
 <div class="tab-content" id="nav-tabContent">
     <div class="tab-pane fade show active" id="nav-result" role="tabpanel" aria-labelledby="nav-result-tab">
-        @php
-            $attachments = $selectedTask->verifyResultRequest->attachments()->orderBy('created_at', 'desc')->get();
-        @endphp
-        @if (count($attachments) > 0)
+        @if (isset($attachments) && count($attachments) > 0)
 
             @foreach ($attachments as $attachment)
                <p class="mt-2"> <a href="{{ asset($attachment->file_path) }}" target="_blank" ><i class="fa fa-folder-open" aria-hidden="true" class="mr-3"></i> {{ $attachment->label }} </a> </p>
@@ -30,10 +27,8 @@
     </div>
     <div class="tab-pane fade" id="nav-comment" role="tabpanel" aria-labelledby="nav-comment-tab">
 
-        @if (count($selectedTask->verifyResultRequest->comments) > 0)
-            @php
-                $comments = $selectedTask->verifyResultRequest->comments()->orderBy('created_at', 'desc')->get();
-            @endphp
+        @if (count($comments) > 0)
+
             <div class="row">
                 @foreach ($comments as $comment)
                     <div class="col-12 shadow-sm p-1 mb-2 bg-white rounded">
@@ -41,7 +36,7 @@
                         <div> 
                             <i class="fa fa-user-circle mr-3" aria-hidden="true"></i>{{  $comment->user->full_name }} <br>
                             <i class="fa fa-cube mr-3" aria-hidden="true"></i> {{  $comment->comment }} 
-                            <small><span class="text-primary">{{ Carbon::parse($comment->created_at)->diffForHumans()  }} </span></small>
+                            <small><span class="text-primary">{{ \Carbon\Carbon::parse($comment->created_at)->diffForHumans()  }} </span></small>
                         </div>
                     </div>
                 @endforeach
@@ -57,18 +52,18 @@
     </div>
     <div class="tab-pane fade" id="nav-history" role="tabpanel" aria-labelledby="nav-history-tab">
 
-        @if ( ($selectedTask) && count($selectedTask->fileHistory($selectedTask->verify_result_request_id)) > 0)
+        @if ( ($selectedTask) && count($fileHistory) > 0)
 
             <div class="row mt-3">
 
-                @foreach ($selectedTask->verifyResultFileHistory($selectedTask->verify_result_request_id) as $workItem)
+                @foreach ($fileHistory as $taskAssignment)
                     <div class="col-12 shadow-sm p-1 mb-2 bg-info rounded">
 
                         <div class="px-3"> 
-                            <i class="fa fa-user-circle mr-3" aria-hidden="true"></i>{{  $workItem->sender->full_name }}  
+                            <i class="fa fa-user-circle mr-3" aria-hidden="true"></i>{{  $taskAssignment->sendBy->full_name }}  
                             <span class="mx-3">  >> </span>  
-                            <i class="fa fa-user-circle mr-3" aria-hidden="true"></i>{{  $workItem->sendTo->full_name }}  <br>
-                            <small><span class="text-white">{{ Carbon::parse($workItem->created_at)->diffForHumans()  }} </span></small>
+                            <i class="fa fa-user-circle mr-3" aria-hidden="true"></i>{{  $taskAssignment->sendTo->full_name }}  <br>
+                            <small><span class="text-white">{{ \Carbon\Carbon::parse($taskAssignment->created_at)->diffForHumans()  }} </span></small>
                         </div>
                     </div>
                 @endforeach
