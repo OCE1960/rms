@@ -52,7 +52,7 @@ class AcademicResultController extends Controller
     public function show($id)
     {
         $academicResult = AcademicResult::find($id);
-        $schoolId = $academicResult->user->student->school_id;
+        $schoolId = $academicResult->user->school_id;
 
         //Redirect to the Role page if validation fails.
          if (empty($academicResult)) { 

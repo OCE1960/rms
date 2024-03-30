@@ -27,7 +27,7 @@ class StoreMoveFileRequest extends FormRequest
             'comment' => 'required|max:191',
             'send_to' => 'required|max:191|exists:users,id',
             'transcriptRequestId' => 'nullable|max:191|exists:transcript_requests,id',
-            'verifyResultRequestId' => 'nullable|max:191|exists:verify_result_requests,id',
+            'verifyResultRequestId' => 'nullable|max:191|exists:result_verification_requests,id',
             'taskItemId' => 'required|max:191|exists:task_assignments,id',
         ];
     }
