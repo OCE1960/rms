@@ -250,7 +250,7 @@ return [
         ],
         [
             'text' => 'Transcripts Requests',
-            'route'  => 'users',
+            'route'  => 'transcript-requests',
             'icon' => 'fa fa-briefcase',
             'can' => [
                 'Super Admin', 'Result Compiler', 'Checking Officer', 'Registry','Dispatching Officer',

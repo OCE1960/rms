@@ -79,4 +79,9 @@ class ResultVerificationRequest extends Model
     {
         return $this->belongsTo(User::class, 'enquirer_user_id', 'id');
     }
+
+    public function workItem()
+    {
+        return $this->hasOne(WorkItem::class, 'result_verification_request_id', 'id');
+    }
 }

@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GradeController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\TaskAssignmentController;
+use App\Http\Controllers\TranscriptRequestController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -52,6 +53,11 @@ Route::middleware('auth:sanctum')->group(function() {
         Route::get('/semesters/{id}', 'show')->name('semesters.show');
         Route::post('/semesters/{id}', 'update')->name('semesters.update');
         Route::post('/semesters/delete/{id}', 'destroy')->name('semesters.delete');
+    });
+
+    Route::controller(TranscriptRequestController::class)->group(function () {
+        Route::get('/transcript-requets/{id}', 'show')->name('transcript-request.show');
+        Route::post('/assign-transcript-requests-file', 'assignTranscriptRequestFile')->name('assign-transcript-requests-file');
     });
 
     Route::controller(GradeController::class)->group(function () {

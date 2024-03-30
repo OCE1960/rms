@@ -34,23 +34,23 @@ class ResultVerificationRequestSeeder extends Seeder
             ]
         );
 
-        $workItem = WorkItem::updateOrCreate(
-            [
-                'result_verification_request_id' => $resultVerificationRequest->id,
-            ],
-            [
-                'is_completed' => false,
-            ]
-        );
+        // $workItem = WorkItem::updateOrCreate(
+        //     [
+        //         'result_verification_request_id' => $resultVerificationRequest->id,
+        //     ],
+        //     [
+        //         'is_completed' => false,
+        //     ]
+        // );
 
-        TaskAssignment::updateOrCreate(
-            [
-                'work_item_id' => $workItem->id,
-            ],
-            [
-                'send_by' => $user->id,
-                'send_to' => $registry->id,
-            ]
-        );
+        // TaskAssignment::updateOrCreate(
+        //     [
+        //         'work_item_id' => $workItem->id,
+        //     ],
+        //     [
+        //         'send_by' => $user->id,
+        //         'send_to' => $registry->id,
+        //     ]
+        // );
     }
 }

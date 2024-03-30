@@ -35,24 +35,24 @@ class TranscriptRequestSeeder extends Seeder
             ]
         );
 
-        $workItem = WorkItem::updateOrCreate(
-            [
-                'transcript_request_id' => $transcriptRequest->id,
-            ],
-            [
-                'is_completed' => false,
-            ]
-        );
+        // $workItem = WorkItem::updateOrCreate(
+        //     [
+        //         'transcript_request_id' => $transcriptRequest->id,
+        //     ],
+        //     [
+        //         'is_completed' => false,
+        //     ]
+        // );
 
-        TaskAssignment::updateOrCreate(
-            [
-                'work_item_id' => $workItem->id,
-            ],
-            [
-                'send_by' => $user->id,
-                'send_to' => $registry->id,
-                'status' => 'new',
-            ]
-        );
+        // TaskAssignment::updateOrCreate(
+        //     [
+        //         'work_item_id' => $workItem->id,
+        //     ],
+        //     [
+        //         'send_by' => $user->id,
+        //         'send_to' => $registry->id,
+        //         'status' => 'new',
+        //     ]
+        // );
     }
 }

@@ -41,6 +41,11 @@ class TranscriptRequest extends Model
         return $this->belongsTo(User::class, 'dispatched_by', 'id');
     }
 
+    public function school()
+    {
+        return $this->belongsTo(School::class, 'school_id', 'id');
+    }
+
     public function archiver()
     {
         return $this->belongsTo(User::class, 'archived_by', 'id');
@@ -64,5 +69,10 @@ class TranscriptRequest extends Model
     public function studentTranscriptFilePath()
     {
         return Attachment::where('transcript_request_id', $this->id)->where('is_student_copy', true)->first();
+    }
+
+    public function workItem()
+    {
+        return $this->hasOne(WorkItem::class, 'transcript_request_id', 'id');
     }
 }

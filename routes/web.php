@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\TaskAssignmentController;
+use App\Http\Controllers\TranscriptRequestController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -67,6 +68,11 @@ Route::prefix('dashboard')->group(function() {
             Route::get('/tasks', 'index')->name('tasks');
             Route::get('/tasks/{id}', 'viewTask')->name('view-tasks');
         });
+
+        Route::controller(TranscriptRequestController::class)->group(function () {
+            Route::get('/transcript-requests', 'index')->name('transcript-requests');
+        });
+
 
 
     });
