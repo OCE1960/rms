@@ -52,7 +52,6 @@ class TaskAssignmentController extends Controller
             $workItem = $selectedTask->workItem;
 
             $taskItemMorph = $workItem->transcript_request_id ? $workItem->transcriptRequest : $workItem->resultVerificationRequest;
-
             $grades = Grade::where('school_id', $taskItemMorph->school_id)->get();
             $courses = Course::where('school_id', $taskItemMorph->school_id)->get();
 
@@ -63,6 +62,23 @@ class TaskAssignmentController extends Controller
                     ->where('school_id', $authUser->school_id)->get();
             }
         }
+
+        if ($request->has('out')) {
+            $workItemId = $request->query('out');
+            $viewStatus = "out";
+            $selectedTask = TaskAssignment::where('id',$workItemId)->where('send_to', $authUser->id)
+                            ->where('is_task_completed', true)->first();
+            
+            $assignTasks = TaskAssignment::where('send_to', $authUser->id)->where('is_task_completed', true)->where('id', '<>', $workItemId)
+                ->paginate(10)->unique('work_item_id'); 
+
+            // $assignTasks = $workItems->unique(function ($item) {
+            //     return $item['work_item_id'];
+            // });
+
+        }
+
+
         return view('tasks.index')->with('assignTasks', $assignTasks)
             ->with('selectedTask', $selectedTask)
             ->with('viewStatus', $viewStatus)

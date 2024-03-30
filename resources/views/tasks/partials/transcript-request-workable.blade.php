@@ -35,7 +35,6 @@
         @include('tasks.modals.recommend-compile-result-modal')
         @include('tasks.modals.approve-compile-result-modal')
         @include('tasks.modals.dispatch-compile-result-modal')
-
         
     @endif
     

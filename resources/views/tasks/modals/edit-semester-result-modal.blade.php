@@ -46,7 +46,7 @@
                       <label for="course">Course</label>
                       <select id="edit-course" name="course" class="form-control select2">
                           <option value="">Choose... </option>
-                          @if (count($courses) > 0)
+                          @if (isset($courses) && count($courses))
 
                             @foreach ($courses as $course)
                               <option value="{{ $course->id }}" >{{ $course->course_code }} - {{ $course->course_name }} </option>
@@ -61,7 +61,7 @@
                     <label for="grade">Grade</label>
                     <select id="edit-grade" name="grade" class="form-control select2">
                         <option value="">Choose... </option>
-                        @if (count($grades) > 0)
+                        @if (isset($grades) && count($grades) > 0)
 
                           @foreach ($grades as $grade)
                             <option value="{{ $grade->id }}" >{{ $grade->code }} </option>

@@ -15,17 +15,20 @@
 
             <div class="row mt-2">
 
-        
-                <div class="col-sm-12 mb-4">
+                @if ($viewStatus == "in")
+
+                    <div class="col-sm-12 mb-4">
                         <button type="button" class="btn btn-info btn-sm float-right" id="add-semester-result" data-toggle="modal" data-target="#">
                             <i class="fas fa-plus mr-2"></i> Add Semester Result
                         </button> 
+                        
+                        <button type="button" class="btn btn-warning btn-sm float-right mr-4" id="add-semester" data-toggle="modal" data-target="#">
+                            <i class="fas fa-plus mr-2"></i> Add Semester
+                        </button>
                     
-                    <button type="button" class="btn btn-warning btn-sm float-right mr-4" id="add-semester" data-toggle="modal" data-target="#">
-                        <i class="fas fa-plus mr-2"></i> Add Semester
-                    </button>
-                
-                </div>
+                    </div>
+
+                @endif
 
                 <div class="col-12">
                     @if (isset($academicResults) && count($academicResults) > 0)

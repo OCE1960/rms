@@ -121,4 +121,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(School::class, 'school_id', 'id');
     }
+
+    public function enquirer()
+    {
+        return $this->hasOne(Enquirer::class, 'user_id', 'id');
+    }
 }
