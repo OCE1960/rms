@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreTranscriptRequestRequest;
 use App\Http\Requests\StoreAsignTranscriptRequest;
 use App\Mail\MoveFile;
 use App\Models\Comment;
@@ -73,7 +72,7 @@ class TranscriptRequestController extends Controller
             if ($request->comment) {
                 $comment = new Comment();
                 $comment->transcript_request_id = $request->transcriptRequestId;
-                $comment->result_verification_request_id = $request->verifyResultRequestId;
+                // $comment->result_verification_request_id = $request->verifyResultRequestId;
                 $comment->comment_by = $authUser->id;
                 $comment->comment = $request->comment;
                 $comment->save();

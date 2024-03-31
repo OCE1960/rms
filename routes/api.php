@@ -3,6 +3,7 @@
 use App\Http\Controllers\AcademicResultController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GradeController;
+use App\Http\Controllers\ResultVerificationRequestController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\TaskAssignmentController;
 use App\Http\Controllers\TranscriptRequestController;
@@ -56,8 +57,13 @@ Route::middleware('auth:sanctum')->group(function() {
     });
 
     Route::controller(TranscriptRequestController::class)->group(function () {
-        Route::get('/transcript-requets/{id}', 'show')->name('transcript-request.show');
+        Route::get('/transcript-requests/{id}', 'show')->name('transcript-request.show');
         Route::post('/assign-transcript-requests-file', 'assignTranscriptRequestFile')->name('assign-transcript-requests-file');
+    });
+
+    Route::controller(ResultVerificationRequestController::class)->group(function () {
+        Route::get('/verification-requests/{id}', 'show')->name('verification-request.show');
+        Route::post('/assign-verification-requests-file', 'assignVerificationRequestFile')->name('assign-verification-requests-file');
     });
 
     Route::controller(GradeController::class)->group(function () {

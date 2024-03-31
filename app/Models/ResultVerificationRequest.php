@@ -75,13 +75,13 @@ class ResultVerificationRequest extends Model
         return $item->student_first_name." ".$item->student_middle_name."  ".$item->student_last_name;
     }
 
-    public function enquirer()
-    {
-        return $this->belongsTo(User::class, 'enquirer_user_id', 'id');
-    }
-
     public function workItem()
     {
         return $this->hasOne(WorkItem::class, 'result_verification_request_id', 'id');
+    }
+
+    public function school()
+    {
+        return $this->belongsTo(School::class, 'school_id', 'id');
     }
 }

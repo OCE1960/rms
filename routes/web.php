@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ResultVerificationRequestController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\TaskAssignmentController;
 use App\Http\Controllers\TranscriptRequestController;
@@ -71,6 +72,10 @@ Route::prefix('dashboard')->group(function() {
 
         Route::controller(TranscriptRequestController::class)->group(function () {
             Route::get('/transcript-requests', 'index')->name('transcript-requests');
+        });
+
+        Route::controller(ResultVerificationRequestController::class)->group(function () {
+            Route::get('/verification-requests', 'index')->name('verification-requests');
         });
 
 

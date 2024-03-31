@@ -253,17 +253,15 @@ return [
             'route'  => 'transcript-requests',
             'icon' => 'fa fa-briefcase',
             'can' => [
-                'Super Admin', 'Result Compiler', 'Checking Officer', 'Registry','Dispatching Officer',
-                'Recommending Officer', 'Approving Officer', 'School Admin', 'Result Uploader',
+                'Super Admin', 'Registry',
             ],
         ],
         [
             'text' => 'Verification Requests',
-            'route'  => 'users',
+            'route'  => 'verification-requests',
             'icon' => 'fas fa-wallet',
             'can' => [
-                'Super Admin', 'Result Compiler', 'Checking Officer', 'Registry','Dispatching Officer',
-                'Recommending Officer', 'Approving Officer', 'School Admin', 'Result Uploader',
+                'Super Admin', 'Registry',
             ],
         ],
         [

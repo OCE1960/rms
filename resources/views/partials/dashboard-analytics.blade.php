@@ -41,7 +41,7 @@
                     <!-- Apply any bg-* class to to the icon to color it -->
                     <span class="info-box-icon bg-primary"><i class="fas fa-wallet"></i></span>
                     <div class="info-box-content">
-                        <a href="#">
+                        <a href="{{ route('verification-requests') }}">
                             <span class="info-box-text">Verification Requests </span>
                             <span class="info-box-number"> {{ count($resultVerificationRequets) }} </span>
                         </a>
@@ -59,7 +59,7 @@
                     <!-- Apply any bg-* class to to the icon to color it -->
                     <span class="info-box-icon bg-primary"><i class="fa fa-briefcase"></i></span>
                     <div class="info-box-content">
-                        <a href="#">
+                        <a href="{{ route('transcript-requests') }}">
                             <span class="info-box-text">Transcript Requests</span>
                             <span class="info-box-number"> {{ count($transcriptRequets) }} </span>
                         </a>

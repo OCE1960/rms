@@ -25,7 +25,7 @@
             <div class="form-row">
 
 
-              <input type="hidden" class="form-control" id="assign-transcript-request-id" name="transcript-request-id" >
+              <input type="hidden" class="form-control" id="assign-verification-request-id" name="verification-request-id" >
 
 
 
@@ -64,14 +64,14 @@
       $(document).ready(function() {
           
           //Show Modal for New Entry
-          $(document).on('click','[data-assign-transcript-request]',function(e) {
+          $(document).on('click','[data-assign-verification-request]',function(e) {
                 e.preventDefault();
                $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val()}});
                const formData = {
                     _token: $('input[name="_token"]').val(),
-                    id: $(this).attr('data-assign-transcript-request')
+                    id: $(this).attr('data-assign-verification-request')
                     }
-               const url = "{{ route('transcript-request.show','') }}/"+formData.id;
+               const url = "{{ route('verification-request.show','') }}/"+formData.id;
                $('.spms-loader').show();
                $.ajax({
                   url: url,
@@ -88,7 +88,7 @@
                             let name = ajaxResponse[i]['first_name']+"  "+ middle +"  "+ajaxResponse[i]['last_name'];
                             $("#move-staff").append("<option value='"+id+"'>"+name+"</option>");
                       }
-                    $('#assign-transcript-request-id').val(result.data.transcriptRequest.id);
+                    $('#assign-verification-request-id').val(result.data.verificationRequest.id);
                     $('#requested-by').text(result.data.user.full_name );
                     $('#assign-file-modal').modal('show');
                   },
@@ -114,11 +114,11 @@
               $('.spms-loader').show();
               let formData = new FormData();
               formData.append('_token', $('input[name="_token"]').val());
-              formData.append('transcriptRequestId', $('#assign-transcript-request-id').val());
+              formData.append('verificationRequestId', $('#assign-verification-request-id').val());
               formData.append('send_to', $('#move-staff').val());
               formData.append('comment', $('#move-comment').val());
     
-              let url = "{{ route('assign-transcript-requests-file') }}";
+              let url = "{{ route('assign-verification-requests-file') }}";
                 
               $.ajax({
               url: url,
