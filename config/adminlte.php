@@ -278,7 +278,7 @@ return [
         ],
         [
             'text' => 'Staffs',
-            'route'  => 'users',
+            'route'  => 'staffs',
             'icon' => 'fas fa-user-friends',
             'can'  => ['Super Admin', 'School Admin'],
         ],
