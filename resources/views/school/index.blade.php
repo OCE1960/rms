@@ -91,6 +91,45 @@
     <script>       
         $(document).ready(function() {
             $('#schools').DataTable();
+
+            //To delete a School
+            $(document).on('click','[data-delete-school]',function(e) {
+                e.preventDefault();
+                $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+                let edit = window.confirm('Are you sure you want to delete this School Record');
+                const formData = {
+                    _token: $('input[name="_token"]').val(),
+                    id: $(this).attr('data-delete-school')
+                }
+                const url = "{{ route('schools.delete','') }}/"+formData.id;
+                if(edit == true){
+                    $.ajax({
+                        url:url,
+                        type: "POST",
+                        data: formData,
+                        cache: false,
+                        processData:false,
+                        contentType: false,
+                        success: function(result){
+                            if(result.errors)
+                            {
+
+                                $.each(result.errors, function(key, value){
+                                    $('#delete_portal').append('<li class="delete_portal_msg">'+value+'</li>');
+                                });
+                            }
+                            else
+                            {
+                                location.reload(true);
+                            }
+                        },
+                    dataType: 'json'
+                    })
+                }else{
+                    location.reload(true);
+                } 
+
+            })
         })
     </script>
     

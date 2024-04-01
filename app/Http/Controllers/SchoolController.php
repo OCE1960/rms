@@ -88,9 +88,21 @@ class SchoolController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\School  $school
+     * @return \Illuminate\Http\Response
      */
-    public function destroy(School $school)
+    public function destroy($id)
     {
-        //
+        $school = School::find($id);
+
+        //Redirect to the Role page if validation fails.
+         if (empty($school)) { 
+           return $this->sendErrorResponse(['School record does not exists']);
+        }
+
+        $school->delete();
+
+        return $this->sendSuccessMessage('School Successfully deleted');
     }
 }
