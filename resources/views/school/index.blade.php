@@ -31,7 +31,7 @@
 
         @if(isset($schools))
         <div class="table-responsive">
-            <h4 class="text-primary"> List of Submitted Leave Requests</h4>
+            <!-- <h4 class="text-primary"> List of Submitted Leave Requests</h4> -->
             <table id="schools" class="table table-striped table-hover">
                 <thead>
                     <tr>
@@ -81,6 +81,7 @@
     </div> <!-- /#info-box -->
 
     @include('school.modals.add-school-modal')
+    @include('school.modals.edit-school-modal')
     @include('school.modals.view-school-modal')
 
 @stop

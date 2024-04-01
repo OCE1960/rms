@@ -96,34 +96,34 @@
                $.ajax({
                     url: url,
                     success: function(result){
-                        if(result.errors)
-                        {
-                            $('.spms-loader').hide();
-                            $('.view-staff-backend-json-response').html('');
-                            $('#view-school-modal').show();
-                            $.each(result.errors, function(key, value){
-                                $('.view-staff-backend-json-response').append('<li class="alert alert-danger">'+value+'</li>');
-                            });
-                        }
-                        else
-                        {
-                            // console.log(result);
-                            $('.spms-loader').hide();
-                            $('.full_name').text(result.data.school.full_name)
-                            $('.short_name').text(result.data.school.short_namee)
-                            $('.address_street').text(result.data.school.address_street)
-                            $('.address_mailbox').text(result.data.school.address_mailbox)
-                            $('.address_town').text(result.data.school.address_town)
-                            $('.state').text(result.data.school.state)
-                            $('.geo_zone').text(result.data.school.geo_zone)
-                            $('.type').text(result.data.school.type)
-                            $('.official_phone').text(result.data.school.official_phone)
-                            $('.official_email').text(result.data.school.official_email)
-                            $('.official_website').text(result.data.school.official_website)
-                            $('#view-school-modal').modal('show');
-                        }
-                        },
-                        dataType: 'json'
+                      if(result.errors)
+                      {
+                          $('.spms-loader').hide();
+                          $('.view-staff-backend-json-response').html('');
+                          $('#view-school-modal').show();
+                          $.each(result.errors, function(key, value){
+                              $('.view-staff-backend-json-response').append('<li class="alert alert-danger">'+value+'</li>');
+                          });
+                      }
+                      else
+                      {
+                          // console.log(result);
+                          $('.spms-loader').hide();
+                          $('.full_name').text(result.data.school.full_name)
+                          $('.short_name').text(result.data.school.short_name)
+                          $('.address_street').text(result.data.school.address_street)
+                          $('.address_mailbox').text(result.data.school.address_mailbox)
+                          $('.address_town').text(result.data.school.address_town)
+                          $('.state').text(result.data.school.state)
+                          $('.geo_zone').text(result.data.school.geo_zone)
+                          $('.type').text(result.data.school.type)
+                          $('.official_phone').text(result.data.school.official_phone)
+                          $('.official_email').text(result.data.school.official_email)
+                          $('.official_website').text(result.data.school.official_website)
+                          $('#view-school-modal').modal('show');
+                      }
+                      },
+                      dataType: 'json'
                 });
             })
         })

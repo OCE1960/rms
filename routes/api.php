@@ -85,5 +85,6 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::controller(SchoolController::class)->group(function () {
         Route::get('/schools/{id}', 'show')->name('schools.show');
         Route::post('/schools', 'store')->name('schools.store');
+        Route::post('/schools/{id}', 'update')->name('schools.update');
     });
 });
