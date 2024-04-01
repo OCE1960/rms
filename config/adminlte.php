@@ -272,15 +272,15 @@ return [
         ],
         [
             'text' => 'Students',
-            'route'  => 'users',
+            'route'  => 'students',
             'icon' => 'fas fa-users',
-            'can'  => ['Super Admin'],
+            'can'  => ['School Admin'],
         ],
         [
             'text' => 'Staffs',
             'route'  => 'users',
             'icon' => 'fas fa-user-friends',
-            'can'  => ['Super Admin'],
+            'can'  => ['Super Admin', 'School Admin'],
         ],
 
         ['header' => 'account_settings'],

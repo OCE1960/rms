@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GradeController;
 use App\Http\Controllers\ResultVerificationRequestController;
 use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\TaskAssignmentController;
 use App\Http\Controllers\TranscriptRequestController;
@@ -87,5 +88,12 @@ Route::middleware('auth:sanctum')->group(function() {
         Route::post('/schools', 'store')->name('schools.store');
         Route::post('/schools/{id}', 'update')->name('schools.update');
         Route::post('/schools/delete/{id}', 'destroy')->name('schools.delete');
+    });
+
+    Route::controller(StudentController::class)->group(function () {
+        Route::get('/students/{id}', 'show')->name('students.show');
+        Route::post('/students', 'store')->name('students.store');
+        Route::post('/students/{id}', 'update')->name('students.update');
+        Route::post('/students/delete/{id}', 'destroy')->name('students.delete');
     });
 });

@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ResultVerificationRequestController;
 use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TaskAssignmentController;
 use App\Http\Controllers\TranscriptRequestController;
 use App\Http\Controllers\UserController;
@@ -63,6 +64,10 @@ Route::prefix('dashboard')->group(function() {
 
         Route::controller(SchoolController::class)->group(function () {
             Route::get('/schools', 'index')->name('schools');
+        });
+
+        Route::controller(StudentController::class)->group(function () {
+            Route::get('/students', 'index')->name('students');
         });
 
         Route::controller(TaskAssignmentController::class)->group(function () {
