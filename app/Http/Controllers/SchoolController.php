@@ -10,17 +10,9 @@ class SchoolController extends Controller
 {
     public function index()
     {
-        $schools = School::all();
+        $schools = School::orderBy('full_name', 'asc')->get();
 
         return view('school.index')->with('schools', $schools); 
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -28,15 +20,42 @@ class SchoolController extends Controller
      */
     public function store(StoreSchoolRequest $request)
     {
-        //
+        $school = new School();
+        $school->full_name = $request->full_name;
+        $school->short_name = $request->short_name;
+        $school->address_street = $request->address_street;
+        $school->address_mailbox = $request->address_mailbox;
+        $school->address_town = $request->address_town;
+        $school->state = $request->state;
+        $school->geo_zone = $request->geo_zone;
+        $school->type = $request->type;
+        $school->official_phone = $request->official_phone;
+        $school->official_email = $request->official_email;
+        $school->official_website = $request->official_website;
+        $school->save();
+
+        return $this->sendSuccessMessage('School sucessfully Created');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(School $school)
+    public function show($id)
     {
-        //
+
+        $school = School::find($id);
+
+        
+         if (empty($school)) { 
+           return $this->sendErrorResponse(['School does not exist']);
+        }
+
+       $data = [
+            'school' => $school,
+       ];
+
+       return $this->sendSuccessResponse('School Record Successfully Retrived',$data);
+       
     }
 
     /**

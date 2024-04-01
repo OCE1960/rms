@@ -4,6 +4,7 @@ use App\Http\Controllers\AcademicResultController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GradeController;
 use App\Http\Controllers\ResultVerificationRequestController;
+use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\TaskAssignmentController;
 use App\Http\Controllers\TranscriptRequestController;
@@ -79,5 +80,10 @@ Route::middleware('auth:sanctum')->group(function() {
         Route::get('/semester-results/{id}', 'show')->name('semester.results.show');
         Route::post('/semester-results/{id}', 'update')->name('semester.results.update');
         Route::post('/semester-results/delete/{id}', 'destroy')->name('semester.results.delete');
+    });
+
+    Route::controller(SchoolController::class)->group(function () {
+        Route::get('/schools/{id}', 'show')->name('schools.show');
+        Route::post('/schools', 'store')->name('schools.store');
     });
 });

@@ -78,7 +78,5 @@ Route::prefix('dashboard')->group(function() {
             Route::get('/verification-requests', 'index')->name('verification-requests');
         });
 
-
-
     });
 });
