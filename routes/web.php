@@ -59,7 +59,7 @@ Route::prefix('dashboard')->group(function() {
             // Route::post('/users/store', 'store')->name('users.store');
             // Route::post('/users/change/password', 'changePassword')->name('users.channge.password');
             // Route::post('/users/disable-account/{id}', 'disableAccount')->name('users.disable.account');
-            // Route::post('/users/reset/{id}', 'resetPassword')->name('users.password.reset');
+            // 
             // Route::get('/students', 'index')->name('student.users');
         });
 

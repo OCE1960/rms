@@ -7,3 +7,4 @@ The New Password is : <strong> {{ $password }} </strong>
 
 Thanks,
 @endcomponent
+

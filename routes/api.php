@@ -35,6 +35,7 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::controller(UserController::class)->group(function () {
         Route::get('/users/show/{id}', 'viewStaff')->name('users.show');
         Route::post('/users/update_profile/{id}', 'updateProfile')->name('users.update.profile');
+        Route::post('/users/reset/{id}', 'resetPassword')->name('users.password.reset');
     });
 
     Route::controller(TaskAssignmentController::class)->group(function () {

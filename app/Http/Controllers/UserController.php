@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ResetUserPasswordRequest;
 use App\Http\Requests\UpdateProfileRequest;
+use App\Mail\ResetUserPassword;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Validator;
 
 class UserController extends Controller
@@ -111,6 +114,25 @@ class UserController extends Controller
         $user->save();
 
         return $this->sendSuccessMessage('Staff Successfully Updated');
+       
+    }
+
+    public function resetPassword(ResetUserPasswordRequest $request, $id)
+    {
+ 
+        $user = User::find($id);
+
+         if (empty($user)) {
+            return $this->sendErrorResponse(['User does not exist']);
+        }
+
+        $password = $request->password;
+        $user->password = bcrypt($password);
+        $user->save();
+
+        Mail::to($user->email)->send(new ResetUserPassword($password));
+
+       return $this->sendSuccessMessage('Staff Password Successfully Reset');
        
     }
 }

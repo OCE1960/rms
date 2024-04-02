@@ -66,6 +66,7 @@
                                 
                                 @canany(['School Admin'])
                                     <button title="View" class="btn btn-xs btn-primary mr-2 mb-2" data-edit-student="{{ $student->id }}"> <i class="fas fa-edit"></i> Edit </button> 
+                                    <button class="btn btn-xs btn-warning mr-2 mb-2" data-reset-password="{{ $student->id }}"> <i class="fas fa-key"></i> Password  </button> 
                                     <button class="btn btn-xs btn-danger mr-2 mb-2" data-delete-student="{{ $student->id }}"> <i class="fas fa-trash"></i> Delete  </button> 
                                 @endcanany
                             </td>
@@ -86,6 +87,7 @@
     @include('students.modals.add-student-modal')
     @include('students.modals.edit-student-modal')
     @include('students.modals.view-student-modal')
+    @include('modals.reset-password-modal')
 
 @stop
 
