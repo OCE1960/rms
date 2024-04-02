@@ -99,7 +99,7 @@
             $(document).on('click','[data-delete-student]',function(e) {
                 e.preventDefault();
                 $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
-                let edit = window.confirm('Are you sure you want to delete this School Record');
+                let edit = window.confirm('Are you sure you want to delete this Student Record');
                 const formData = {
                     _token: $('input[name="_token"]').val(),
                     id: $(this).attr('data-delete-student')

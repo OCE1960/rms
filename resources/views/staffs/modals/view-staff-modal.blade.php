@@ -2,7 +2,7 @@
   <div class="modal-dialog modal-lg " role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title mx-5" id="roleModalLable">Student Details</h5>
+        <h5 class="modal-title mx-5" id="roleModalLable">Staff Details</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -35,11 +35,6 @@
                 </div>
 
                 <div class="row shadow p-3 mb-1 bg-white rounded mx-5">
-                 <div class="col-md-3"> <strong> Registration No. </strong></div>
-                 <div class="col-md-8 registration_no"></div>
-                </div>
-
-                <div class="row shadow p-3 mb-1 bg-white rounded mx-5">
                  <div class="col-md-3"><strong> Phone No. </strong></div>
                  <div class="col-md-8 phone_no"></div>
                 </div>
@@ -47,16 +42,6 @@
                  <div class="row shadow p-3 mb-1 bg-white rounded mx-5">
                  <div class="col-md-3"><strong> gender </strong></div>
                  <div class="col-md-8 gender"></div>
-                </div>
-
-                <div class="row shadow p-3 mb-1 bg-white rounded mx-5">
-                 <div class="col-md-3"><strong> Department </strong></div>
-                 <div class="col-md-8 department"></div>
-                </div>
-
-                <div class="row shadow p-3 mb-1 bg-white rounded mx-5">
-                 <div class="col-md-3"><strong> Program</strong></div>
-                 <div class="col-md-8 program"></div>
                 </div>
       </div>
 

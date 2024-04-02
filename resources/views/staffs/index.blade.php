@@ -6,7 +6,7 @@
     <div class="row">
 
         <div class="col-sm-6">
-            <h4 class="m-0 text-dark">Student Dashboard</h4>
+            <h4 class="m-0 text-dark">Staff Dashboard</h4>
         </div>
 
         <div class="col-sm-6">
@@ -62,8 +62,8 @@
                                 <button title="View" class="btn btn-xs btn-info mr-2 mb-2" data-view-staff="{{ $user->id }}"> <i class="fas fa-eye"></i> View  </button>  
                                 
                                 @canany(['School Admin'])
-                                    <button title="View" class="btn btn-xs btn-primary mr-2 mb-2" data-edit-student="{{ $user->id }}"> <i class="fas fa-edit"></i> Edit </button> 
-                                    <button class="btn btn-xs btn-danger mr-2 mb-2" data-delete-student="{{ $user->id }}"> <i class="fas fa-trash"></i> Delete  </button> 
+                                    <button title="View" class="btn btn-xs btn-primary mr-2 mb-2" data-edit-staff="{{ $user->id }}"> <i class="fas fa-edit"></i> Edit </button> 
+                                    <button class="btn btn-xs btn-danger mr-2 mb-2" data-delete-staff="{{ $user->id }}"> <i class="fas fa-trash"></i> Delete  </button> 
                                 @endcanany
                             </td>
                         </tr>
@@ -93,15 +93,15 @@
             $('#schools').DataTable();
 
             //To delete a School
-            $(document).on('click','[data-delete-student]',function(e) {
+            $(document).on('click','[data-delete-staff]',function(e) {
                 e.preventDefault();
                 $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
-                let edit = window.confirm('Are you sure you want to delete this School Record');
+                let edit = window.confirm('Are you sure you want to delete staff Record');
                 const formData = {
                     _token: $('input[name="_token"]').val(),
-                    id: $(this).attr('data-delete-student')
+                    id: $(this).attr('data-delete-staff')
                 }
-                const url = "{{ route('students.delete','') }}/"+formData.id;
+                const url = "{{ route('staffs.delete','') }}/"+formData.id;
                 if(edit == true){
                     $.ajax({
                         url:url,

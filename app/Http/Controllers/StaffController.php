@@ -29,13 +29,12 @@ class StaffController extends Controller
         $authUser = auth()->user();
         $user = User::updateOrCreate(
             [
-                'registration_no' => $request->registration_no,
+                'email' => $request->email,
             ], 
             [
                 'first_name' => $request->first_name,
                 'middle_name' => $request->middle_name,
                 'last_name' => $request->last_name, 
-                'email' => $request->email, 
                 'phone_no' => $request->phone_no, 
                 'gender' => $request->gender, 
                 'profile_picture_path' => $request->profile_picture_pathe,
@@ -84,7 +83,7 @@ class StaffController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateStaffRequest $request, Staff $staff)
+    public function update(UpdateStaffRequest $request, $id)
     {
         $user = User::find($id);
 
@@ -96,32 +95,28 @@ class StaffController extends Controller
         $authUser = auth()->user();
         User::updateOrCreate(
             [
-                'registration_no' => $request->registration_no,
+                'email' => $request->email,
             ], 
             [
                 'first_name' => $request->first_name,
                 'middle_name' => $request->middle_name,
-                'last_name' => $request->last_name, 
-                'email' => $request->email, 
+                'last_name' => $request->last_name,
                 'phone_no' => $request->phone_no, 
                 'gender' => $request->gender, 
                 'profile_picture_path' => $request->profile_picture_pathe,
                 'date_of_birth' => $request->date_of_birth,
                 'state_of_origin' => $request->state_of_origin, 
                 'school_id' => $authUser->school_id,
-                'is_student' => true, 
-                'password' => bcrypt($request->password),          
+                'is_staff' => true,         
             ]
         );
 
-        Student::updateOrCreate(
+        Staff::updateOrCreate(
             [
                 'user_id' => $user->id,
             ], 
             [
-                'program' => $request->program,
                 'date_of_entry' => $request->date_of_entry,
-                'mode_of_entry' => $request->mode_of_entry,
             ]
         );
 
@@ -131,7 +126,7 @@ class StaffController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Staff $staff)
+    public function destroy($id)
     {
         $user = User::find($id);
 
@@ -141,6 +136,8 @@ class StaffController extends Controller
         }
 
         $user->delete();
+
+
 
         return $this->sendSuccessMessage('User Successfully deleted');
     }

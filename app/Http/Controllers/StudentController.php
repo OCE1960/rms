@@ -108,8 +108,7 @@ class StudentController extends Controller
                 'date_of_birth' => $request->date_of_birth,
                 'state_of_origin' => $request->state_of_origin, 
                 'school_id' => $authUser->school_id,
-                'is_student' => true, 
-                'password' => bcrypt($request->password),          
+                'is_student' => true,         
             ]
         );
 

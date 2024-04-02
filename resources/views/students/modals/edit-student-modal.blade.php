@@ -108,12 +108,12 @@
                     </div>
                 </div>
 
-                <div class="form-row">
+                <!-- <div class="form-row">
                     <div class="form-group col-md-12">
                         <label for="password">Password</label>
                         <input type="text" class="form-control" id="password" name="passwordy">
                     </div>
-                </div>
+                </div> -->
             
 
             </form>
@@ -201,8 +201,7 @@
                 formData.append('email', $('#edit_email').val());
                 formData.append('registration_no', $('#edit_registration_no').val());
                 formData.append('phone_no', $('#edit_phone_no').val());
-                formData.append('gender', $('#edit_gender').val());
-                formData.append('password', $('#edit_password').val());
+                formData.append('gender', $('#edit_gender').val());;
                 formData.append('department', $('#edit_department').val());
                 formData.append('program', $('#edit_program').val());
                 formData.append('date_of_entry', $('#edit_date_of_entry').val());
@@ -232,7 +231,7 @@
                             closeOnConfirm: false
                         });
                         window.setTimeout( function(){
-                            $('#add-new-user-modal').modal('hide');
+                            $('#edit-student-modal').modal('hide');
                                 location.reload(true);
                         },2000);
                                     

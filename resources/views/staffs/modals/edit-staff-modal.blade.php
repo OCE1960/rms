@@ -1,8 +1,8 @@
-<div class="modal fade" id="edit-student-modal" tabindex="-1" role="dialog" aria-labelledby="roleModalLable" aria-hidden="true">
+<div class="modal fade" id="edit-staff-modal" tabindex="-1" role="dialog" aria-labelledby="roleModalLable" aria-hidden="true">
   <div class="modal-dialog  " role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="roleModalLable">Edit Student</h5>
+        <h5 class="modal-title" id="roleModalLable">Edit Staff</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -42,11 +42,6 @@
                     </div>
 
                     <div class="form-group col-md-12">
-                        <label for="edit_registration_no">Registration No</label>
-                        <input type="text" class="form-control" id="edit_registration_no" name="edit_registration_no">
-                    </div>
-
-                    <div class="form-group col-md-12">
                         <label for="edit_phone_no">Phone No</label>
                         <input type="text" class="form-control" id="edit_phone_no" name="edit_phone_no">
                     </div>
@@ -75,45 +70,14 @@
                         <input type="text" class="form-control" id="edit_state" name="edit_state">
                     </div>
 
-                    <div class="form-group col-md-12">
-                        <label for="edit_program">Program</label>
-                        <select id="edit_program" name="edit_program" class="form-control">
-                            <option value="">Choose...</option>
-                            <option value="BSc">BSc</option>
-                            <option value="MSc ">MSc </option>
-                            <option value="PhD">PhD</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group col-md-12">
-                        <label for="edit_department">Department</label>
-                        <input type="text" class="form-control" id="edit_department" name="edit_department">
-                    </div>
-
-                    
-
                 </div>
 
-                <div class="form-row">
-                    <div class="form-group col-md-12">
-                        <label for="edit_date_of_entry">Date of Entry</label>
-                        <input type="date" class="form-control" id="edit_date_of_entry" name="edit_date_of_entry">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group col-md-12">
-                        <label for="edit_mode_of_entry">Mode of Entry</label>
-                        <input type="text" class="form-control" id="edit_mode_of_entry" name="edit_mode_of_entry">
-                    </div>
-                </div>
-
-                <div class="form-row">
+                <!-- <div class="form-row">
                     <div class="form-group col-md-12">
                         <label for="password">Password</label>
                         <input type="text" class="form-control" id="password" name="passwordy">
                     </div>
-                </div>
+                </div> -->
             
 
             </form>
@@ -127,7 +91,7 @@
         </div>
 
         <div class="form-group col-md-6">
-            <button type="button" id="save-edit-student" class="btn btn-primary float-right" data-add-role="role">Update Student</button>
+            <button type="button" id="save-edit-staff" class="btn btn-primary float-right" data-add-role="role">Update Staff</button>
         </div>
 
         
@@ -143,14 +107,14 @@
             
         $(document).ready(function() {
             
-            $(document).on('click','[data-edit-student]',function(e) {
+            $(document).on('click','[data-edit-staff]',function(e) {
                 e.preventDefault();
                $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val()}});
                const formData = {
                     _token: $('input[name="_token"]').val(),
-                    id: $(this).attr('data-edit-student')
+                    id: $(this).attr('data-edit-staff')
                     }
-               const url = "{{ route('students.show','') }}/"+formData.id;
+               const url = "{{ route('staffs.show','') }}/"+formData.id;
                $('.spms-loader').show();
                $.ajax({
                   url: url,
@@ -162,15 +126,12 @@
                     $('#edit_middle_name').val(result.data.user.middle_name);
                     $('#edit_last_name').val(result.data.user.last_name);
                     $('#edit_email').val(result.data.user.email);
-                    $('#edit_registration_no').val(result.data.user.registration_no);
                     $('#edit_phone_no').val(result.data.user.phone_no);
                     $('#edit_gender').val(result.data.user.gender);
-                    $('#edit_department').val(result.data.student.department);
-                    $('#edit_program').val(result.data.student.program);
 
                     $('.backend-json-response').html('');
                     $.fn.modal.Constructor.prototype._enforceFocus = function() {};
-                    $('#edit-student-modal').modal('show');
+                    $('#edit-staff-modal').modal('show');
                   },
                   error : function(response, textStatus, errorThrown){
                                   
@@ -186,10 +147,10 @@
           })
 
              //Functionality to save New Entry
-            $(document).on('click','#save-edit-student',function(e) {
+            $(document).on('click','#save-edit-staff',function(e) {
                 e.preventDefault();
                 $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val()}});
-                $('#save-edit-school').attr('disabled', true);
+                $('#save-edit-staff').attr('disabled', true);
                 $('#spms-loader').show();
 
                 const id = $('#user-id').val();
@@ -199,17 +160,11 @@
                 formData.append('middle_name', $('#edit_middle_name').val());
                 formData.append('last_name', $('#edit_last_name').val());
                 formData.append('email', $('#edit_email').val());
-                formData.append('registration_no', $('#edit_registration_no').val());
                 formData.append('phone_no', $('#edit_phone_no').val());
                 formData.append('gender', $('#edit_gender').val());
-                formData.append('password', $('#edit_password').val());
-                formData.append('department', $('#edit_department').val());
-                formData.append('program', $('#edit_program').val());
-                formData.append('date_of_entry', $('#edit_date_of_entry').val());
-                formData.append('mode_of_entry', $('#edit_mode_of_entry').val());
                 formData.append('id', id);
                
-                let url = "{{ route('students.update','') }}/"+id;
+                let url = "{{ route('staffs.update','') }}/"+id;
                  $.ajax({
                     url: url,
                     type: "POST",
@@ -232,17 +187,15 @@
                             closeOnConfirm: false
                         });
                         window.setTimeout( function(){
-                            $('#add-new-user-modal').modal('hide');
+                            $('#edit-staff-modal').modal('hide');
                                 location.reload(true);
                         },2000);
-                                    
-
 
                     },
                     error : function(response, textStatus, errorThrown){
                                     
                         $('#spms-loader').hide();
-                        $('#save-edit-student').attr('disabled', false);
+                        $('#save-edit-staff').attr('disabled', false);
                         $('.backend-json-response').html('');
                         $.each(response.responseJSON.errors, function(key, value){
                                 $('.backend-json-response').append('<span class="alert alert-danger mr-4" style="display:inline-block;"> <i class="fa fa-times mr-2"></i>  '+value+'</span>');

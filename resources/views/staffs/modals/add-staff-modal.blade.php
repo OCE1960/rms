@@ -40,11 +40,6 @@
                     </div>
 
                     <div class="form-group col-md-12">
-                        <label for="registration_no">Registration No</label>
-                        <input type="text" class="form-control" id="registration_no" name="registration_no">
-                    </div>
-
-                    <div class="form-group col-md-12">
                         <label for="phone_no">Phone No</label>
                         <input type="text" class="form-control" id="phone_no" name="phone_no">
                     </div>
@@ -73,37 +68,6 @@
                         <input type="text" class="form-control" id="state" name="state">
                     </div>
 
-                    <div class="form-group col-md-12">
-                        <label for="program">Program</label>
-                        <select id="program" name="program" class="form-control">
-                            <option value="">Choose...</option>
-                            <option value="BSc">BSc</option>
-                            <option value="MSc ">MSc </option>
-                            <option value="PhD">PhD</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group col-md-12">
-                        <label for="department">Department</label>
-                        <input type="text" class="form-control" id="department" name="department">
-                    </div>
-
-                    
-
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group col-md-12">
-                        <label for="date_of_entry">Date of Entry</label>
-                        <input type="date" class="form-control" id="date_of_entry" name="date_of_entry">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group col-md-12">
-                        <label for="mode_of_entry">Mode of Entry</label>
-                        <input type="text" class="form-control" id="mode_of_entry" name="mode_of_entry">
-                    </div>
                 </div>
 
                 <div class="form-row">
@@ -163,20 +127,14 @@
                 formData.append('middle_name', $('#middle_name').val());
                 formData.append('last_name', $('#last_name').val());
                 formData.append('email', $('#email').val());
-                formData.append('registration_no', $('#registration_no').val());
                 formData.append('phone_no', $('#phone_no').val());
                 formData.append('gender', $('#gender').val());
                 formData.append('password', $('#password').val());
                 formData.append('date_of_birth', $('#date_of_birth').val());
                 formData.append('nationality', $('#nationality').val());
                 formData.append('state_of_origin', $('#state_of_origin').val());
-                formData.append('department', $('#department').val());
-                formData.append('program', $('#program').val());
-                formData.append('date_of_entry', $('#date_of_entry').val());
-                formData.append('mode_of_entry', $('#mode_of_entry').val());
-        
                
-                let url = "{{ route('students.store') }}";
+                let url = "{{ route('staffs.store') }}";
                  $.ajax({
                     url: url,
                     type: "POST",
