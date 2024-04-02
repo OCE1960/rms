@@ -40,6 +40,10 @@ return new class extends Migration
             $table->timestamps();
             $table->primary('id');
         });
+
+        Schema::table('users', function($table) {
+            $table->foreignUuid('created_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+        });
     }
 
     /**

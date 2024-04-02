@@ -59,12 +59,12 @@
                             <td> {{ $user->school?->full_name}} </td>
 
                             <td class="text-center">  
-                                <button title="View" class="btn btn-xs btn-info mr-2 mb-2" data-view-staff="{{ $user->id }}"> <i class="fas fa-eye"></i> View  </button>  
+                                <button title="View" class="btn btn-xs btn-info mr-2 mb-2" data-view-staff="{{ $user->id }}"> <i class="fas fa-eye"></i> </button>  
                                 
                                 @canany(['School Admin'])
-                                    <button title="View" class="btn btn-xs btn-primary mr-2 mb-2" data-edit-staff="{{ $user->id }}"> <i class="fas fa-edit"></i> Edit </button> 
-                                    <button class="btn btn-xs btn-warning mr-2 mb-2" data-reset-password="{{ $user->id }}"> <i class="fas fa-key"></i> Password  </button> 
-                                    <button class="btn btn-xs btn-danger mr-2 mb-2" data-delete-staff="{{ $user->id }}"> <i class="fas fa-trash"></i> Delete  </button> 
+                                    <button title="View" class="btn btn-xs btn-primary mr-2 mb-2" data-edit-staff="{{ $user->id }}"> <i class="fas fa-edit"></i> </button> 
+                                    <button class="btn btn-xs btn-warning mr-2 mb-2" data-reset-password="{{ $user->id }}"> <i class="fas fa-key"></i>  </button> 
+                                    <button class="btn btn-xs btn-danger mr-2 mb-2" data-delete-staff="{{ $user->id }}"> <i class="fas fa-trash"></i> </button> 
                                 @endcanany
                             </td>
                         </tr>

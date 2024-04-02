@@ -11,7 +11,10 @@
 
         <div class="col-sm-6">
             
-            @canany(['School Admin'])
+            @canany(['Super Admin', 'School Admin'])
+                <button  id="bulk-upload-students" class="btn btn-success btn-sm float-right bulk-upload-supervisors ml-2"  >
+                    <i class="fas fa-file-upload"></i>  Bulk Upload Students
+                </button>
                 <button  id="add-new-student"  class="btn btn-primary btn-sm float-right" >
                     <i class="fas fa-plus mr-2"></i> Add New Student
                 </button>  
@@ -62,12 +65,12 @@
                             <td> {{ $student->school?->full_name}} </td>
 
                             <td class="text-center">  
-                                <button title="View" class="btn btn-xs btn-info mr-2 mb-2" data-view-student="{{ $student->id }}"> <i class="fas fa-eye"></i> View  </button>  
+                                <button title="View" class="btn btn-xs btn-info mr-2 mb-2" data-view-student="{{ $student->id }}"> <i class="fas fa-eye"></i> </button>  
                                 
                                 @canany(['School Admin'])
-                                    <button title="View" class="btn btn-xs btn-primary mr-2 mb-2" data-edit-student="{{ $student->id }}"> <i class="fas fa-edit"></i> Edit </button> 
-                                    <button class="btn btn-xs btn-warning mr-2 mb-2" data-reset-password="{{ $student->id }}"> <i class="fas fa-key"></i> Password  </button> 
-                                    <button class="btn btn-xs btn-danger mr-2 mb-2" data-delete-student="{{ $student->id }}"> <i class="fas fa-trash"></i> Delete  </button> 
+                                    <button title="View" class="btn btn-xs btn-primary mr-2 mb-2" data-edit-student="{{ $student->id }}"> <i class="fas fa-edit"></i> </button> 
+                                    <button class="btn btn-xs btn-warning mr-2 mb-2" data-reset-password="{{ $student->id }}"> <i class="fas fa-key"></i> </button> 
+                                    <button class="btn btn-xs btn-danger mr-2 mb-2" data-delete-student="{{ $student->id }}"> <i class="fas fa-trash"></i>  </button> 
                                 @endcanany
                             </td>
                         </tr>
@@ -88,6 +91,7 @@
     @include('students.modals.edit-student-modal')
     @include('students.modals.view-student-modal')
     @include('modals.reset-password-modal')
+    @include('students.modals.bulk-upload-student-modal')
 
 @stop
 

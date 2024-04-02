@@ -105,7 +105,7 @@
                           $('.gender').text(result.data.user.gender)
                           $('.nationality').text(result.data.user.nationality)
                           $('.department').text(result.data.student.department)
-                          $('.program').text(result.data.student.department)
+                          $('.program').text(result.data.student.program)
 
                           $('#view-student-modal').modal('show');
                       }
