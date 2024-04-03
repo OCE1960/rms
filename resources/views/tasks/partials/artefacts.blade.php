@@ -22,8 +22,8 @@
                             <i class="fas fa-plus mr-2"></i> Add Semester Result
                         </button> 
                         
-                        <button type="button" class="btn btn-warning btn-sm float-right mr-4" id="add-semester" data-toggle="modal" data-target="#">
-                            <i class="fas fa-plus mr-2"></i> Add Semester
+                        <button type="button" class="btn btn-warning btn-sm float-right mr-4" id="add-new-semester" data-toggle="modal" data-target="#">
+                            <i class="fas fa-plus mr-2"></i> Add New Semester
                         </button>
                     
                     </div>

@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ResultVerificationRequestController;
 use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TaskAssignmentController;
@@ -74,6 +75,10 @@ Route::prefix('dashboard')->group(function() {
 
         Route::controller(CoursesController::class)->group(function () {
             Route::get('/courses', 'index')->name('courses');
+        });
+
+        Route::controller(SemesterController::class)->group(function () {
+            Route::get('/semesters', 'index')->name('semesters');
         });
 
         Route::controller(StaffController::class)->group(function () {

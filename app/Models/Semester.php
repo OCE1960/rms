@@ -11,6 +11,15 @@ class Semester extends Model
     use HasFactory;
     use HasUuids;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'school_id', 'semester_session', 'created_by', 'semester_name', 'updated_by'
+    ];
+
     public function studentSemesterResult($userId)
     {
         return AcademicResult::where('semester_id', $this->id)->where('user_id', $userId)->get();

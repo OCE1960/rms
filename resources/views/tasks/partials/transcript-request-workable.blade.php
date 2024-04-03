@@ -27,8 +27,8 @@
         @include('tasks.partials.artefacts')
 
         @include('tasks.modals.compile-result-modal')
-        @include('tasks.modals.add-semester-modal')
-        @include('tasks.modals.edit-semester-modal')
+        @include('semesters.modals.add-semester-modal')
+        @include('semesters.modals.edit-semester-modal')
         @include('tasks.modals.add-semester-result-modal')
         @include('tasks.modals.edit-semester-result-modal')
         @include('tasks.modals.check-compile-result-modal')

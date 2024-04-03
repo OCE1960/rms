@@ -288,6 +288,12 @@ return [
             'icon' => 'fas fa-book-open',
             'can'  => ['Super Admin', 'School Admin'],
         ],
+        [
+            'text' => 'Semesters',
+            'route'  => 'semesters',
+            'icon' => 'fas fa-cubes',
+            'can'  => ['Super Admin', 'School Admin'],
+        ],
 
         ['header' => 'account_settings'],
         [

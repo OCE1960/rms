@@ -3,7 +3,7 @@
   <div class="modal-dialog modal-md " role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="roleModalLable">Add New Semester for <strong>{{ ($selectedTask) ? $selectedTask->workItem->transcriptRequest->requestedBy->full_name : "" }} </strong> </h5>
+        <h5 class="modal-title" id="roleModalLable">Add New Semester</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -18,33 +18,22 @@
           @csrf
           <div id="role_error" class="backend-json-response"></div>
 
+          <input type="hidden" class="form-control" id="school_id" name="school_id" value="{{ ($schoolId) ? $schoolId : '0' }}">
+
             <div class="form-row">
 
-              <input type="hidden" class="form-control" id="user-id" name="user-id" value="{{ (($selectedTask) && ($userRequestingTranscript )) ? $userRequestingTranscript->id : '' }}">
-              <input type="hidden" class="form-control" id="school-id" name="school-id" value="{{ ($transcriptRequest) ? $transcriptRequest->school_id : '' }}">
-              <input type="hidden" class="form-control" id="work-item-id" name="work-item-id" value="{{ ($workItem) ? $workItem->id : '' }}">
-              <input type="hidden" class="form-control" id="transcript-request-id" name="transcript-request-id" value="{{ ($transcriptRequest) ? $transcriptRequest->id : '' }}">
-
               <div class="form-group col-md-12">
-                <label for="session">Session</label>
-                <select id="session" name="session" class="form-control select2">
-                    @php
-                        $date = date("Y", strtotime(now()));
-                        $count = 50;
-                    @endphp
-                    <option value="">Choose... </option>
-                    @for ($i = 0; $i <= $count; $i++)
-                    <option value="{{ $date - ($i+1) }}/{{ $date - $i }}" >{{ $date - ($i+1) }}/{{ $date - $i }}</option>
-                    @endfor
-                   
-                </select>
+
+                <label for="semester_session">Semester Session</label>
+                  <input type="text" class="form-control" id="semester_session" name="semester_session"
+                    value="{{  old('semester_session') }}"  >
               </div>  
 
   
 
               <div class="form-group col-md-12">
-                  <label for="semester-name">Semester Name</label>
-                  <input type="text" class="form-control" id="semester-name" name="semester-name"
+                  <label for="semester_name">Semester Name</label>
+                  <input type="text" class="form-control" id="semester_name" name="semester_name"
                     value="{{  old('semester_name') }}"  >
               </div>
 
@@ -71,7 +60,7 @@
       $(document).ready(function() {
           
           //Show Modal for New Entry
-          $(document).on('click','#add-semester',function(e) {
+          $(document).on('click','#add-new-semester',function(e) {
               e.preventDefault();
               $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val()}});
               $('.spms-loader').hide();
@@ -90,12 +79,11 @@
               $('.spms-loader').show();
               let formData = new FormData();
               formData.append('_token', $('input[name="_token"]').val());
-              formData.append('user_id', $('#user-id').val());
-              formData.append('school_id', $('#school-id').val());
-              formData.append('semester_session', $('#session').val());
-              formData.append('semester_name', $('#semester-name').val());
+              formData.append('school_id', $('#school_id').val());
+              formData.append('semester_session', $('#semester_session').val());
+              formData.append('semester_name', $('#semester_name').val());
     
-              let url = "{{ route('semesters') }}";
+              let url = "{{ route('semesters.store') }}";
                 
               $.ajax({
               url: url,

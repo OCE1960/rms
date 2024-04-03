@@ -16,6 +16,7 @@ use App\Models\Course;
 use App\Models\Grade;
 use App\Models\ResultVerificationRequest;
 use App\Models\Role;
+use App\Models\Semester;
 use App\Models\Student;
 use App\Models\TaskAssignment;
 use App\Models\TranscriptRequest;
@@ -41,6 +42,8 @@ class TaskAssignmentController extends Controller
         $users = null;
         $admin = Role::where('key', 'super-admin')->firstOrFail();
         $registry = Role::where('key', 'registry')->firstOrFail();
+        $semesters = Semester::where('school_id', $authUser->school_id)
+            ->orderBy('semester_session', 'asc')->orderBy('semester_name', 'asc')->get();
 
         if ($request->has('in') && ($request->query('in'))) {
             $workItemId = $request->query('in');
@@ -85,6 +88,8 @@ class TaskAssignmentController extends Controller
             ->with('viewStatus', $viewStatus)
             ->with('courses', $courses)
             ->with('users', $users)
+            ->with('semesters', $semesters)
+            ->with('schoolId', $authUser->school_id)
             ->with('grades', $grades); 
     }
 

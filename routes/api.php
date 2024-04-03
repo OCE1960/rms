@@ -56,10 +56,11 @@ Route::middleware('auth:sanctum')->group(function() {
     });
 
     Route::controller(SemesterController::class)->group(function () {
-        Route::post('/semesters', 'processAddSemester')->name('semesters');
+        Route::post('/semesters', 'processAddSemester')->name('semesters.store');
         Route::get('/semesters/{id}', 'show')->name('semesters.show');
         Route::post('/semesters/{id}', 'update')->name('semesters.update');
         Route::post('/semesters/delete/{id}', 'destroy')->name('semesters.delete');
+        Route::post('/semesters/csv/bulk-upload', 'processSemesterBulkUpload')->name('semesters.bulk.upload');
     });
 
     Route::controller(TranscriptRequestController::class)->group(function () {

@@ -2,7 +2,7 @@
   <div class="modal-dialog modal-md " role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="roleModalLable">Edit Semester for <strong>{{ ($selectedTask) ? $userRequestingTranscript->full_name : "" }} </strong> </h5>
+        <h5 class="modal-title" id="roleModalLable">Edit Semester</strong> </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -19,23 +19,12 @@
 
               <div class="form-row">
 
-                <input type="hidden" class="form-control" id="edit-user-id" name="user-id" value="{{ (($selectedTask) && ($userRequestingTranscript)) ? $userRequestingTranscript->id : '' }}">
-                <input type="hidden" class="form-control" id="edit-semester-school-id" name="edit-semester-school-id" value="{{ ($transcriptRequest) ? $transcriptRequest->school_id : '' }}">
+                <input type="hidden" class="form-control" id="edit-semester-school-id" name="edit-semester-school-id">
                 <input type="hidden" class="form-control" id="semester-id" name="semester-id" >
 
                 <div class="form-group col-md-12">
                   <label for="edit-session">Session</label>
-                  <select id="edit-session" name="edit-session" class="form-control">
-                      @php
-                          $date = date("Y", strtotime(now()));
-                          $count = 50;
-                      @endphp
-                      <option value="">Choose... </option>
-                      @for ($i = 0; $i <= $count; $i++)
-                      <option value="{{ $date - ($i+1) }}/{{ $date - $i }}" >{{ $date - ($i+1) }}/{{ $date - $i }}</option>
-                      @endfor
-                    
-                  </select>
+                  <input type="text" class="form-control" id="edit-session" name="edit-session" >
                 </div>  
 
                 <div class="form-group col-md-12">
@@ -48,7 +37,7 @@
         <div class="modal-footer">
           
           <button type="button" class="btn btn-secondary mr-5" data-dismiss="modal">Close</button>
-          <button type="button" id="save-edit-semester" class="btn btn-primary" data-add-role="save">Save</button>
+          <button type="button" id="save-edit-semester" class="btn btn-primary" data-add-role="save">Update Semester</button>
         </div>
     </div>
   </div>
@@ -79,7 +68,7 @@
                     $('#semester-id').val(result.data.semester.id);
                     $('#edit-semester-name').val(result.data.semester.semester_name);
                     $('#edit-session').val(result.data.semester.semester_session);
-                    //$('#edit-session').select2().val(result.data.semester.session).trigger("change");
+                    $('#edit-semester-school-id').val(result.data.semester.school_id);
 
                     $('.backend-json-response').html('');
                     $.fn.modal.Constructor.prototype._enforceFocus = function() {};
@@ -88,7 +77,7 @@
                   error : function(response, textStatus, errorThrown){
                                   
                     $('#spms-loader').hide();
-                    $('#save-new-user').attr('disabled', false);
+                    $('#save-edit-semester').attr('disabled', false);
                     $('.backend-json-response').html('');
                     $.each(response.responseJSON.errors, function(key, value){
                             $('.backend-json-response').append('<span class="alert alert-danger mr-4" style="display:inline-block;"> <i class="fa fa-times mr-2"></i>  '+value+'</span>');
