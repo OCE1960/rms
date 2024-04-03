@@ -52,7 +52,7 @@ class StoreStudentRequest extends FormRequest
     {
         return [
             'first_name' => 'First Name',
-            'middle_name' => "Middle NAme",
+            'middle_name' => "Middle Name",
             'last_name' => "Last Name",
             'email' => "Email",
             'phone_no' => "Phone No",

@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreignUuid('result_verification_request_id')->nullable()->constrained('result_verification_requests')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignUuid('comment_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->string('comment')->nullable();
-            $table->foreignUuid('created_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignUuid('updated_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
             $table->primary('id');

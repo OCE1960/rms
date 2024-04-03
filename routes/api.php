@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AcademicResultController;
+use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GradeController;
 use App\Http\Controllers\ResultVerificationRequestController;
@@ -98,6 +99,14 @@ Route::middleware('auth:sanctum')->group(function() {
         Route::post('/students', 'store')->name('students.store');
         Route::post('/students/{id}', 'update')->name('students.update');
         Route::post('/students/delete/{id}', 'destroy')->name('students.delete');
+    });
+
+    Route::controller(CoursesController::class)->group(function () {
+        Route::get('/courses/{id}', 'show')->name('courses.show');
+        Route::post('/courses', 'store')->name('courses.store');
+        Route::post('/courses/{id}', 'update')->name('courses.update');
+        Route::post('/courses/delete/{id}', 'destroy')->name('courses.delete');
+        Route::post('/courses/csv/bulk-upload', 'processCourseBulkUpload')->name('courses.bulk.upload');
     });
 
     Route::controller(StaffController::class)->group(function () {

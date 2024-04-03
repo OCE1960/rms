@@ -160,16 +160,16 @@ class UserController extends Controller
 
                     $user = User::updateOrCreate(
                         [
-                            'registration_no' =>$data[3],
+                            'registration_no' => trim($data[3]),
                         ],
                         [
-                            'phone_no' => $data[4],
-                            'email' => $data[2],
+                            'phone_no' =>trim($data[4]),
+                            'email' => trim($data[2]),
                             'password' => bcrypt('password'),
                             'is_student' => true,
                             'is_disabled' => false,
-                            'first_name' => $data[0],
-                            'last_name' => $data[1],
+                            'first_name' => trim($data[0]),
+                            'last_name' =>trim($data[1]),
                             'school_id' => $authUser->school_id,
                             'created_by' => $authUser->id,
                         ]
@@ -180,8 +180,8 @@ class UserController extends Controller
                             'user_id' => $user->id,
                         ],
                         [
-                            'department' => $data[5],
-                            'program' => $data[6],
+                            'department' => trim($data[5]),
+                            'program' => trim($data[6]),
                         ]
                     );
                   }
@@ -194,31 +194,31 @@ class UserController extends Controller
                     }
 
                     if (trim(strtolower($headers[2])) != 'email') {
-                        $invalids['inc'] = 'The file format is incorrect. Must be - "first_name,last_name,email,registration_no,phone_no2"';
+                        $invalids['inc'] = 'The file format is incorrect. Must be - "first_name,last_name,email,registration_no,phone_no,department,program"';
                         array_push($errors, $invalids);
                         break;
                     }
 
                     if (trim(strtolower($headers[3])) != 'registration_no') {
-                        $invalids['inc'] = 'The file format is incorrect. Must be - "first_name,last_name,email,registration_no,phone_no, "';
+                        $invalids['inc'] = 'The file format is incorrect. Must be - "first_name,last_name,email,registration_no,phone_no,department,program"';
                         array_push($errors, $invalids);
                         break;
                     }
 
                     if (trim(strtolower($headers[4])) != 'phone_no') {
-                        $invalids['inc'] = 'The file format is incorrect. Must be - "first_name,last_name,email,registration_no,phone_no4"';
+                        $invalids['inc'] = 'The file format is incorrect. Must be - "first_name,last_name,email,registration_no,phone_no,department,program"';
                         array_push($errors, $invalids);
                         break;
                     }
 
                     if (trim(strtolower($headers[5])) != 'department') {
-                        $invalids['inc'] = 'The file format is incorrect. Must be - "first_name,last_name,email,registration_no,phone_no5"';
+                        $invalids['inc'] = 'The file format is incorrect. Must be - "first_name,last_name,email,registration_no,phone_no,department,program"';
                         array_push($errors, $invalids);
                         break;
                     }
 
                     if (trim(strtolower($headers[6])) != 'program') {
-                        $invalids['inc'] = strtolower($headers[6]);
+                        $invalids['inc'] = 'The file format is incorrect. Must be - "first_name,last_name,email,registration_no,phone_no,department,program"';
                         array_push($errors, $invalids);
                         break;
                     }

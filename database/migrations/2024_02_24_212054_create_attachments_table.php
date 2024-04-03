@@ -21,7 +21,6 @@ return new class extends Migration
             $table->boolean('is_student_copy')->default(false);
             $table->foreignUuid('transcript_request_id')->nullable()->constrained('transcript_requests')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignUuid('requester_user_id')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignUuid('created_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignUuid('result_verification_request_id')->nullable()->constrained('result_verification_requests')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignUuid('created_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignUuid('updated_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');

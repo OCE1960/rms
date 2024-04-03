@@ -10,4 +10,13 @@ class Course extends Model
 {
     use HasFactory;
     use HasUuids;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'school_id', 'course_code', 'course_name', 'unit', 'created_by', 'updated_by'
+    ];
 }
