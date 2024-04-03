@@ -107,7 +107,7 @@
                     _token: $('input[name="_token"]').val(),
                     id: $(this).attr('data-edit-semester-result')
                     }
-                const url = "{{ route('semester.results.show','') }}/"+formData.id;
+                const url = "{{ route('academic.results.show','') }}/"+formData.id;
                $('.spms-loader').show();
                $.ajax({
                             url: url,
@@ -193,7 +193,7 @@
               formData.append('id', id);
     
 
-              const url = "{{ route('semester.results.update','') }}/"+id;
+              const url = "{{ route('academic.results.update','') }}/"+id;
 
               $.ajax({
                     url: url,

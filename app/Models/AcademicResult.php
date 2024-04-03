@@ -11,6 +11,16 @@ class AcademicResult extends Model
     use HasFactory;
     use HasUuids;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'school_id', 'score', 'grade_point', 'grade', 'created_by', 'updated_by',
+        'unit', 'course_id', 'semester_id', 'user_id'
+    ];
+
     public function semester()
     {
         return $this->belongsTo(Semester::class, 'semester_id', 'id');

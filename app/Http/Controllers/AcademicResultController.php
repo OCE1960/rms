@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BulkUploadResultRequest;
 use App\Http\Requests\StoreAcademicResultRequest;
 use App\Http\Requests\UpdateAcademicResultRequest;
 use App\Models\AcademicResult;
 use App\Models\Course;
 use App\Models\Grade;
 use App\Models\User;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Facades\File;
 
 class AcademicResultController extends Controller
 {
@@ -116,5 +119,102 @@ class AcademicResultController extends Controller
          $academicResult->delete();
  
          return $this->sendSuccessMessage('Semester Result Successfully deleted');
+    }
+
+    public function processAcademicResultBulkUpload(BulkUploadResultRequest $request)
+    {
+      $filePath = $this->storeFile($request, 'bulk_upload_file');
+      $authUser = auth()->user();
+      $semesterId = $request->academic_session;
+      $grades = Grade::where('school_id', $authUser->school_id)->orderBy('lower_band_score', 'asc')->get();
+      // dd($grades);
+       $errors = [];
+        $loop = 1;
+        $lines = file($filePath);
+        if (count($lines) > 1) {
+            foreach ($lines as $line) {
+                // skip first line (heading line)
+                if ($loop > 1) {
+                    $data = explode(',', $line);
+                    // dd($data);
+                    $invalids = $this->validateResultValues($data, $authUser, $semesterId);
+                  if (count($invalids) > 0) {
+                    array_push($errors, $invalids);
+                    continue;
+                  }else{
+
+                    $course = Course::where('course_code', $data[1])->where('school_id', $authUser->school_id)->first();
+                    $user = User::where('registration_no', $data[0])->where('school_id', $authUser->school_id)->where('is_student', true)->first();
+                    $grade = $grades->where('lower_band_score', '>=', $data[2])->first();
+                    $gradePoint = $course->unit * $grade?->point;
+
+                    AcademicResult::updateOrCreate(
+                        [
+                            'user_id' => $user->id,
+                            'semester_id' => $semesterId,
+                            'course_id' => $course->id,
+                        ],
+                        [
+                            'score' =>trim($data[2]),
+                            'created_by' => $authUser->id,
+                            'grade' => $grade?->code,
+                            'unit' => $course->unit,
+                            'grade_point' => $gradePoint,
+                        ]
+                    );
+                  }
+                }else{
+                    $headers = explode(',', $line);
+                    if (trim(strtolower($headers[0])) != 'registration_no') {
+                        $invalids['inc'] = 'The file format is incorrect. Must be - "registration_no,course_code,score"';
+                        array_push($errors, $invalids);
+                        break;
+                    }
+
+                    if (trim(strtolower($headers[1])) != 'course_code') {
+                        $invalids['inc'] = 'The file format is incorrect. Must be - "registration_no,course_code,score"';
+                        array_push($errors, $invalids);
+                        break;
+                    }
+
+                    if (trim(strtolower($headers[2])) != 'score') {
+                        $invalids['inc'] = 'The file format is incorrect. Must be - "registration_no,course_code,score"';
+                        array_push($errors, $invalids);
+                        break;
+                    }
+                }
+                $loop++;
+            }   
+        }else{
+            $errors[] = 'The uploaded csv file is empty';
+        }
+
+        File::delete($filePath);
+
+        if (count($errors) > 0) {
+            $collectErrors = $this->array_flatten($errors);
+
+            return $this->sendErrorResponse($collectErrors);  
+        }
+
+        return $this->sendSuccessMessage('Student Bulk Upload Successful');
+    }
+
+    public function validateResultValues($data, $authUser, $semesterId)
+    {
+        $errors = [];
+
+        $course = Course::where('course_code', $data[1])->where('school_id', $authUser->school_id)->first();
+        if (is_null($course)) {
+            $errors[] = 'The course_code: '.$data[1].' does not exist';
+        } 
+
+        // validate matric number
+        $registration_no = User::where('registration_no', $data[0])->where('school_id', $authUser->school_id)->where('is_student', true)->first();
+        if (is_null($registration_no)) {
+            $errors[] = 'The Registration no: '.$data[0].' does not exist';
+        }
+
+        return $errors;
     }
 }

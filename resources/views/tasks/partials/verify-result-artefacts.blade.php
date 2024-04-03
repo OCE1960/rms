@@ -137,7 +137,7 @@
                     _token: $('input[name="_token"]').val(),
                     id: $(this).attr('data-delete-semester-result')
                 }
-                const url = "{{ route('semester.results.delete','') }}/"+formData.id;
+                const url = "{{ route('academic.results.delete','') }}/"+formData.id;
                 if(edit == true){
                     $.ajax({
                         url:url,

@@ -156,7 +156,7 @@
                 formData.append('grade_point', $('#grade-point').val());
                 formData.append('semester_id', $('#grade-semester').val());
       
-                let url = "{{ route('semester.results') }}";
+                let url = "{{ route('academic.results') }}";
                   
                 $.ajax({
                 url: url,

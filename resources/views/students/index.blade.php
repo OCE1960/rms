@@ -11,9 +11,12 @@
 
         <div class="col-sm-6">
             
-            @canany(['Super Admin', 'School Admin'])
+            @canany(['School Admin'])
                 <button  id="bulk-upload-students" class="btn btn-success btn-sm float-right bulk-upload-supervisors ml-2"  >
                     <i class="fas fa-file-upload"></i>  Bulk Upload Students
+                </button>
+                <button  id="bulk-upload-results" class="btn btn-warning btn-sm float-right bulk-upload-supervisors ml-2"  >
+                    <i class="fas fa-file-upload"></i>  Bulk Upload Results
                 </button>
                 <button  id="add-new-student"  class="btn btn-primary btn-sm float-right" >
                     <i class="fas fa-plus mr-2"></i> Add New Student
@@ -92,6 +95,7 @@
     @include('students.modals.view-student-modal')
     @include('modals.reset-password-modal')
     @include('students.modals.bulk-upload-student-modal')
+    @include('students.modals.bulk-upload-result-modal')
 
 @stop
 

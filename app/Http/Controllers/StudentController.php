@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
+use App\Models\Semester;
 use App\Models\Student;
 use App\Models\User;
 
@@ -12,10 +13,12 @@ class StudentController extends Controller
     public function index()
     {
         $authUser = auth()->user();
+        $semesters = Semester::where('school_id', $authUser->school_id)
+            ->orderBy('semester_session', 'asc')->orderBy('semester_name', 'asc')->get();
         $students = User::where('is_student', true)->where('school_id', $authUser->school_id)
             ->orderBy('first_name', 'asc')->orderBy('last_name', 'asc')->get();
 
-        return view('students.index')->with('students', $students); 
+        return view('students.index')->with('students', $students)->with('semesters', $semesters); 
     }
 
     /**

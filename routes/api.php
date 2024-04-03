@@ -82,10 +82,11 @@ Route::middleware('auth:sanctum')->group(function() {
     });
 
     Route::controller(AcademicResultController::class)->group(function () {
-        Route::post('/semester-results', 'processAddSemesterResult')->name('semester.results');
-        Route::get('/semester-results/{id}', 'show')->name('semester.results.show');
-        Route::post('/semester-results/{id}', 'update')->name('semester.results.update');
-        Route::post('/semester-results/delete/{id}', 'destroy')->name('semester.results.delete');
+        Route::post('/academic-results', 'processAddSemesterResult')->name('academic.results');
+        Route::get('/academic-results/{id}', 'show')->name('academic.results.show');
+        Route::post('/academic-results/{id}', 'update')->name('academic.results.update');
+        Route::post('/academic-results/delete/{id}', 'destroy')->name('academic.results.delete');
+        Route::post('/academic-results/csv/bulk-upload', 'processAcademicResultBulkUpload')->name('academic.results.bulk.upload');
     });
 
     Route::controller(SchoolController::class)->group(function () {
