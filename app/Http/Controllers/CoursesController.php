@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCoursesRequest;
 use App\Http\Requests\UpdateCoursesRequest;
 use App\Models\Courses;
+use App\Models\User;
 
 class CoursesController extends Controller
 {
@@ -13,7 +14,11 @@ class CoursesController extends Controller
      */
     public function index()
     {
-        //
+        $authUser = auth()->user();
+        $students = User::where('is_student', true)->where('school_id', $authUser->school_id)
+            ->orderBy('first_name', 'asc')->orderBy('last_name', 'asc')->get();
+
+        return view('courses.index')->with('students', $students); 
     }
 
     /**

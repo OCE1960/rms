@@ -282,6 +282,12 @@ return [
             'icon' => 'fas fa-user-friends',
             'can'  => ['Super Admin', 'School Admin'],
         ],
+        [
+            'text' => 'Courses',
+            'route'  => 'courses',
+            'icon' => 'fas fa-book-open',
+            'can'  => ['Super Admin', 'School Admin'],
+        ],
 
         ['header' => 'account_settings'],
         [

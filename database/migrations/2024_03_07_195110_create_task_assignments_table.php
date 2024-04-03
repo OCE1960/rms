@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreignUuid('send_to')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->string('status')->nullable();
             $table->boolean('is_task_completed')->default(false);
+            $table->foreignUuid('created_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignUuid('updated_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
             $table->primary('id');
         });

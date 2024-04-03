@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('program')->nullable();
             $table->date('date_of_entry')->nullable();
             $table->string('mode_of_entry')->nullable();
+            $table->foreignUuid('created_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignUuid('updated_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

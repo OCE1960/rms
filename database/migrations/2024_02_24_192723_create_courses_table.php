@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('course_code')->nullable();
             $table->string('course_name')->nullable();
             $table->string('unit')->nullable();
+            $table->foreignUuid('created_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignUuid('updated_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
             $table->primary('id');
         });

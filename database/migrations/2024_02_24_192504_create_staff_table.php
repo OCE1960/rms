@@ -17,6 +17,8 @@ return new class extends Migration
             
             $table->date('date_of_entry')->nullable();
             $table->timestamps();
+            $table->foreignUuid('created_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignUuid('updated_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->primary('id');
         });
     }

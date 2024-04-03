@@ -19,6 +19,8 @@ return new class extends Migration
             $table->integer('point')->nullable();
             $table->string('lower_band_score')->unique();
             $table->string('higher_band_score')->unique();
+            $table->foreignUuid('created_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignUuid('updated_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }
