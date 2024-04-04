@@ -126,8 +126,7 @@ class AcademicResultController extends Controller
       $filePath = $this->storeFile($request, 'bulk_upload_file');
       $authUser = auth()->user();
       $semesterId = $request->academic_session;
-      $grades = Grade::where('school_id', $authUser->school_id)->orderBy('lower_band_score', 'asc')->get();
-      // dd($grades);
+      $grades = Grade::where('school_id', $authUser->school_id)->orderBy('lower_band_score', 'desc')->get();
        $errors = [];
         $loop = 1;
         $lines = file($filePath);
@@ -143,9 +142,17 @@ class AcademicResultController extends Controller
                     continue;
                   }else{
 
+                    $score = (int)trim($data[2]);
                     $course = Course::where('course_code', $data[1])->where('school_id', $authUser->school_id)->first();
                     $user = User::where('registration_no', $data[0])->where('school_id', $authUser->school_id)->where('is_student', true)->first();
-                    $grade = $grades->where('lower_band_score', '>=', $data[2])->first();
+                    $grade = null;
+                    foreach ($grades as $academicGrade) {
+                        if ( ($score >= $academicGrade->lower_band_score) && ($score <= $academicGrade->higher_band_score) ) {
+                            $grade = $academicGrade;
+                            break;
+                        }
+                    }
+                    //$grade = $grades->where('lower_band_score', '>=', $data[2])->first();
                     $gradePoint = $course->unit * $grade?->point;
 
                     AcademicResult::updateOrCreate(
@@ -160,6 +167,7 @@ class AcademicResultController extends Controller
                             'grade' => $grade?->code,
                             'unit' => $course->unit,
                             'grade_point' => $gradePoint,
+                            'updated_by' => $authUser->id,
                         ]
                     );
                   }
