@@ -314,6 +314,34 @@ return [
                 'Recommending Officer', 'Approving Officer', 'School Admin', 'Result Uploader',
             ],
         ],
+        [
+            'text' => 'System Users',
+            'icon' => 'fas fa-users-cog',
+            'can' => [
+                'Super Admin', 'Result Compiler', 'Checking Officer', 'Registry','Dispatching Officer',
+                'Recommending Officer', 'Approving Officer', 'School Admin', 'Result Uploader',
+            ],
+            'submenu' => [
+                [
+                    'text' => 'Students',
+                    'route'  => 'users.students',
+                    'icon' => 'fas fa-users',
+                    'can'  => ['Super Admin', 'School Admin'],
+                ],
+                [
+                    'text' => 'Staffs',
+                    'route'  => 'users.staffs',
+                    'icon' => 'fas fa-user-friends',
+                    'can'  => ['Super Admin', 'School Admin'],
+                ],
+                [
+                    'text' => 'Result Enquirers',
+                    'route'  => 'users.result.enquirers',
+                    'icon' => 'fas fa-chalkboard-teacher',
+                    'can'  => ['Super Admin', 'School Admin'],
+                ],
+            ],
+        ]
     ],
     /*
     |--------------------------------------------------------------------------

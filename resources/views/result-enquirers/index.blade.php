@@ -38,7 +38,7 @@
                         <th scope="col">#</th>
                         <th scope="col" >Full Name</th>
                         <th scope="col" >email</th>
-                        <th scope="col"  >School</th>
+                        <th scope="col" >Organization</th>
                         <th scope="col" style="width:190px;"></th>
                     </tr>
                 </thead>
@@ -56,7 +56,7 @@
 
                             <td> {{ $user->email }}   </td>
 
-                            <td> {{ $user->school?->full_name}} </td>
+                            <td> {{ $user->enquirer?->organization_name }} </td>
 
                             <td class="text-center">  
                                 <button title="View" class="btn btn-xs btn-info mr-2 mb-2" data-view-staff="{{ $user->id }}"> <i class="fas fa-eye"></i> </button>  
@@ -84,9 +84,9 @@
     @endif 
     </div> <!-- /#info-box -->
 
-    @include('staffs.modals.add-staff-modal')
-    @include('staffs.modals.edit-staff-modal')
-    @include('staffs.modals.view-staff-modal')
+    @include('result-enquirers.modals.add-enquirer-modal')
+    @include('result-enquirers.modals.edit-enquirer-modal')
+    @include('result-enquirers.modals.view-enquirer-modal')
     @include('modals.reset-password-modal')
 
 @stop

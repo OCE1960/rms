@@ -52,6 +52,9 @@ Route::prefix('dashboard')->group(function() {
             Route::get('/users/change-password', 'showChangePasswordForm' )->name('change.password');
             Route::post('/users/change-password', 'processPasswordChange')->name('process.change.password');
             Route::get('/users/profile', 'showProfile' )->name('users.profile');
+            Route::get('/users/students', 'getStudents')->name('users.students');
+            Route::get('/users/staffs', 'getStaffs')->name('users.staffs');
+            Route::get('/users/result-enquirers', 'getResultEnquirers')->name('users.result.enquirers');
             // Route::get('/users', 'index')->name('auth.users');
             // Route::get('/users/select/{department_id}', 'showDepartmentUsers' )->name('users.selects.department');
             // Route::get('/users/change-password', 'showChangePasswordForm' )->name('users.change.password');

@@ -6,6 +6,7 @@ use App\Http\Requests\BulkUploadRequest;
 use App\Http\Requests\ResetUserPasswordRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Mail\ResetUserPassword;
+use App\Models\Semester;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -268,5 +269,36 @@ class UserController extends Controller
             $errors[] = 'The telephone number: '.$data[4].' already belongs to a User';
         }
         return $errors;
+    }
+
+    public function getStudents()
+    {
+        $authUser = auth()->user();
+        $semesters = Semester::where('school_id', $authUser->school_id)
+            ->orderBy('semester_session', 'asc')->orderBy('semester_name', 'asc')->get();
+        $students = User::where('is_student', true)->orderBy('first_name', 'asc')
+            ->orderBy('last_name', 'asc')->get();
+
+        return view('students.index')->with('students', $students)->with('semesters', $semesters); 
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function getStaffs()
+    {
+        $users = User::where('is_staff', true)->orderBy('first_name', 'asc')->orderBy('last_name', 'asc')->get();
+
+        return view('staffs.index')->with('users', $users); 
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function getResultEnquirers()
+    {
+        $users = User::where('is_result_enquirer', true)->orderBy('first_name', 'asc')->orderBy('last_name', 'asc')->get();
+
+        return view('result-enquirers.index')->with('users', $users); 
     }
 }
