@@ -36,61 +36,61 @@
     <div class="row shadow p-3 bg-white rounded" id="info">
 
         @if(isset($students))
-        <div class="table-responsive">
-            <!-- <h4 class="text-primary"> List of Submitted Leave Requests</h4> -->
-            <table id="schools" class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col" >Full Name</th>
-                        <th scope="col" >email</th>
-                        <th scope="col"  >Registration No</th>
-                        <th scope="col"  >School</th>
-                        <th scope="col" style="width:190px;"></th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    @php
-                        $x = 0;
-                    @endphp
-
-                    @foreach($students as $student)
-
+            <div class="table-responsive">
+                <!-- <h4 class="text-primary"> List of Submitted Leave Requests</h4> -->
+                <table id="schools" class="table table-striped table-hover">
+                    <thead>
                         <tr>
-                            <th scope="row"> {{ ++$x }} </th>
-                            <td> <strong> {{ $student->full_name }} </strong> <br></td>
-
-                            <td> {{ $student->email }}   </td>
-
-                            <td> {{ $student->registration_no}} </td>
-
-                            <td> {{ $student->school?->full_name}} </td>
-
-                            <td class="text-center">  
-                                <button title="View" class="btn btn-xs btn-info mr-2 mb-2" data-view-student="{{ $student->id }}"> <i class="fas fa-eye"></i> </button>  
-                                
-                                @canany(['School Admin', 'Super Admin'])
-                                    <button class="btn btn-xs btn-warning mr-2 mb-2" data-reset-password="{{ $student->id }}"> <i class="fas fa-key"></i> </button>
-                                @endcanany
-
-                                @canany(['School Admin'])
-                                    <button title="View" class="btn btn-xs btn-primary mr-2 mb-2" data-edit-student="{{ $student->id }}"> <i class="fas fa-edit"></i> </button> 
-                                    <button class="btn btn-xs btn-danger mr-2 mb-2" data-delete-student="{{ $student->id }}"> <i class="fas fa-trash"></i>  </button> 
-                                @endcanany
-                            </td>
+                            <th scope="col">#</th>
+                            <th scope="col" >Full Name</th>
+                            <th scope="col" >email</th>
+                            <th scope="col"  >Registration No</th>
+                            <th scope="col"  >School</th>
+                            <th scope="col" style="width:190px;"></th>
                         </tr>
-                
-                    @endforeach
+                    </thead>
+                    <tbody>
+
+                        @php
+                            $x = 0;
+                        @endphp
+
+                        @foreach($students as $student)
+
+                            <tr>
+                                <th scope="row"> {{ ++$x }} </th>
+                                <td> <strong> {{ $student->full_name }} </strong> <br></td>
+
+                                <td> {{ $student->email }}   </td>
+
+                                <td> {{ $student->registration_no}} </td>
+
+                                <td> {{ $student->school?->full_name}} </td>
+
+                                <td class="text-center">  
+                                    <button title="View" class="btn btn-xs btn-info mr-2 mb-2" data-view-student="{{ $student->id }}"> <i class="fas fa-eye"></i> </button>  
+                                    
+                                    @canany(['School Admin', 'Super Admin'])
+                                        <button class="btn btn-xs btn-warning mr-2 mb-2" data-reset-password="{{ $student->id }}"> <i class="fas fa-key"></i> </button>
+                                    @endcanany
+
+                                    @canany(['School Admin'])
+                                        <button title="View" class="btn btn-xs btn-primary mr-2 mb-2" data-edit-student="{{ $student->id }}"> <i class="fas fa-edit"></i> </button> 
+                                        <button class="btn btn-xs btn-danger mr-2 mb-2" data-delete-student="{{ $student->id }}"> <i class="fas fa-trash"></i>  </button> 
+                                    @endcanany
+                                </td>
+                            </tr>
                     
+                        @endforeach
+                        
 
 
-                </tbody>
-            </table>
-        </div>
-    @else
-        <div class="text-center text-danger col-sm-12"> No content</div>          
-    @endif 
+                    </tbody>
+                </table>
+            </div>
+        @else
+            <div class="text-center text-danger col-sm-12"> No content</div>          
+        @endif 
     </div> <!-- /#info-box -->
 
     @include('students.modals.add-student-modal')

@@ -59,7 +59,9 @@
                             <td> {{ $school->type }} </td>
 
                             <td class="text-center">  
-                                <button title="View" class="btn btn-xs btn-info mr-2 mb-2" data-view-school="{{ $school->id }}"> <i class="fas fa-eye"></i> View  </button>  
+                                <a href="{{ route('web.schools.show', $school->id)}}">
+                                    <button title="View" class="btn btn-xs btn-info mr-2 mb-2" > <i class="fas fa-eye"></i> View  </button> 
+                                </a> 
                                 
                                 @canany(['Super Admin'])
                                     <button title="View" class="btn btn-xs btn-primary mr-2 mb-2" data-edit-school="{{ $school->id }}"> <i class="fas fa-edit"></i> Edit </button> 
@@ -91,6 +93,16 @@
     <script>       
         $(document).ready(function() {
             $('#schools').DataTable();
+
+             // get active tab
+             let tab_id = "selected_task";
+            $(document).on('click', 'button[data-toggle="tab"]', function(e) {
+                sessionStorage.setItem('activeTab_'+tab_id, $(e.target).attr('data-target'));
+            });
+            let activeTab = sessionStorage.getItem('activeTab_'+tab_id);
+            if(activeTab){
+                $('#nav-tab button[data-target="' + activeTab + '"]').tab('show');
+            }
 
             //To delete a School
             $(document).on('click','[data-delete-school]',function(e) {

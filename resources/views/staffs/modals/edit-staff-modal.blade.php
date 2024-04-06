@@ -15,6 +15,15 @@
 
             <input type="hidden" class="form-control" id="user-id" name="user-id" >
 
+            @php
+                $schoolId = null;
+                if (isset($school)) {
+                    $schoolId = $school->id;
+                }
+             @endphp 
+
+            <input type="hidden" class="form-control" id="edit-staff-school-id" name="edit-staff-school-id" value="{{ $schoolId }}" >
+
             <form>
                 @csrf
                 <div id="role_error" class="backend-json-response"></div>
@@ -163,6 +172,7 @@
                 formData.append('phone_no', $('#edit_phone_no').val());
                 formData.append('gender', $('#edit_gender').val());
                 formData.append('id', id);
+                formData.append('school_id', $('#edit-staff-school-id').val());
                
                 let url = "{{ route('staffs.update','') }}/"+id;
                  $.ajax({

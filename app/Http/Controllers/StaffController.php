@@ -27,6 +27,10 @@ class StaffController extends Controller
     public function store(StoreStaffRequest $request)
     {
         $authUser = auth()->user();
+        $schoolId = $authUser->school_id;
+        if ($request->school_id) {
+            $schoolId = $request->school_id;
+        }
         $user = User::updateOrCreate(
             [
                 'email' => $request->email,
@@ -40,8 +44,9 @@ class StaffController extends Controller
                 'profile_picture_path' => $request->profile_picture_pathe,
                 'date_of_birth' => $request->date_of_birth,
                 'state_of_origin' => $request->state_of_origin, 
-                'school_id' => $authUser->school_id,
-                'is_staff' => true, 
+                'school_id' => $schoolId,
+                'is_staff' => true,
+                'created_by' => $authUser->id,
                 'password' => bcrypt($request->password),          
             ]
         );
@@ -93,6 +98,10 @@ class StaffController extends Controller
         }
 
         $authUser = auth()->user();
+        $schoolId = $authUser->school_id;
+        if ($request->school_id) {
+            $schoolId = $request->school_id;
+        }
         User::updateOrCreate(
             [
                 'email' => $request->email,
@@ -106,7 +115,8 @@ class StaffController extends Controller
                 'profile_picture_path' => $request->profile_picture_pathe,
                 'date_of_birth' => $request->date_of_birth,
                 'state_of_origin' => $request->state_of_origin, 
-                'school_id' => $authUser->school_id,
+                'school_id' => $schoolId,
+                'updated_by' => $authUser->id,
                 'is_staff' => true,         
             ]
         );

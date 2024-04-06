@@ -35,4 +35,9 @@ class School extends Model
     {
         return $this->hasMany(Semester::class, 'school_id', 'id');
     }
+
+    public function users()
+    {
+        return $this->hasMany(User::class, 'school_id', 'id');
+    }
 }

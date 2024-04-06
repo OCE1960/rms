@@ -269,6 +269,7 @@ return [
             'route'  => 'schools',
             'icon' => 'fas fa-school',
             'can' => ['Super Admin'],
+            'active' => ['schools', 'regex:@^schools/[0-9]+$@']
         ],
         [
             'text' => 'Students',

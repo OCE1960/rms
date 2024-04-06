@@ -70,6 +70,7 @@ Route::prefix('dashboard')->group(function() {
 
         Route::controller(SchoolController::class)->group(function () {
             Route::get('/schools', 'index')->name('schools');
+            Route::get('/schools/{id}', 'viewSchool')->name('web.schools.show');
         });
 
         Route::controller(StudentController::class)->group(function () {

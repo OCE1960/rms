@@ -65,7 +65,7 @@
               <div class="form-group col-md-12">
                 <label for="school">School</label>
                 <input type="text" class="form-control" id="school" name="school" 
-                value="{{ (($selectedTask) && ($userRequestingTranscript) && ($userRequestingTranscript->student) && ($userRequestingTranscript->student->school) ) ? $userRequestingTranscript->student->school->full_name : old('school') }}" readonly>
+                value="{{ (($selectedTask) && ($userRequestingTranscript) && ($userRequestingTranscript->student) && ($userRequestingTranscript->school) ) ? $userRequestingTranscript->school->full_name : old('school') }}" readonly>
               </div>
 
               <div class="form-group col-md-12">

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -25,7 +26,7 @@ class User extends Authenticatable
         'registration_no', 'phone_no', 'gender', 'profile_picture_path', 'ordinal', 'title',
         'is_disabled', 'is_student', 'is_staff', 'is_result_verifier', 'is_account_activated',
         'is_first_login', 'email_verified_at', 'state_of_origin', 'date_of_entry',
-        'nationality', 'school_id', 'date_of_birth', 'created_by'
+        'nationality', 'school_id', 'date_of_birth', 'created_by', 'updated_by'
 
     ];
 
@@ -125,5 +126,21 @@ class User extends Authenticatable
     public function enquirer()
     {
         return $this->hasOne(Enquirer::class, 'user_id', 'id');
+    }
+
+     /**
+     * Scope a query to only include popular users.
+     */
+    public function scopeIsStudent(Builder $query): void
+    {
+        $query->where('is_student', true);
+    }
+
+     /**
+     * Scope a query to only include popular users.
+     */
+    public function scopeIsStaff(Builder $query): void
+    {
+        $query->where('is_staff', true);
     }
 }

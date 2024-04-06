@@ -110,7 +110,6 @@
     <script type="text/javascript">
         $('.select2').select2();
         $("select").css('width', '95%');
-        $("select").css('padding', 20px);
 
         $('.textarea2').summernote({
             height: 200,

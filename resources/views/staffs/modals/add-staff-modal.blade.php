@@ -1,4 +1,4 @@
-<div class="modal fade" id="add-new-student-modal" tabindex="-1" role="dialog" aria-labelledby="roleModalLable" aria-hidden="true">
+<div class="modal fade" id="add-new-staff-modal" tabindex="-1" role="dialog" aria-labelledby="roleModalLable" aria-hidden="true">
   <div class="modal-dialog  " role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -16,6 +16,15 @@
             <form>
                 @csrf
                 <div id="role_error" class="backend-json-response"></div>
+
+                @php
+                    $schoolId = null;
+                    if (isset($school)) {
+                        $schoolId = $school->id;
+                    }
+                @endphp 
+
+                <input type="hidden" class="form-control" id="staff-school-id" name="staff-school-id" value="{{ $schoolId }}" >
 
                 <div class="form-row">
 
@@ -104,14 +113,14 @@
         $(document).ready(function() {
             
             //Show Modal for New Entry
-            $(document).on('click','#add-new-student',function(e) {
+            $(document).on('click','#add-new-staff',function(e) {
                 e.preventDefault();
                 $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val()}});
-                $('#spms-loader').hide();
+                $('.spms-loader').hide();
                 $('.backend-json-response').html('');
                 $("#specify_program_div").hide();
                 $.fn.modal.Constructor.prototype._enforceFocus = function() {};
-                $('#add-new-student-modal').modal('show');
+                $('#add-new-staff-modal').modal('show');
             })
 
              //Functionality to save New Entry
@@ -133,6 +142,7 @@
                 formData.append('date_of_birth', $('#date_of_birth').val());
                 formData.append('nationality', $('#nationality').val());
                 formData.append('state_of_origin', $('#state_of_origin').val());
+                formData.append('school_id', $('#staff-school-id').val());
                
                 let url = "{{ route('staffs.store') }}";
                  $.ajax({
@@ -157,7 +167,7 @@
                             closeOnConfirm: false
                         });
                         window.setTimeout( function(){
-                            $('#add-new-student-modal').modal('hide');
+                            $('#add-new-staff-modal').modal('hide');
                                 location.reload(true);
                         },2000);
                                     

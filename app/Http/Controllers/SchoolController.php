@@ -15,6 +15,13 @@ class SchoolController extends Controller
         return view('school.index')->with('schools', $schools); 
     }
 
+    public function viewSchool($id)
+    {
+        $school = School::findOrFail($id);
+
+        return view('school.show')->with('school', $school); 
+    }
+
     /**
      * Store a newly created resource in storage.
      */
