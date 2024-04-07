@@ -1,4 +1,4 @@
-<div class="modal fade" id="assign-file-modal" tabindex="-1" role="dialog" aria-labelledby="roleModalLable" aria-hidden="true">
+<div class="modal fade" id="assign-verification-file-modal" tabindex="-1" role="dialog" aria-labelledby="roleModalLable" aria-hidden="true">
   <div class="modal-dialog modal-md " role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -31,8 +31,8 @@
 
 
               <div class="form-group col-md-12">
-                    <label for="move-staff">Staff</label>
-                    <select id="move-staff" name="move-staff" class="form-control select2">
+                    <label for="verification-move-staff">Staff</label>
+                    <select id="verification-move-staff" name="verification-move-staff" class="form-control select2">
                         <option value="" > Choose ...</option>
   
                     
@@ -41,11 +41,11 @@
               
                 <div class="form-group col-md-12">
                     <label for="body">Comment</label>
-                    <textarea type="text" rows="5" class="form-control textarea" id="move-comment" name="move-comment"> </textarea>
+                    <textarea type="text" rows="5" class="form-control textarea" id="verification-move-comment" name="verification-move-comment"> </textarea>
                 </div>
 
             <div class="form-group col-md-12">
-                <button type="button" id="save-move-file-decision" class="btn btn-primary float-right" data-add-role="role">Save to Move File</button>
+                <button type="button" id="save-move-verification-file-decision" class="btn btn-primary float-right" data-add-role="role">Save to Move File</button>
             </div>
 
             </div>
@@ -80,17 +80,17 @@
                     $('.spms-loader').hide();
                     const len = result.data.staffs.length;
                       const ajaxResponse = result.data.staffs;
-                      $("#move-staff").empty();
-                      $("#move-staff").append("<option value=''>Choose ...</option>");
+                      $("#verification-move-staff").empty();
+                      $("#verification-move-staff").append("<option value=''>Choose ...</option>");
                       for( let i = 0; i<len; i++){
                             let id = ajaxResponse[i]['id'];
                             const middle = (ajaxResponse[i].middle_name != null) ? ajaxResponse[i].middle_name : " ";
                             let name = ajaxResponse[i]['first_name']+"  "+ middle +"  "+ajaxResponse[i]['last_name'];
-                            $("#move-staff").append("<option value='"+id+"'>"+name+"</option>");
+                            $("#verification-move-staff").append("<option value='"+id+"'>"+name+"</option>");
                       }
                     $('#assign-verification-request-id').val(result.data.verificationRequest.id);
                     $('#requested-by').text(result.data.user.full_name );
-                    $('#assign-file-modal').modal('show');
+                    $('#assign-verification-file-modal').modal('show');
                   },
                   error : function(response, textStatus, errorThrown){
                                   
@@ -107,16 +107,16 @@
 
 
           //Functionality to save New Entry
-          $(document).on('click','#save-move-file-decision',function(e) {
+          $(document).on('click','#save-move-verification-file-decision',function(e) {
               e.preventDefault();
               $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val()}});
-              $('#save-move-file-decision').attr('disabled', true);
+              $('#save-move-verification-file-decision').attr('disabled', true);
               $('.spms-loader').show();
               let formData = new FormData();
               formData.append('_token', $('input[name="_token"]').val());
               formData.append('verificationRequestId', $('#assign-verification-request-id').val());
-              formData.append('send_to', $('#move-staff').val());
-              formData.append('comment', $('#move-comment').val());
+              formData.append('send_to', $('#verification-move-staff').val());
+              formData.append('comment', $('#verification-move-comment').val());
     
               let url = "{{ route('assign-verification-requests-file') }}";
                 
@@ -142,14 +142,14 @@
                   closeOnConfirm: false
                 });
                 window.setTimeout( function(){
-                  $('#assign-file-modal').modal('hide');
+                  $('#assign-verification-file-modal').modal('hide');
                   location.reload(true);
                 },2000);               
               },
               error : function(response, textStatus, errorThrown){
                               
                 $('.spms-loader').hide();
-                $('#save-move-file-decision').attr('disabled', false);
+                $('#save-move-verification-file-decision').attr('disabled', false);
                 $('.backend-json-response').html('');
                 $.each(response.responseJSON.errors, function(key, value){
                         $('.backend-json-response').append('<span class="alert alert-danger mr-4" style="display:inline-block;"> <i class="fa fa-times mr-2"></i>  '+value+'</span>');

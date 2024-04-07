@@ -40,4 +40,14 @@ class School extends Model
     {
         return $this->hasMany(User::class, 'school_id', 'id');
     }
+
+    public function transcriptRequests()
+    {
+        return $this->hasMany(TranscriptRequest::class, 'school_id', 'id');
+    }
+
+    public function resultVerificationRequets()
+    {
+        return $this->hasMany(ResultVerificationRequest::class, 'school_id', 'id');
+    }
 }

@@ -133,7 +133,8 @@ class User extends Authenticatable
      */
     public function scopeIsStudent(Builder $query): void
     {
-        $query->where('is_student', true);
+        $query->where('is_student', true)->orderBy('last_name', 'asc')
+            ->orderBy('first_name', 'asc');
     }
 
      /**
@@ -141,6 +142,7 @@ class User extends Authenticatable
      */
     public function scopeIsStaff(Builder $query): void
     {
-        $query->where('is_staff', true);
+        $query->where('is_staff', true)->orderBy('last_name', 'asc')
+            ->orderBy('first_name', 'asc');
     }
 }

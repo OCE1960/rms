@@ -17,6 +17,8 @@
     @php
         $students = $school->users()->isStudent()->get();
         $staffs = $school->users()->isStaff()->get();
+        $transcriptRequests = $school->transcriptRequests;
+        $verificationRequests = $school->resultVerificationRequets;
     @endphp       
     
     <div class="row">
@@ -44,6 +46,10 @@
     @include('staffs.modals.add-staff-modal')
     @include('staffs.modals.edit-staff-modal')
     @include('staffs.modals.view-staff-modal')
+    @include('transcript-requests.modals.assign-file-modal')
+    @include('transcript-requests.modals.view-transcript-modal')
+    @include('verification-requests.modals.assign-file-modal')
+    @include('verification-requests.modals.view-verification-request-modal')
 
 @stop
 
