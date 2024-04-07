@@ -225,6 +225,7 @@ return [
 
     'menu' => [
 
+
          /*
         *********************************
             ADMIN MENU LINKS
@@ -250,7 +251,7 @@ return [
         ],
         [
             'text' => 'Transcripts Requests',
-            'route'  => 'transcript-requests',
+            'route'  => 'list.transcript-requests',
             'icon' => 'fa fa-briefcase',
             'can' => [
                 'Super Admin', 'Registry',
@@ -295,15 +296,17 @@ return [
             'icon' => 'fas fa-cubes',
             'can'  => ['School Admin'],
         ],
-
         [
             'text' => 'Grade Setting',
             'route'  => 'grades',
             'icon' => 'fas fa-wrench',
             'can'  => ['School Admin'],
         ],
-
-        ['header' => 'account_settings'],
+        [
+            'header' => 'account_settings',
+            'can'  => ['Admin', 'Department-Admin', 'Head-of-Department', 'Registry', 'Result-Compiler', 'Result-Dispatcher', 
+                        'Vetting-Officer', 'Checking-Officer', 'Recommending-Officer', 'Approving-Officer'],
+        ],
         [
             'text' => 'profile',
             'route'  => 'users.profile',
@@ -348,7 +351,22 @@ return [
                     'can'  => ['Super Admin'],
                 ],
             ],
-        ]
+        ],
+
+                /*
+        *********************************
+            Student MENU LINKS
+        *********************************
+        */
+        [
+            'text' => 'Dashboard',
+            'route'  => 'student.dashboard',
+            'icon' => 'fas fa-tachometer-alt',
+            'can' => 'student',
+        ],
+
+
+    
     ],
     /*
     |--------------------------------------------------------------------------

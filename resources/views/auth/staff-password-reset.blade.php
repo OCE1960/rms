@@ -1,0 +1,1 @@
+@extends('adminlte::staff-password-reset')

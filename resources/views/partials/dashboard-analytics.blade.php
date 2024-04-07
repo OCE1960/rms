@@ -59,7 +59,7 @@
                     <!-- Apply any bg-* class to to the icon to color it -->
                     <span class="info-box-icon bg-primary"><i class="fa fa-briefcase"></i></span>
                     <div class="info-box-content">
-                        <a href="{{ route('transcript-requests') }}">
+                        <a href="{{ route('list.transcript-requests') }}">
                             <span class="info-box-text">Transcript Requests</span>
                             <span class="info-box-number"> {{ count($transcriptRequets) }} </span>
                         </a>

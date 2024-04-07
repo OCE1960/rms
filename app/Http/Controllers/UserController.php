@@ -308,4 +308,11 @@ class UserController extends Controller
 
         return view('students.show')->with('user', $user); 
     }
+
+    public function showStudentLoginForm()
+    {
+
+        return view("auth.student-login");
+    }
+
 }

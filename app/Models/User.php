@@ -111,7 +111,7 @@ class User extends Authenticatable
 
     public function assignedTaskCount()
     {
-        return WorkItem::where('send_to', $this->id)->where('is_completed', false)->count();
+        return TaskAssignment::where('send_to', $this->id)->where('is_task_completed', false)->count();
     }
 
     public function academicResults()

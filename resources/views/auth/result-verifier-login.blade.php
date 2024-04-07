@@ -1,0 +1,1 @@
+@extends('adminlte::result-verifier-login')

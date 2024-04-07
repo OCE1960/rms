@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreStudentRequest;
+use App\Http\Requests\StoreTranscriptRequest;
 use App\Http\Requests\UpdateStudentRequest;
+use App\Http\Requests\UpdateTranscriptRequest;
 use App\Models\Semester;
 use App\Models\Student;
+use App\Models\TranscriptRequest;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
@@ -147,5 +151,89 @@ class StudentController extends Controller
         $user->delete();
 
         return $this->sendSuccessMessage('User Successfully deleted');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function dashboard()
+    {
+        $authStudent = auth('student')->user();
+        
+        $transcriptRequests = TranscriptRequest::where('user_id', $authStudent->id)->orderBy('created_at', 'DESC')->get();
+
+        return view('student-portal.dashboard')->with('transcriptRequests', $transcriptRequests);
+    }
+
+    public function logout(Request $request) 
+    {
+        $user_id = auth('student')->id();
+        $user = User::find($user_id);
+        $user->remember_token = '';
+        $user->save();
+        auth()->logout();
+        $request->session()->flush();
+        return redirect('/');
+
+    }
+
+    public function processTranscriptRequest(StoreTranscriptRequest $request)
+    {
+        $authUser = auth('student')->user();
+        $transcriptRequest = new TranscriptRequest();
+        $transcriptRequest->user_id = $authUser->id;
+        $transcriptRequest->school_id = $authUser->school_id;
+        $transcriptRequest->send_by = $request->send_by;
+        $transcriptRequest->destination_country = $request->destination_country;
+        $transcriptRequest->receiving_institution = $request->receiving_institution;
+        $transcriptRequest->receiving_institution_corresponding_email = $request->receiving_institution_corresponding_email;
+        $transcriptRequest->program = $request->program;
+        $transcriptRequest->title_of_request= $request->title_of_request;
+        $transcriptRequest->reason_for_request = $request->reason_for_request;
+        $transcriptRequest->save();
+
+        return $this->sendSuccessMessage('Transcript Request Successfully Created');
+    }
+
+    public function updateTranscriptRequest(UpdateTranscriptRequest $request, $id)
+    {
+        $transcriptRequest = TranscriptRequest::find($request->id);
+
+        //Redirect to the Role page if validation fails.
+        if (empty($transcriptRequest)) { 
+           return $this->sendErrorResponse(['Invalid Transcript']);
+        }
+
+        $authUser = auth('student')->user();
+        $transcriptRequest->user_id = $authUser->id;
+        $transcriptRequest->school_id = $authUser->school_id;
+        $transcriptRequest->send_by = $request->send_by;
+        $transcriptRequest->destination_country = $request->destination_country;
+        $transcriptRequest->receiving_institution = $request->receiving_institution;
+        $transcriptRequest->receiving_institution_corresponding_email = $request->receiving_institution_corresponding_email;
+        $transcriptRequest->program = $request->program;
+        $transcriptRequest->title_of_request= $request->title_of_request;
+        $transcriptRequest->reason_for_request = $request->reason_for_request;
+        $transcriptRequest->save();
+
+       return $this->sendSuccessMessage('Transcript Successfully Updated');
+
+    }
+
+    public function showTranscriptRequest($id)
+    {
+        $transcriptRequest = TranscriptRequest::find($id);
+
+        //Redirect to the Role page if validation fails.
+         if (empty($transcriptRequest)) { 
+           return $this->sendErrorResponse(['Invalid Transcript Request']);
+        }
+
+       $data = ['transcriptRequest' => $transcriptRequest];
+
+       return $this->sendSuccessResponse('Transcript Request Record Successfully Retrived',$data);
+
     }
 }

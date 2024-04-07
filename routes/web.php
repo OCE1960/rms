@@ -7,6 +7,7 @@ use App\Http\Controllers\GradeController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\Auth\StudentLoginController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TaskAssignmentController;
 use App\Http\Controllers\TranscriptRequestController;
@@ -40,6 +41,27 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::prefix('students')->group(function() {
+    Route::controller(UserController::class)->group(function () {  
+        Route::get('/login', 'showStudentLoginForm')->name('web.student.login');
+    });
+
+    Route::controller(StudentLoginController::class)->group(function () {
+        Route::post('/login', 'authenticate')->name('process.student.login');
+    });
+
+    Route::middleware(['auth:student'])->group(function() {
+        Route::controller(StudentController::class)->group(function () {
+            Route::get('/dashboard', 'dashboard')->name('student.dashboard');
+            Route::post('/logout', 'logout')->name('student.logout');
+            Route::post('/transcript-requests', 'processTranscriptRequest' )->name('student.transcript.request');
+            Route::post('/transcript-requests/{id}', 'updateTranscriptRequest' )->name('student.transcript.request.update');
+            Route::get('/transcript-requests/{id}', 'showTranscriptRequest' )->name('student.transcript.request.show');
+        });
+
+    });
+});
+
 Route::prefix('dashboard')->group(function() {
 
     Route::middleware(['auth'])->group(function() {
@@ -57,6 +79,7 @@ Route::prefix('dashboard')->group(function() {
             Route::get('/users/staffs', 'getStaffs')->name('users.staffs');
             Route::get('/users/result-enquirers', 'getResultEnquirers')->name('users.result.enquirers');
             Route::get('/users/students/{id}', 'viewStudent')->name('web.users.show');
+            Route::get('/students/login/{id}', 'viewStudent')->name('web.users.show');
             // Route::post('/users/disable-account/{id}', 'disableAccount')->name('users.disable.account');
         });
 
@@ -87,7 +110,7 @@ Route::prefix('dashboard')->group(function() {
         });
 
         Route::controller(TranscriptRequestController::class)->group(function () {
-            Route::get('/transcript-requests', 'index')->name('transcript-requests');
+            Route::get('/transcript-requests', 'index')->name('list.transcript-requests');
         });
 
         Route::controller(ResultVerificationRequestController::class)->group(function () {
