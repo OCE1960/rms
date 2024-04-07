@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ResultVerificationRequestController;
 use App\Http\Controllers\CoursesController;
+use App\Http\Controllers\GradeController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\StaffController;
@@ -91,6 +92,10 @@ Route::prefix('dashboard')->group(function() {
 
         Route::controller(ResultVerificationRequestController::class)->group(function () {
             Route::get('/verification-requests', 'index')->name('verification-requests');
+        });
+
+        Route::controller(GradeController::class)->group(function () {
+            Route::get('/grades', 'index')->name('grades');
         });
 
     });

@@ -15,8 +15,9 @@ class GradeController extends Controller
      */
     public function index()
     {
-        $grades = Grade::orderBy('code')->get();
-        return view('backend.grade-settings.index')->with('grades', $grades); 
+        $authUser = auth()->user();
+        $grades = Grade::where('school_id', $authUser->school_id)->orderBy('code')->get();
+        return view('grades.index')->with('grades', $grades); 
     }
 
 

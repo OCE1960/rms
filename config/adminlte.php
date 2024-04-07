@@ -296,6 +296,13 @@ return [
             'can'  => ['School Admin'],
         ],
 
+        [
+            'text' => 'Grade Setting',
+            'route'  => 'grades',
+            'icon' => 'fas fa-wrench',
+            'can'  => ['School Admin'],
+        ],
+
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
