@@ -34,6 +34,7 @@ class UpdateStaffRequest extends FormRequest
             'nationality' => "nullable|max:191",
             'state_of_origin' => "nullable|max:191",
             'school_id' => "nullable|max:191",
+            'role' => "required|max:191",
         ];
     }
 
@@ -57,6 +58,7 @@ class UpdateStaffRequest extends FormRequest
             'nationality' => "Nationality",
             'state_of_origin' => "State of Origin",
             'school_id' => "School",
+            'role' => "Role",
         ];
     }
 

@@ -35,6 +35,7 @@ class StoreStaffRequest extends FormRequest
             'state_of_origin' => "nullable|max:191",
             'password' => 'required|min:6',
             'school_id' => "nullable|max:191",
+            'role' => "required|max:191",
         ];
     }
 
@@ -59,6 +60,7 @@ class StoreStaffRequest extends FormRequest
             'state_of_origin' => "State of Origin",
             'password' => 'Password',
             'school_id' => "School",
+            'role' => "Role",
         ];
     }
 

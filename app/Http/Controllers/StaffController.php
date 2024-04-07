@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreStaffRequest;
 use App\Http\Requests\UpdateStaffRequest;
+use App\Models\Role;
 use App\Models\Staff;
 use App\Models\User;
 
@@ -15,10 +16,21 @@ class StaffController extends Controller
     public function index()
     {
         $authUser = auth()->user();
+        $admin = Role::where('key', 'super-admin')->firstOrFail();
+
+        if ($authUser->hasRole($admin->id)) {
+            $roles = Role::where('key', '<>', 'student')->orderBy('label', 'asc')->get();
+            $roles = $roles->where('key', '<>', 'result-enquirer');
+        } else {
+            $roles = Role::where('key', '<>', 'student')->orderBy('label', 'asc')->get();
+            $roles = $roles->where('key', '<>', 'result-enquirer');
+            $roles = $roles->where('key', '<>', 'registry');
+            $roles = $roles->where('key', '<>', 'super-admin');
+        }
         $users = User::where('is_staff', true)->where('school_id', $authUser->school_id)
             ->orderBy('first_name', 'asc')->orderBy('last_name', 'asc')->get();
 
-        return view('staffs.index')->with('users', $users); 
+        return view('staffs.index')->with('users', $users)->with('roles', $roles); 
     }
 
     /**
@@ -60,6 +72,8 @@ class StaffController extends Controller
             ]
         );
 
+        $user->roles()->sync($request->role);
+
         return $this->sendSuccessMessage('Student sucessfully Created');
     }
 
@@ -79,6 +93,7 @@ class StaffController extends Controller
        $data = [
             'user' => $user,
             'staff' => $user->staff,
+            'role' => $user->roles()->first(),
        ];
 
        return $this->sendSuccessResponse('User Record Successfully Retrived',$data);
@@ -129,6 +144,8 @@ class StaffController extends Controller
                 'date_of_entry' => $request->date_of_entry,
             ]
         );
+
+        $user->roles()->sync($request->role);
 
         return $this->sendSuccessMessage('Semester Result Successfully Updated');
     }

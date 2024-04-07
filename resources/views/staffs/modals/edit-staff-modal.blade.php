@@ -56,6 +56,20 @@
                     </div>
 
                     <div class="form-group col-md-12">
+                        <label for="edit-role">Role</label>
+                        <select id="edit-role" name="edit-role" class="form-control">
+                            <option value="">Choose...</option>
+                            @if (isset($roles) && count($roles) > 0)
+
+                                @foreach ($roles as $role)
+                                    <option value="{{ $role->id }}" >{{ $role->label}}</option>
+                                @endforeach
+                            
+                            @endif
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-12">
                         <label for="edit_gender">Gender</label>
                         <select id="edit_gender" name="edit_gender" class="form-control">
                             <option value="">Choose...</option>
@@ -80,13 +94,6 @@
                     </div>
 
                 </div>
-
-                <!-- <div class="form-row">
-                    <div class="form-group col-md-12">
-                        <label for="password">Password</label>
-                        <input type="text" class="form-control" id="password" name="passwordy">
-                    </div>
-                </div> -->
             
 
             </form>
@@ -137,6 +144,7 @@
                     $('#edit_email').val(result.data.user.email);
                     $('#edit_phone_no').val(result.data.user.phone_no);
                     $('#edit_gender').val(result.data.user.gender);
+                    $('#edit-role').val(result.data.role?.id);
 
                     $('.backend-json-response').html('');
                     $.fn.modal.Constructor.prototype._enforceFocus = function() {};
@@ -173,6 +181,7 @@
                 formData.append('gender', $('#edit_gender').val());
                 formData.append('id', id);
                 formData.append('school_id', $('#edit-staff-school-id').val());
+                formData.append('role', $('#edit-role').val());
                
                 let url = "{{ route('staffs.update','') }}/"+id;
                  $.ajax({

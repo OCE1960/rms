@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSchoolRequest;
 use App\Http\Requests\UpdateSchoolRequest;
+use App\Models\Role;
 use App\Models\School;
 
 class SchoolController extends Controller
@@ -18,8 +19,21 @@ class SchoolController extends Controller
     public function viewSchool($id)
     {
         $school = School::findOrFail($id);
+        $authUser = auth()->user();
+        $admin = Role::where('key', 'super-admin')->firstOrFail();
 
-        return view('school.show')->with('school', $school); 
+        if ($authUser->hasRole($admin->id)) {
+            $roles = Role::where('key', '<>', 'student')->orderBy('label', 'asc')->get();
+            $roles = $roles->where('key', '<>', 'result-enquirer');
+        } else {
+            $roles = Role::where('key', '<>', 'student')->orderBy('label', 'asc')->get();
+            $roles = $roles->where('key', '<>', 'result-enquirer');
+            $roles = $roles->where('key', '<>', 'registry');
+            $roles = $roles->where('key', '<>', 'super-admin');
+        }
+
+        return view('school.show')->with('school', $school)
+            ->with('roles', $roles); 
     }
 
     /**

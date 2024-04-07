@@ -81,7 +81,7 @@
             <div class="my-4">
                 <div class="col-sm-12 mb-4">
                     <button type="button" class="btn btn-info btn-sm float-left mb-4" id="add-new-staff" data-toggle="modal" data-target="#">
-                        <i class="fas fa-plus mr-2"></i> Add Semester Staff
+                        <i class="fas fa-plus mr-2"></i> Add  Staff
                     </button>
                     
                 </div>
@@ -96,6 +96,7 @@
                                 <th >#</th>
                                 <th  >Full Name</th>
                                 <th  >email</th>
+                                <th  >Role</th>
                                 <th  style="width:30%;">School</th>
                                 <th  style="width:190px;"></th>
                             </tr>
@@ -113,6 +114,8 @@
                                     <td> <strong> {{ $user->full_name }} </strong> <br></td>
 
                                     <td> {{ $user->email }}   </td>
+
+                                    <td> {{ $user->roles()->first()?->label}} </td>
 
                                     <td> {{ $user->school?->full_name}} </td>
 

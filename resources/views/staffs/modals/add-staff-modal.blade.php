@@ -54,6 +54,20 @@
                     </div>
 
                     <div class="form-group col-md-12">
+                        <label for="role">Role</label>
+                        <select id="role" name="role" class="form-control">
+                            <option value="">Choose...</option>
+                            @if (isset($roles) && count($roles) > 0)
+
+                                @foreach ($roles as $role)
+                                    <option value="{{ $role->id }}" >{{ $role->label}}</option>
+                                @endforeach
+                            
+                            @endif
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-12">
                         <label for="gender">Gender</label>
                         <select id="gender" name="gender" class="form-control">
                             <option value="">Choose...</option>
@@ -143,6 +157,7 @@
                 formData.append('nationality', $('#nationality').val());
                 formData.append('state_of_origin', $('#state_of_origin').val());
                 formData.append('school_id', $('#staff-school-id').val());
+                formData.append('role', $('#role').val());
                
                 let url = "{{ route('staffs.store') }}";
                  $.ajax({

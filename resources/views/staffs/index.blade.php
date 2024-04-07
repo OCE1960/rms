@@ -38,6 +38,7 @@
                         <th scope="col">#</th>
                         <th scope="col" >Full Name</th>
                         <th scope="col" >email</th>
+                        <th scope="col"  >Role</th>
                         <th scope="col"  >School</th>
                         <th scope="col" style="width:190px;"></th>
                     </tr>
@@ -55,6 +56,8 @@
                             <td> <strong> {{ $user->full_name }} </strong> <br></td>
 
                             <td> {{ $user->email }}   </td>
+
+                            <td> {{ $user->roles()->first()?->label}} </td>
 
                             <td> {{ $user->school?->full_name}} </td>
 
