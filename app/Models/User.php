@@ -48,6 +48,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'date_of_birth' => 'date',
     ];
 
     /**
@@ -144,5 +145,10 @@ class User extends Authenticatable
     {
         $query->where('is_staff', true)->orderBy('last_name', 'asc')
             ->orderBy('first_name', 'asc');
+    }
+
+    public function transcriptRequests()
+    {
+        return $this->hasMany(TranscriptRequest::class, 'user_id', 'id');
     }
 }

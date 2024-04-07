@@ -44,9 +44,12 @@
                         <td scope="col" class="text-center">{{  date("dS, M. Y", strtotime($transcriptRequest->created_at )) }}</td>
                         <td scope="col" class="text-center">
                             <button class="btn btn-xs btn-success ml-3 mr-3" data-view-transcript-request="{{ $transcriptRequest->id }}"> <i class="fas fa-eye"></i> View  </button>
+                        @canany(['Registry', 'Super Admin'])
                             @if ($transcriptRequest->workItem == null)
                                 <button class="btn btn-xs btn-danger mr-3" data-assign-transcript-request="{{ $transcriptRequest->id }}"> <i class="fa fa-paper-plane mr-2" aria-hidden="true"></i>  Assign File</button>
                             @endif
+                        @endcanany
+                            
                         </td>
                     </tr>
             

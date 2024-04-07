@@ -301,4 +301,11 @@ class UserController extends Controller
 
         return view('result-enquirers.index')->with('users', $users); 
     }
+
+    public function viewStudent($id)
+    {
+        $user = User::findOrFail($id);
+
+        return view('students.show')->with('user', $user); 
+    }
 }

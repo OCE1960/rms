@@ -67,8 +67,11 @@
 
                                 <td> {{ $student->school?->full_name}} </td>
 
-                                <td class="text-center">  
-                                    <button title="View" class="btn btn-xs btn-info mr-2 mb-2" data-view-student="{{ $student->id }}"> <i class="fas fa-eye"></i> </button>  
+                                <td class="text-center">
+                                    <a href="{{ route('web.users.show', $student->id) }}">  
+                                        <button title="View" class="btn btn-xs btn-info mr-2 mb-2"> <i class="fas fa-eye"></i> 
+                                        </button>
+                                    </a>  
                                     
                                     @canany(['School Admin', 'Super Admin'])
                                         <button class="btn btn-xs btn-warning mr-2 mb-2" data-reset-password="{{ $student->id }}"> <i class="fas fa-key"></i> </button>

@@ -55,17 +55,8 @@ Route::prefix('dashboard')->group(function() {
             Route::get('/users/students', 'getStudents')->name('users.students');
             Route::get('/users/staffs', 'getStaffs')->name('users.staffs');
             Route::get('/users/result-enquirers', 'getResultEnquirers')->name('users.result.enquirers');
-            // Route::get('/users', 'index')->name('auth.users');
-            // Route::get('/users/select/{department_id}', 'showDepartmentUsers' )->name('users.selects.department');
-            // Route::get('/users/change-password', 'showChangePasswordForm' )->name('users.change.password');
-            // 
-            // 
-            // Route::post('/users/update/{id}', 'update')->name('users.update');
-            // Route::post('/users/store', 'store')->name('users.store');
-            // Route::post('/users/change/password', 'changePassword')->name('users.channge.password');
+            Route::get('/users/students/{id}', 'viewStudent')->name('web.users.show');
             // Route::post('/users/disable-account/{id}', 'disableAccount')->name('users.disable.account');
-            // 
-            // Route::get('/students', 'index')->name('student.users');
         });
 
         Route::controller(SchoolController::class)->group(function () {
