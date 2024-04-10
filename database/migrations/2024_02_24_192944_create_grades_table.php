@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('grades', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('school_id')->nullable()->constrained('schools')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('code')->unique();
-            $table->string('label')->unique();
+            $table->string('code')->nullable();
+            $table->string('label')->nullable();
             $table->integer('point')->nullable();
-            $table->string('lower_band_score')->unique();
-            $table->string('higher_band_score')->unique();
+            $table->string('lower_band_score')->nullable();
+            $table->string('higher_band_score')->nullable();
             $table->foreignUuid('created_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignUuid('updated_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();

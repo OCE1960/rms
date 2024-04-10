@@ -36,7 +36,7 @@ class TranscriptRequestController extends Controller
            return $this->sendErrorResponse(['Transcript Request does not exist']);
         }
 
-        $staffs = User::where('school_id', $transcriptRequest->school_id)->get();
+        $staffs = User::where('school_id', $transcriptRequest->school_id)->where('is_staff', true)->get();
 
        $data = [
             'transcriptRequest' => $transcriptRequest,

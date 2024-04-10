@@ -37,7 +37,7 @@
                         <div class="form-group col-md-12">
                           <div class="form-group col-md-12">
                             <label for="email">Destination Email</label>
-                            <input type="email" class="form-control" id="destination-email" name="destination-email">
+                            <input type="email" class="form-control" id="destination-email" name="destination-email" value="{{ (($transcriptRequest)) ? $transcriptRequest->receiving_institution_corresponding_email : '' }}">
                           </div>
                         </div>
 
