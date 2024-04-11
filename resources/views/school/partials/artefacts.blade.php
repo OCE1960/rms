@@ -49,10 +49,10 @@
                                     
                                     @canany(['School Admin', 'Super Admin'])
                                         <button class="btn btn-xs btn-warning mr-2 mb-2" data-reset-password="{{ $student->id }}"> <i class="fas fa-key"></i> </button>
+                                        <button title="View" class="btn btn-xs btn-primary mr-2 mb-2" data-edit-student="{{ $student->id }}"> <i class="fas fa-edit"></i> </button>
                                     @endcanany
 
-                                    @canany(['School Admin'])
-                                        <button title="View" class="btn btn-xs btn-primary mr-2 mb-2" data-edit-student="{{ $student->id }}"> <i class="fas fa-edit"></i> </button> 
+                                    @canany(['School Admin']) 
                                         <button class="btn btn-xs btn-danger mr-2 mb-2" data-delete-student="{{ $student->id }}"> <i class="fas fa-trash"></i>  </button> 
                                     @endcanany
                                 </td>
@@ -122,7 +122,7 @@
                                     <td class="text-center">  
                                         <button title="View" class="btn btn-xs btn-info mr-2 mb-2" data-view-staff="{{ $user->id }}"> <i class="fas fa-eye"></i> </button>
                                         
-                                        @canany(['School Admin'])
+                                        @canany(['School Admin', 'Super Admin'])
                                             <button title="View" class="btn btn-xs btn-primary mr-2 mb-2" data-edit-staff="{{ $user->id }}"> <i class="fas fa-edit"></i> </button> 
                                             <button class="btn btn-xs btn-danger mr-2 mb-2" data-delete-staff="{{ $user->id }}"> <i class="fas fa-trash"></i> </button> 
                                         @endcanany
