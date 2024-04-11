@@ -23,11 +23,11 @@
 
                     <tr class="text-center">
                         <td scope="row"> {{ ++$x }} </td>
-                        <td scope="col"> {{ $transcriptRequest->requestedBy->full_name }}  <br> 
+                        <td scope="col"> {{ $transcriptRequest->requestedBy->full_name }}  <br>
                             <strong>{{ $transcriptRequest->requestedBy->registration_no }} </strong>
                         </td>
                         <td scope="col"> {{ $transcriptRequest->title_of_request }} </td>
-                        <td scope="col"> {{ $transcriptRequest->school->full_name }} </td>
+                        <td scope="col"> {{ $transcriptRequest->school?->full_name }} </td>
                         <td scope="col">
                             @if ($transcriptRequest->workItem == null)
                                 <span class="text-warning">Pending</span>
@@ -49,14 +49,14 @@
                                 <button class="btn btn-xs btn-danger mr-3" data-assign-transcript-request="{{ $transcriptRequest->id }}"> <i class="fa fa-paper-plane mr-2" aria-hidden="true"></i>  Assign File</button>
                             @endif
                         @endcanany
-                            
+
                         </td>
                     </tr>
-            
+
                 @endforeach
 
             </tbody>
-            
+
         </table>
     </div>
 
@@ -65,5 +65,5 @@
     <div class="col-md-12">
         <p class="text-center text-danger my-5">No Transcript Requests to display</p>
     </div>
-                
+
 @endif

@@ -21,19 +21,22 @@
     <body>
 
         <div class="col-12">
-            
-            
 
             @if ( ($academicResults) && count($academicResults) > 0)
-         
+
                 @php
                     $x = 0;
                     $totalUnitArray = [];
                     $totalGradePointArray = [];
+                    $school = $userRequestingTranscript->school;
                 @endphp
 
                 <!-- <img src="{{ public_path('letter-head/header.jpg') }}" width="100%" height="65" /> -->
-                <h3>Transcript Results</h3>
+                <h1 class="text-center">{{  $school->full_name  }} </h1>
+                <h3 class="text-center">{{  $school->address_mailbox  }} </h3>
+                <h3 class="text-center">{{  $school->address_street  }} </h3>
+                <h3 class="text-center">{{  $school->official_email}} </h3>
+                <h3 class="text-center">{{  $school->official_website  }} </h3>
                 @foreach($academicResults as $semesterId => $semesterResults)
 
                     @php
@@ -46,26 +49,26 @@
                         array_push($totalUnitArray, $semesterTotalCourseUnit);
                         array_push($totalGradePointArray,  $semesterTotalGradePoint);
                     @endphp
-        
+
                 <div class="table-responsive mt-2">
 
-                    
-                    
 
-                    <div class="text-center semester-heading"> 
+
+
+                    <div class="text-center semester-heading">
                     <span style="font-size: 20px;"> <strong>{{ $semester->semester_session }}  {{ $semester->semester_name }} </strong> </span>
                     </div>
-                
 
 
-                    
+
+
 
                 @if (count($semesterResults) > 0)
 
                     <table width="100%" border="1" cellpadding="2" cellspacing="0">
                         <thead>
                             {{-- <tr>
-                                
+
                                 <th colspan="2">Title of Course</th>
                                 <th colspan="2">Option</th>
                                 <th colspan="2">Grade</th>
@@ -81,7 +84,7 @@
                         </thead>
                         <tbody>
 
-                            
+
 
                             @foreach ($semesterResults as $academicResult)
 
@@ -96,15 +99,15 @@
                                     <td scope="col">{{ $academicResult->grade_point }}</td>
                                     <td scope="col"></td>
                                 </tr>
-                                
+
                             @endforeach
 
-                    
+
 
                             <tr class="grade-display">
                                 <td scope="col"></td>
                                 <td scope="col" >
-                                    
+
                                 </td>
                                 <td scope="col" cellpadding="20" > <strong> {{ $semesterTotalCourseUnit }} </strong> </td>
                                 <td scope="col" ></td>
@@ -117,29 +120,29 @@
                     </table>
 
                     @if ($even == 0  && $x < count($academicResults))
-        
+
                      <pagebreak>
-                    
+
                       <h3>Transcript Results</h3>
-                        
+
                     @endif
 
                 @else
 
-                    <div class=" text-center text-danger my-2"> 
+                    <div class=" text-center text-danger my-2">
                         <h5>No Result Compiled Result for this Semester </h5>
                     </div>
                 @endif
 
-                            
+
                                 </div>
 
-                                
-                                            
-                                    
+
+
+
                             @endforeach
             @endif
         </div>
-       
+
     </body>
 </html>

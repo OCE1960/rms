@@ -342,6 +342,7 @@ class UserController extends Controller
                 'email' => $request->email,
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
+                'school_id' => $request->school_id,
                 'is_account_activated' => false,
                 'is_disabled' => false,
                 'is_student' => true,
