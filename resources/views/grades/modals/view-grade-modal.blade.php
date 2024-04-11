@@ -25,7 +25,7 @@
                 </div>
 
                  <div class="form-group col-md-12">
-                    <label for="edit-body">Label</label>
+                    <label for="edit-body">Description</label>
                     <div class="view-label"></div>
                 </div>
 
@@ -33,13 +33,13 @@
                   <label for="edit-body">Point</label>
                   <div class="view-point"></div>
               </div>
-                
+
 
             </div>
 
 
 
-           
+
 
         </form>
       </div>
@@ -51,7 +51,7 @@
 @push('js')
 
     <script>
-            
+
         $(document).ready(function() {
             //To View A user Record
             $(document).on('click','[data-view-grade]',function(e) {
@@ -90,10 +90,10 @@
 
             })
 
-           
+
 
         })
 
     </script>
-    
+
 @endpush

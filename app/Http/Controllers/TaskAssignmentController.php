@@ -49,7 +49,7 @@ class TaskAssignmentController extends Controller
             $workItemId = $request->query('in');
             $item = $request->input('item');
             $schoolId = $selectedTask;
-            
+
             $selectedTask = TaskAssignment::where('id',$workItemId)->where('send_to', $authUser->id)
                 ->activeTasks()->firstOrFail();
 
@@ -72,9 +72,9 @@ class TaskAssignmentController extends Controller
             $viewStatus = "out";
             $selectedTask = TaskAssignment::where('id',$workItemId)->where('send_to', $authUser->id)
                             ->where('is_task_completed', true)->first();
-            
+
             $assignTasks = TaskAssignment::where('send_to', $authUser->id)->where('is_task_completed', true)->where('id', '<>', $workItemId)
-                ->paginate(10)->unique('work_item_id'); 
+                ->paginate(10)->unique('work_item_id');
 
             // $assignTasks = $workItems->unique(function ($item) {
             //     return $item['work_item_id'];
@@ -90,7 +90,7 @@ class TaskAssignmentController extends Controller
             ->with('users', $users)
             ->with('semesters', $semesters)
             ->with('schoolId', $authUser->school_id)
-            ->with('grades', $grades); 
+            ->with('grades', $grades);
     }
 
     public function processMoveFile(StoreMoveFileRequest $request)
@@ -105,8 +105,8 @@ class TaskAssignmentController extends Controller
             $taskItem = new TaskAssignment();
             $taskItem->work_item_id = $request->workItemId;
             $taskItem->send_by = $authUser->id;
-            $taskItem->send_to =  $request->send_to; 
-            $taskItem->status = 're-assign'; 
+            $taskItem->send_to =  $request->send_to;
+            $taskItem->status = 're-assign';
             $taskItem->save();
 
             if ($request->comment) {
@@ -133,7 +133,7 @@ class TaskAssignmentController extends Controller
             return $this->sendErrorResponse(['Their was an error Moving this File '. $e->getMessage()]);
         }
 
-        
+
     }
 
 
@@ -145,12 +145,12 @@ class TaskAssignmentController extends Controller
 
 
         //Redirect to Compiled Result Modal.
-        if (empty($user)) { 
+        if (empty($user)) {
             return $this->sendErrorResponse(['User does not exist']);
         }
 
         //Redirect to Compiled Result Modal.
-        if (empty($transcriptRequest )) { 
+        if (empty($transcriptRequest )) {
             return $this->sendErrorResponse(['Transcript Request does not exist']);
         }
 
@@ -185,12 +185,12 @@ class TaskAssignmentController extends Controller
 
 
         //Redirect to Compiled Result Modal.
-        if (empty($user)) { 
+        if (empty($user)) {
             return $this->sendErrorResponse(['User does not exist']);
         }
 
         //Redirect to Compiled Result Modal.
-        if (empty($transcriptRequest )) { 
+        if (empty($transcriptRequest )) {
             return $this->sendErrorResponse(['Transcript Request does not exist']);
         }
 
@@ -217,12 +217,12 @@ class TaskAssignmentController extends Controller
 
 
         //Redirect to Compiled Result Modal.
-        if (empty($user)) { 
+        if (empty($user)) {
             return $this->sendErrorResponse(['User does not exist']);
         }
 
         //Redirect to Compiled Result Modal.
-        if (empty($transcriptRequest )) { 
+        if (empty($transcriptRequest )) {
             return $this->sendErrorResponse(['Transcript Request does not exist']);
         }
 
@@ -249,12 +249,12 @@ class TaskAssignmentController extends Controller
 
 
         //Redirect to Compiled Result Modal.
-        if (empty($userRequestingTranscript)) { 
+        if (empty($userRequestingTranscript)) {
             return $this->sendErrorResponse(['User does not exist']);
         }
 
         //Redirect to Compiled Result Modal.
-        if (empty($transcriptRequest )) { 
+        if (empty($transcriptRequest )) {
             return $this->sendErrorResponse(['Transcript Request does not exist']);
         }
 
@@ -267,7 +267,7 @@ class TaskAssignmentController extends Controller
         }
 
         $academicResults = $userRequestingTranscript->academicResults()->get()->groupBy('semester_id');
-        
+
 
         $transcriptTemplate = view("templates.transcript")->with('userRequestingTranscript', $userRequestingTranscript)
             ->with('academicResults', $academicResults);
@@ -281,7 +281,7 @@ class TaskAssignmentController extends Controller
                 }
                 $oldAttachment->delete();
             }
-            
+
         }
 
         if ($request->decision) {
@@ -301,7 +301,7 @@ class TaskAssignmentController extends Controller
         // }
 
         // return $this->sendErrorResponse(['Their was an error generating the Transcript']);
-        
+
     }
 
     public function processDispatchCompileResult(DispatchTranscriptRequest $request)
@@ -312,12 +312,12 @@ class TaskAssignmentController extends Controller
 
 
         //Redirect to Compiled Result Modal.
-        if (empty($user)) { 
+        if (empty($user)) {
             return $this->sendErrorResponse(['User does not exist']);
         }
 
         //Redirect to Compiled Result Modal.
-        if (empty($transcriptRequest )) { 
+        if (empty($transcriptRequest )) {
             return $this->sendErrorResponse(['Transcript Request does not exist']);
         }
 
@@ -347,19 +347,19 @@ class TaskAssignmentController extends Controller
 
 
         //Redirect to Compiled Result Modal.
-        if (empty($user)) { 
+        if (empty($user)) {
             return $this->sendErrorResponse(['User does not exist']);
         }
 
         //Redirect to Compiled Result Modal.
-        if (empty($transcriptRequest )) { 
+        if (empty($transcriptRequest )) {
             return $this->sendErrorResponse(['Transcript Request does not exist']);
         }
 
         $artifact_name = 'Archive-Transcript-Request';
         $taskManager = TaskManager::where('transcript_request_id', $transcriptRequest->id)
             ->where('artifact', $artifact_name)->first();
-        
+
         if ($taskManager == null) {
             $taskManager = new TaskManager;
         }
@@ -383,13 +383,13 @@ class TaskAssignmentController extends Controller
 
         return $this->sendSuccessMessage('Compiled Result Successfully Dispatch');
     }
-    
+
     public function processVerifyResult(StoreDecisionRequest $request)
     {
         $authUser = auth()->user();
         $verifyResultRequest = ResultVerificationRequest::find($request->verifyResultRequestId);
 
-        if (empty($verifyResultRequest)) { 
+        if (empty($verifyResultRequest)) {
             return $this->sendErrorResponse(['Verify Result Request does not exist']);
         }
 
@@ -414,7 +414,7 @@ class TaskAssignmentController extends Controller
         $verifyResultRequest = ResultVerificationRequest::find($request->verifyResultRequestId);
 
         //Redirect to Compiled Result Modal.
-        if (empty($verifyResultRequest)) { 
+        if (empty($verifyResultRequest)) {
             return $this->sendErrorResponse(['Verify Result Request does not exist']);
         }
 
@@ -439,7 +439,7 @@ class TaskAssignmentController extends Controller
         $verifyResultRequest = ResultVerificationRequest::find($request->verifyResultRequestId);
 
         //Redirect to Compiled Result Modal.
-        if (empty($verifyResultRequest)) { 
+        if (empty($verifyResultRequest)) {
             return $this->sendErrorResponse(['Verify Result Request does not exist']);
         }
 
@@ -464,7 +464,7 @@ class TaskAssignmentController extends Controller
         $verifyResultRequest = ResultVerificationRequest::find($request->verifyResultRequestId);
 
         //Redirect to Compiled Result Modal.
-        if (empty($verifyResultRequest)) { 
+        if (empty($verifyResultRequest)) {
             return $this->sendErrorResponse(['Verify Result Request does not exist']);
         }
 
@@ -489,7 +489,7 @@ class TaskAssignmentController extends Controller
         $verifyResultRequest = ResultVerificationRequest::find($request->verifyResultRequestId);
 
         //Redirect to Compiled Result Modal.
-        if (empty($verifyResultRequest)) { 
+        if (empty($verifyResultRequest)) {
             return $this->sendErrorResponse(['Verify Result Request does not exist']);
         }
 
@@ -509,18 +509,18 @@ class TaskAssignmentController extends Controller
                 }
                 $oldAttachment->delete();
             }
-            
+
         }
 
         $attachment = AttachmentController::generateVerifyResult($verifyResultRequest, $VerifyResultTemplate, $response);
-      
+
 
         $verifyResultRequest->is_result_dispatched = true;
         $verifyResultRequest->dispatched_by= $authUser->id;
         $verifyResultRequest->save();
 
 
-        $receiver = $verifyResultRequest->enquirer;
+        $receiver = $verifyResultRequest->requestedBy;
 
         Mail::to($receiver->email)->send(new DispatchVerifyResultMail($verifyResultRequest));
 

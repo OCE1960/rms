@@ -11,7 +11,7 @@
 
         <div class="col-sm-6">
 
-            
+
 
             @if(empty($project) )
                 <button  id="make-transcript-request"  class="btn btn-primary btn-sm float-right" >
@@ -19,9 +19,9 @@
                 </button>
             @endif
 
-            
-                
-           
+
+
+
         </div>
     </div>
 @stop
@@ -57,40 +57,42 @@
                                 <td> {{ $transcriptRequest->receiving_institution }} </td>
                                 <td> {{ $transcriptRequest->destination_country }} </td>
                                 <td>  {{ $transcriptRequest->send_by }} </td>
-                                <td class="text-center">   
-                                    @if ($transcriptRequest->processing_status == false)
-                                        <span class="text-danger ">Pending</span> 
+                                <td class="text-center">
+                                    @if ($transcriptRequest->is_result_compiled == false)
+                                        <span class="text-danger ">Pending</span>
+                                    @elseif ($transcriptRequest->is_result_dispatched == true)
+                                        <span class="text-success"> Completed </span>
                                     @else
-                                        <span class="text-success">Ongoing</span>
-                                    @endif 
+                                        <span class="text-info">Ongoing</span>
+                                    @endif
                                 </td>
 
-                                <td class="text-center">   
+                                <td class="text-center">
                                     @if ($transcriptRequest->is_result_dispatched == false)
-                                        <span class="text-danger ">Pending</span> 
+                                        <span class="text-danger ">Pending</span>
                                     @else
                                         <span class="text-success">Dispatch</span> <br>
-                                        <a href="{{ asset($transcriptRequest->studentTranscriptFilePath()->file_path) }}" title="Transcript" class="btn btn-xs btn-success mr-2" target="_blank"> 
-                                            <i class="fas fa-edit"></i> View Transcript 
+                                        <a href="{{ asset($transcriptRequest->studentTranscriptFilePath()->file_path) }}" title="Transcript" class="btn btn-xs btn-success mr-2" target="_blank">
+                                            <i class="fas fa-edit"></i> View Transcript
                                         </a>
 
-                                    @endif 
+                                    @endif
                                 </td>
-                                <td> 
+                                <td>
                                         <a href="#" title="View"><button class="btn btn-xs btn-info mr-2" data-view-transcript="{{ $transcriptRequest->id }}"> <i class="fas fa-eye"></i>  </button> </a>
                                         @if ($transcriptRequest->is_result_compiled == false)
                                             <a href="#" title="Edit"><button class="btn btn-xs btn-success mr-2" data-edit-transcript="{{ $transcriptRequest->id }}"> <i class="fas fa-edit"></i>  </button> </a>
                                             {{-- <a href="#" title="Delete"><button class="btn btn-xs btn-danger mr-2" data-edit-transcript="{{ $transcriptRequest->id }}"> <i class="fa fa-trash"></i>  </button> </a> --}}
                                         @endif
-                                        
+
 
                                 </td>
                             </tr>
-                    
+
                         @endforeach
 
                     </tbody>
-                    
+
                 </table>
             </div>
 
@@ -99,8 +101,8 @@
             <div class="col-md-12">
                 <p class="text-center text-danger">No Transcript Request to display</p>
             </div>
-                        
-        @endif 
+
+        @endif
 
     </div> <!-- /#info-box -->
 
@@ -113,11 +115,11 @@
 @push('js')
 
     <script>
-            
+
         $(document).ready(function() {
             $('#transcripts').DataTable();
         })
 
     </script>
-    
+
 @endpush

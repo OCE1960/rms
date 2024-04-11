@@ -13,7 +13,7 @@
 
 
 
-@section('auth_header', __('Create a Result VErification Account Account'))
+@section('auth_header', __('Create a Result Verification Account'))
 
 @section('auth_body')
     <form action="{{ route('process.verify.result.register') }}" method="post">
@@ -22,19 +22,19 @@
         @if(session('success'))
             <div class="alert alert-success">
                 <i class="fas fa-check-double"></i>      {{ session('success') }}
-            </div> 
+            </div>
         @endif
 
         @if(session('error-message'))
             <div class="alert alert-danger">
                 <i class="fa fa-bug"></i>      {{ session('error-message') }}
-            </div> 
+            </div>
         @endif
 
         @if(session('error'))
             <div class="alert alert-danger">
                 <i class="fa fa-bug"></i>      {{ session('error') }}
-            </div> 
+            </div>
         @endif
 
         {{-- First Name field --}}
@@ -143,13 +143,13 @@
 
 @section('auth_footer')
     <p class="my-0">
-        <a href="{{ route('verify.result.login') }}">
+        <a href="{{ route('web.verify.result.login') }}">
             I already have an Account
         </a>
     </p>
 @stop
 
-@push('scripts')
+@push('js')
 
     <script>
             function visibility() {
@@ -177,5 +177,5 @@
                 }
             }
     </script>
-    
+
 @endpush

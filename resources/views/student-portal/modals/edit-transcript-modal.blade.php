@@ -45,6 +45,7 @@
                     <select id="edit_program" name="edit_program" class="form-control">
                         <option value="">Choose...</option>
                         <option value="B.Eng">B.Eng</option>
+                        <option value="B.Sc">B.Sc</option>
                         <option value="B.Tech">B.Tech</option>
                         <option value="M.Eng">M.Eng</option>
                         <option value="M.Sc">M.Sc</option>
@@ -77,7 +78,7 @@
                 </div>
 
             </div>
-           
+
 
         </form>
       </div>
@@ -90,7 +91,7 @@
         <div class="form-group col-md-6">
             <button type="button" id="update-transcript-request" class="btn btn-primary float-right" data-add-role="role">Update Transcript Request</button>
         </div>
-        
+
       </div>
     </div>
   </div>
@@ -99,7 +100,7 @@
 @push('js')
 
     <script>
-            
+
         $(document).ready(function() {
             //To View A user Record
             $(document).on('click','[data-edit-transcript]',function(e) {
@@ -124,18 +125,18 @@
                                 $('#edit_title_of_request').val(result.data.transcriptRequest.title_of_request)
                                 $('#edit_reason_for_request').val(result.data.transcriptRequest.reason_for_request)
                                 $('#edit_receiving_institution_corresponding_email').val(result.data.transcriptRequest.receiving_institution_corresponding_email)
-                                
+
                                 $('.error-json-response').html('');
                                 $.fn.modal.Constructor.prototype._enforceFocus = function() {};
                                 $('#edit-transcript-request-modal').modal('show');
-                            
+
                             },
-                        error : function(response, textStatus, errorThrown){              
+                        error : function(response, textStatus, errorThrown){
                               $('.spms-loader').hide();
                               $('.error-json-response').html('');
                               $.each(response.responseJSON.errors, function(key, value){
                                       $('.error-json-response').append('<span class="alert alert-danger mr-4" style="display:inline-block;"> <i class="fa fa-times mr-2"></i>  '+value+'</span>');
-                              }); 
+                              });
                             },
                               dataType: 'json'
                       });
@@ -160,7 +161,7 @@
                 formData.append('program', program);
                 formData.append('title_of_request', $('#edit_title_of_request').val());
                 formData.append('reason_for_request', $('#edit_reason_for_request').val());
-                
+
                 const url = "{{ route('student.transcript.request.update','') }}/"+id;
                 $.ajax({
                     url: url,
@@ -188,25 +189,25 @@
                       window.setTimeout( function(){
                         location.reload(true);
                       },2000);
-                              
+
                     },
                     error : function(response, textStatus, errorThrown){
-                    
+
                       if(response.status < 500){
                         $('.spms-loader').hide();
                         $('#update-transcript-request').attr('disabled', false);
                         $('.error-json-response').html('');
                         $.each(response.responseJSON.errors, function(key, value){
                             $('.error-json-response').append('<span class="alert alert-danger mr-4" style="display:inline-block;"> <i class="fa fa-times mr-2"></i>  '+value+'</span>');
-                        }); 
+                        });
                       }
-                                
+
                     },
                     dataType: 'json'
-                });  
+                });
             })
         })
 
     </script>
-    
+
 @endpush

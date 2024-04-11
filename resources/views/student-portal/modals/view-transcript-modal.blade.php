@@ -1,5 +1,5 @@
 <div class="modal fade" id="view-transcript-request-modal" tabindex="-1" role="dialog" aria-labelledby="roleModalLable" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title mx-5" id="roleModalLable">Transcript Details</h5>
@@ -13,6 +13,16 @@
                 <div class="center spms-loader" id="spms-loader" >
                     <div class="spinner " id="spinner-1"></div>
                 </div>
+
+                <div class="row shadow p-3 mb-1 bg-white rounded mx-5">
+                  <div class="col-md-3"> <strong> Title </strong> </div>
+                  <div class="col-md-8 title text-center"></div>
+                </div> 
+
+                <div class="row shadow p-3 mb-1 bg-white rounded mx-5">
+                  <div class="col-md-3"> <strong> Reason for Request </strong> </div>
+                  <div class="col-md-8 reason-for-request text-center"></div>
+                </div> 
 
                 <div class="row shadow p-3 mb-1 bg-white rounded mx-5">
                   <div class="col-md-3"> <strong> Send By </strong> </div>
@@ -77,6 +87,8 @@
                                 {
                                   // console.log(result);
                                     $('.spms-loader').hide();
+                                    $('.title').text(result.data.transcriptRequest.title_of_request)
+                                    $('.reason-for-request').text(result.data.transcriptRequest.reason_for_request)
                                     $('.send-by').text(result.data.transcriptRequest.send_by)
                                     $('.program').text(result.data.transcriptRequest.program)
                                     $('.destination-country').text(result.data.transcriptRequest.destination_country)

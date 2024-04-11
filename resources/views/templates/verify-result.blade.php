@@ -28,8 +28,8 @@
 
             <div class="mt-5">
 
-                <h3>Dear {{ $verifyResultRequest->enquirer->full_name }}, </h3>
-                
+                <h3>Dear {{ $verifyResultRequest->requestedBy->full_name }}, </h3>
+
                 {!!  $response !!}
 
                 <br>
@@ -43,9 +43,9 @@
             </div>
 
 
-            
-            
+
+
         </div>
-       
+
     </body>
 </html>

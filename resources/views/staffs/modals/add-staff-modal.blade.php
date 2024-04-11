@@ -22,7 +22,7 @@
                     if (isset($school)) {
                         $schoolId = $school->id;
                     }
-                @endphp 
+                @endphp
 
                 <input type="hidden" class="form-control" id="staff-school-id" name="staff-school-id" value="{{ $schoolId }}" >
 
@@ -62,7 +62,7 @@
                                 @foreach ($roles as $role)
                                     <option value="{{ $role->id }}" >{{ $role->label}}</option>
                                 @endforeach
-                            
+
                             @endif
                         </select>
                     </div>
@@ -99,7 +99,7 @@
                         <input type="text" class="form-control" id="password" name="passwordy">
                     </div>
                 </div>
-            
+
 
             </form>
       </div>
@@ -110,11 +110,11 @@
         </div>
 
         <div class="form-group col-md-6">
-            <button type="button" id="save-new-student" class="btn btn-primary float-right" data-add-role="role">Save New Student</button>
+            <button type="button" id="save-new-student" class="btn btn-primary float-right" data-add-role="role">Save New Staff</button>
         </div>
 
-        
-        
+
+
       </div>
     </div>
   </div>
@@ -123,9 +123,9 @@
 @push('js')
 
     <script>
-            
+
         $(document).ready(function() {
-            
+
             //Show Modal for New Entry
             $(document).on('click','#add-new-staff',function(e) {
                 e.preventDefault();
@@ -158,7 +158,7 @@
                 formData.append('state_of_origin', $('#state_of_origin').val());
                 formData.append('school_id', $('#staff-school-id').val());
                 formData.append('role', $('#role').val());
-               
+
                 let url = "{{ route('staffs.store') }}";
                  $.ajax({
                     url: url,
@@ -168,7 +168,7 @@
                     processData:false,
                     contentType: false,
                     success: function(result){
-                
+
                         $('#spms-loader').hide();
                         $('.backend-json-response').hide();
                         swal.fire({
@@ -185,26 +185,26 @@
                             $('#add-new-staff-modal').modal('hide');
                                 location.reload(true);
                         },2000);
-                                    
+
 
 
                     },
                     error : function(response, textStatus, errorThrown){
-                                    
+
                         $('#spms-loader').hide();
                         $('#save-new-student').attr('disabled', false);
                         $('.backend-json-response').html('');
                         $.each(response.responseJSON.errors, function(key, value){
                                 $('.backend-json-response').append('<span class="alert alert-danger mr-4" style="display:inline-block;"> <i class="fa fa-times mr-2"></i>  '+value+'</span>');
-                        }); 
+                        });
                     },
                     dataType: 'json'
-                }); 
+                });
             })
-           
+
 
         })
 
     </script>
-    
+
 @endpush

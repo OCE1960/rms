@@ -1,1 +1,1 @@
-@extends('adminlte::result-verifier-login')
+@extends('adminlte::auth.result-verifier-login')

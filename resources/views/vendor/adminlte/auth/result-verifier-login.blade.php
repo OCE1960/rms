@@ -32,18 +32,18 @@
     <div class="login-box">
         {{-- Logo --}}
         <div class="{{ $auth_type ?? 'login' }}-logo">
-            <a href="{{ route('landing.page') }}">
+            <a href="{{ url('/') }}">
                 <img src="{{ asset(config('adminlte.logo_img')) }}" height="50">
                 <span class="login-logo">
                    <strong> Result Verification Portal </strong>
                 </span>
             </a>
         </div>
-        
+
         <div class="card card-outline card-primary">
             <div class="card-body login-card-body">
-            
-                <p class="login-box-msg">{{ __('adminlte::adminlte.login_message') }} or 
+
+                <p class="login-box-msg">{{ __('adminlte::adminlte.login_message') }} or
                     <a href="{{ route('verify.result.register') }}">
                         {{ __('Create Result Verification Account') }}
                     </a>
@@ -54,26 +54,26 @@
                         {{ session('invalid-details') }}
                     </div>
                 @endif
-                
+
                 <form action="{{ route('process.verify.result.login') }}" method="post">
                     {{ csrf_field() }}
 
                     @if(session('success'))
                         <div class="alert alert-success">
                             <i class="fas fa-check-double"></i>      {{ session('success') }}
-                        </div> 
+                        </div>
                     @endif
 
                     @if(session('error-message'))
                         <div class="alert alert-danger">
                             <i class="fas fa-check-double"></i>      {{ session('error-message') }}
-                        </div> 
+                        </div>
                     @endif
 
                     @if(session('error'))
                         <div class="alert alert-danger">
                             <i class="fas fa-check-double"></i>      {{ session('error') }}
-                        </div> 
+                        </div>
                     @endif
 
                     <div class="input-group mb-3">
@@ -108,7 +108,7 @@
                             <div class="icheck-primary">
                                 <input type="checkbox" name="remember" id="remember">
                                 <label for="remember">{{ __('adminlte::adminlte.remember_me') }}</label>
-                                
+
                             </div>
                         </div>
                         <div class="col-4">
@@ -121,14 +121,14 @@
                     <div class="row">
                         <div class="col-md-8">
                             <p class="my-0">
-                                <a href="{{ route('landing.page') }}">
+                                <a href="{{ url('/') }}">
                                     {{ __('Return to Home') }}
                                 </a>
                             </p>
                         </div>
                     </div>
                 </form>
-                
+
             </div>
         </div>
     </div>
@@ -154,6 +154,6 @@
                 $('#eyeSlash').hide();
             }
         }
-    
+
     </script>
 @stop

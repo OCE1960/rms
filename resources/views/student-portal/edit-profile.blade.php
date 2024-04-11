@@ -37,28 +37,6 @@
 
           </div>
 
-          <div class="form-group col-md-8">
-            <label for="department_id">Department</label>
-            <select id="department_id" name="department_id" class="form-control @error('department_id') is-invalid @enderror">
-                <option value="">Choose...</option>
-
-                    @if(count($departments) > 0)
-
-                        @foreach($departments as $key => $value)
-                                <option value="{{ $value->id }}" {{ ($value->id == $student->department_id) ? "selected" : "" }}> 
-                                    {{ $value->name  }} 
-                                </option> 
-                        @endforeach
-                        
-                    @endif    
-            </select>
-            @error('department_id')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-            @enderror
-        </div>
-
     </div>
 
     <div class="form-row">

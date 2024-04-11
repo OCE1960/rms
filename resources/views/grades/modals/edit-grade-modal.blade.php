@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="form-group col-md-12">
-                  <label for="edit-label">Label</label>
+                  <label for="edit-label">Description</label>
                   <input type="text" class="form-control" id="edit-label" name="edit-label">
                 </div>
 
@@ -61,7 +61,7 @@
 @push('js')
 
     <script>
-            
+
         $(document).ready(function() {
             //To View A user Record
             $(document).on('click','[data-edit-grade]',function(e) {
@@ -101,8 +101,8 @@
                                 },
                                 dataType: 'json'
                         });
-                        
-                  
+
+
 
             })
 
@@ -151,27 +151,27 @@
                                 window.setTimeout( function(){
                                   location.reload(true);
                                 },2000);
-                                
+
                             },
                             error : function(response, textStatus, errorThrown){
-                          
+
                               if(response.status < 500){
                                   $('.spms-loader').hide();
                                   $('#update-grade-record').attr('disabled', false);
                                   $('.backend-json-response').html('');
                                   $.each(response.responseJSON.errors, function(key, value){
                                       $('.backend-json-response').append('<span class="alert alert-danger mr-4" style="display:inline-block;"> <i class="fa fa-times mr-2"></i>  '+value+'</span>');
-                                  }); 
+                                  });
                               }
-                                        
+
                             },
                             dataType: 'json'
-                        }); 
+                        });
             })
-           
+
 
         })
 
     </script>
-    
+
 @endpush

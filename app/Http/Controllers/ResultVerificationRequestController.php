@@ -32,11 +32,11 @@ class ResultVerificationRequestController extends Controller
         $verificationRequest = ResultVerificationRequest::find($id);
 
         //Redirect to the Role page if validation fails.
-         if (empty($verificationRequest)) { 
+         if (empty($verificationRequest)) {
            return $this->sendErrorResponse(['Transcript Request does not exist']);
         }
 
-        $staffs = User::where('school_id', $verificationRequest->school_id)->get();
+        $staffs = User::where('school_id', $verificationRequest->school_id)->where('is_staff', true)->get();
 
        $data = [
             'verificationRequest' => $verificationRequest,
@@ -46,7 +46,7 @@ class ResultVerificationRequestController extends Controller
        ];
 
        return $this->sendSuccessResponse('Transcript Request Record Successfully Retrived',$data);
-       
+
     }
 
     public function assignVerificationRequestFile(StoreAsignVerificationRequest $request)
@@ -65,8 +65,8 @@ class ResultVerificationRequestController extends Controller
             $taskItem = new TaskAssignment();
             $taskItem->work_item_id = $workItem->id;
             $taskItem->send_by = $authUser->id;
-            $taskItem->send_to =  $request->send_to; 
-            $taskItem->status = 're-assign'; 
+            $taskItem->send_to =  $request->send_to;
+            $taskItem->status = 're-assign';
             $taskItem->save();
 
             if ($request->comment) {
@@ -89,6 +89,6 @@ class ResultVerificationRequestController extends Controller
             return $this->sendErrorResponse(['Their was an error Moving this File '. $e->getMessage()]);
         }
 
-        
+
     }
 }

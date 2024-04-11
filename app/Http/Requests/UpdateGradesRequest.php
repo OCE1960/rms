@@ -44,7 +44,7 @@ class UpdateGradesRequest extends FormRequest
         return [
             'required' => 'The :attribute field is required.',
             'code.unique' => 'The Code already Taken',
-            'label.unique' => 'The Label already Taken',
+            'label.unique' => 'The Descriptionl already Taken',
         ];
     }
 

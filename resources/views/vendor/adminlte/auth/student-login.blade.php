@@ -39,40 +39,40 @@
                 </span>
             </a>
         </div>
-        
+
         <div class="card card-outline card-primary">
             <div class="card-body login-card-body">
-                <p class="login-box-msg">{{ __('adminlte::adminlte.login_message') }} or 
+                {{-- <p class="login-box-msg">{{ __('adminlte::adminlte.login_message') }} or
                     <a href="{{ route('register') }}">
                         {{ __('Create Student Account') }}
                     </a>
-                </p>
+                </p> --}}
 
                 @if (session('invalid-details'))
                     <div class="alert alert-danger">
                         {{ session('invalid-details') }}
                     </div>
                 @endif
-                
+
                 <form action="{{ route('process.student.login') }}" method="post">
                     {{ csrf_field() }}
 
                     @if(session('success'))
                         <div class="alert alert-success">
                             <i class="fas fa-check-double"></i>      {{ session('success') }}
-                        </div> 
+                        </div>
                     @endif
 
                     @if(session('error-message'))
                         <div class="alert alert-danger">
                             <i class="fas fa-check-double"></i>      {{ session('error-message') }}
-                        </div> 
+                        </div>
                     @endif
 
                     @if(session('error'))
                         <div class="alert alert-danger">
                             <i class="fas fa-check-double"></i>      {{ session('error') }}
-                        </div> 
+                        </div>
                     @endif
 
                     <div class="input-group mb-3">
@@ -107,7 +107,7 @@
                             <div class="icheck-primary">
                                 <input type="checkbox" name="remember" id="remember">
                                 <label for="remember">{{ __('adminlte::adminlte.remember_me') }}</label>
-                                
+
                             </div>
                         </div>
                         <div class="col-4">
@@ -127,7 +127,7 @@
                         </div>
                     </div>
                 </form>
-                
+
             </div>
         </div>
     </div>
@@ -153,6 +153,6 @@
                 $('#eyeSlash').hide();
             }
         }
-    
+
     </script>
 @stop

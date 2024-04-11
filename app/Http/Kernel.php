@@ -66,5 +66,9 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'abilities' => \Laravel\Sanctum\Http\Middleware\CheckAbilities::class,
         'ability' => \Laravel\Sanctum\Http\Middleware\CheckForAnyAbility::class,
+        'is_account_activated' => \App\Http\Middleware\EnsureAccountIsActivated::class,
+        'is_account_disable' => \App\Http\Middleware\EnsureAccountIsNotDisable::class,
+        'is_student_profile_updated' => \App\Http\Middleware\EnsureStudentUpdateProfile::class,
+        'is_result_verifier_profile_updated' => \App\Http\Middleware\EnsureResultVerifierUpdateProfile::class,
     ];
 }

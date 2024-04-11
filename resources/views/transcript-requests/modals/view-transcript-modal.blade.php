@@ -101,6 +101,7 @@
                             $('.receiving-institution').text(result.data.transcriptRequest.receiving_institution)
                             $('.correspondence-email').text(result.data.transcriptRequest.receiving_institution_corresponding_email)
                             $('.program').text(result.data.transcriptRequest.program)
+                            $('.destination-country').text(result.data.transcriptRequest.destination_country)
                             $('#view-transcript-request-modal').modal('show');
                         }
                         },

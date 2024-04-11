@@ -44,6 +44,7 @@
                     <select id="program" name="program" class="form-control">
                         <option value="">Choose...</option>
                         <option value="B.Eng">B.Eng</option>
+                        <option value="B.Sc">B.Sc</option>
                         <option value="B.Tech">B.Tech</option>
                         <option value="M.Eng">M.Eng</option>
                         <option value="M.Sc">M.Sc</option>
@@ -74,7 +75,7 @@
                 </div>
 
             </div>
-           
+
 
         </form>
       </div>
@@ -88,8 +89,8 @@
             <button type="button" id="save-new-transcript-request" class="btn btn-primary float-right" data-add-role="role">Save to make request</button>
         </div>
 
-        
-        
+
+
       </div>
     </div>
   </div>
@@ -98,9 +99,9 @@
 @push('js')
 
     <script>
-            
+
         $(document).ready(function() {
-            
+
             //Show Modal for New Entry
             $(document).on('click','#make-transcript-request',function(e) {
                 e.preventDefault();
@@ -137,8 +138,8 @@
                 formData.append('receiving_institution', $('#receiving_institution').val());
                 formData.append('program', $('#program').val());
                 formData.append('receiving_institution_corresponding_email', $('#receiving_institution_corresponding_email').val());
-        
-               
+
+
                 let url = "{{ route('student.transcript.request') }}";
                  $.ajax({
                     url: url,
@@ -148,7 +149,7 @@
                     processData:false,
                     contentType: false,
                     success: function(result){
-                
+
                                     $('#spms-loader').hide();
                                     $('.backend-json-response').hide();
                                     swal.fire({
@@ -165,26 +166,26 @@
                                         $('#add-new-user-modal').modal('hide');
                                             location.reload(true);
                                     },2000);
-                                    
+
 
 
                     },
                     error : function(response, textStatus, errorThrown){
-                                    
+
                                 $('#spms-loader').hide();
                                 $('#save-new-user').attr('disabled', false);
                                 $('.backend-json-response').html('');
                                 $.each(response.responseJSON.errors, function(key, value){
                                         $('.backend-json-response').append('<span class="alert alert-danger mr-4" style="display:inline-block;"> <i class="fa fa-times mr-2"></i>  '+value+'</span>');
-                                }); 
+                                });
                     },
                                 dataType: 'json'
-                }); 
+                });
             })
-           
+
 
         })
 
     </script>
-    
+
 @endpush

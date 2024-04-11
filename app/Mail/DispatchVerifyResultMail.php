@@ -23,7 +23,7 @@ class DispatchVerifyResultMail extends Mailable
     public function __construct(ResultVerificationRequest $verifyResultRequest)
     {
         $this->full_name = $verifyResultRequest->student_first_name.' '.$verifyResultRequest->student_middle_name.' '.$verifyResultRequest->student_last_name;
-        $this->receiver = $verifyResultRequest->enquirer->full_name;
+        $this->receiver = $verifyResultRequest->requestedBy->full_name;
         $this->registration_no = $verifyResultRequest->registration_no;
         $this->file_path = $verifyResultRequest->resultVerificationResponseAttachment() ? $verifyResultRequest->resultVerificationResponseAttachment()->file_path : "";
     }

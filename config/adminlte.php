@@ -304,8 +304,10 @@ return [
         ],
         [
             'header' => 'account_settings',
-            'can'  => ['Admin', 'Department-Admin', 'Head-of-Department', 'Registry', 'Result-Compiler', 'Result-Dispatcher', 
-                        'Vetting-Officer', 'Checking-Officer', 'Recommending-Officer', 'Approving-Officer'],
+            'can'  => [
+                        'Super Admin', 'Result Compiler', 'Checking Officer', 'Registry','Dispatching Officer',
+                        'Recommending Officer', 'Approving Officer', 'School Admin', 'Result Uploader',
+                    ],
         ],
         [
             'text' => 'profile',
@@ -353,7 +355,7 @@ return [
             ],
         ],
 
-                /*
+        /*
         *********************************
             Student MENU LINKS
         *********************************
@@ -364,9 +366,51 @@ return [
             'icon' => 'fas fa-tachometer-alt',
             'can' => 'student',
         ],
+        [
+            'header' => 'account_settings',
+            'can'  => ['student'],
+        ],
+        [
+            'text' => 'profile',
+            'route'  => 'student.users.profile',
+            'icon' => 'fas fa-fw fa-user',
+            'can' => ['student'],
+        ],
+        [
+            'text' => 'change_password',
+            'route'  => 'student.change.password',
+            'icon' => 'fas fa-fw fa-lock',
+            'can' => ['student'],
+        ],
 
+                 /*
+        *********************************
+            Student MENU LINKS
+        *********************************
+        */
+        [
+            'text' => 'Dashboard',
+            'route'  => 'verify.result.dashboard',
+            'icon' => 'fas fa-tachometer-alt',
+            'can' => 'result-verifier',
+        ],
+        [
+            'header' => 'account_settings',
+            'can'  => ['result-verifier'],
+        ],
+        [
+            'text' => 'profile',
+            'route'  => 'verify.result.users.profile',
+            'icon' => 'fas fa-fw fa-user',
+            'can' => ['result-verifier'],
+        ],
+        [
+            'text' => 'change_password',
+            'route'  => 'verify.result.change.password',
+            'icon' => 'fas fa-fw fa-lock',
+            'can' => ['result-verifier'],
+        ],
 
-    
     ],
     /*
     |--------------------------------------------------------------------------

@@ -25,7 +25,7 @@
               </div>
 
               <div class="form-group col-md-12">
-                  <label for="label">Label</label>
+                  <label for="label">Description</label>
                   <input type="text" class="form-control" id="label" name="label">
               </div>
 
@@ -44,7 +44,7 @@
                 <input type="number" class="form-control" id="higher_band_score" name="higher_band_score">
               </div>
             </div>
-           
+
 
         </form>
       </div>
@@ -59,9 +59,9 @@
 @push('js')
 
     <script>
-            
+
         $(document).ready(function() {
-            
+
             //Show Modal for New Entry
             $(document).on('click','#add-new-grade',function(e) {
                 e.preventDefault();
@@ -87,9 +87,9 @@
                 formData.append('lower_band_score', $('#lower_band_score').val());
                 formData.append('higher_band_score', $('#higher_band_score').val());
                 formData.append('school_id', $('#school-id').val());
-     
+
                 let role_url = "{{ route('grading-systems.store') }}";
-                  
+
                 $.ajax({
                 url: role_url,
                 type: "POST",
@@ -98,7 +98,7 @@
                 processData:false,
                 contentType: false,
                 success: function(result){
-            
+
                                 $('#spms-loader').hide();
                                 $('.backend-json-response').hide();
                                 swal.fire({
@@ -115,26 +115,26 @@
                                     $('#add-new-grade-modal').modal('hide');
                                         location.reload(true);
                                 },2000);
-                                
+
 
 
                 },
                 error : function(response, textStatus, errorThrown){
-                                
+
                             $('#spms-loader').hide();
                             $('#save-new-grade').attr('disabled', false);
                             $('.backend-json-response').html('');
                             $.each(response.responseJSON.errors, function(key, value){
                                     $('.backend-json-response').append('<span class="alert alert-danger mr-4" style="display:inline-block;"> <i class="fa fa-times mr-2"></i>  '+value+'</span>');
-                            }); 
+                            });
                 },
                             dataType: 'json'
-            }); 
+            });
             })
-           
+
 
         })
 
     </script>
-    
+
 @endpush
