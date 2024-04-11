@@ -24,7 +24,7 @@ class StudentController extends Controller
         $students = User::where('is_student', true)->where('school_id', $authUser->school_id)
             ->orderBy('first_name', 'asc')->orderBy('last_name', 'asc')->get();
 
-        return view('students.index')->with('students', $students)->with('semesters', $semesters); 
+        return view('students.index')->with('students', $students)->with('semesters', $semesters);
     }
 
     /**
@@ -36,27 +36,27 @@ class StudentController extends Controller
         $user = User::updateOrCreate(
             [
                 'registration_no' => $request->registration_no,
-            ], 
+            ],
             [
                 'first_name' => $request->first_name,
                 'middle_name' => $request->middle_name,
-                'last_name' => $request->last_name, 
-                'email' => $request->email, 
-                'phone_no' => $request->phone_no, 
-                'gender' => $request->gender, 
+                'last_name' => $request->last_name,
+                'email' => $request->email,
+                'phone_no' => $request->phone_no,
+                'gender' => $request->gender,
                 'profile_picture_path' => $request->profile_picture_pathe,
                 'date_of_birth' => $request->date_of_birth,
-                'state_of_origin' => $request->state_of_origin, 
+                'state_of_origin' => $request->state_of_origin,
                 'school_id' => $authUser->school_id,
-                'is_student' => true, 
-                'password' => bcrypt($request->password),          
+                'is_student' => true,
+                'password' => bcrypt($request->password),
             ]
         );
 
         Student::updateOrCreate(
             [
                 'user_id' => $user->id,
-            ], 
+            ],
             [
                 'program' => $request->program,
                 'date_of_entry' => $request->date_of_entry,
@@ -75,8 +75,8 @@ class StudentController extends Controller
 
         $user = User::find($id);
 
-        
-         if (empty($user)) { 
+
+         if (empty($user)) {
            return $this->sendErrorResponse(['User does not exist']);
         }
 
@@ -86,7 +86,7 @@ class StudentController extends Controller
        ];
 
        return $this->sendSuccessResponse('User Record Successfully Retrived',$data);
-       
+
     }
 
     /**
@@ -97,7 +97,7 @@ class StudentController extends Controller
         $user = User::find($id);
 
         //Redirect to the Role page if validation fails.
-         if (empty($user)) { 
+         if (empty($user)) {
            return $this->sendErrorResponse(['User Record does not exist']);
         }
 
@@ -105,26 +105,26 @@ class StudentController extends Controller
         User::updateOrCreate(
             [
                 'registration_no' => $request->registration_no,
-            ], 
+            ],
             [
                 'first_name' => $request->first_name,
                 'middle_name' => $request->middle_name,
-                'last_name' => $request->last_name, 
-                'email' => $request->email, 
-                'phone_no' => $request->phone_no, 
-                'gender' => $request->gender, 
+                'last_name' => $request->last_name,
+                'email' => $request->email,
+                'phone_no' => $request->phone_no,
+                'gender' => $request->gender,
                 'profile_picture_path' => $request->profile_picture_pathe,
                 'date_of_birth' => $request->date_of_birth,
-                'state_of_origin' => $request->state_of_origin, 
+                'state_of_origin' => $request->state_of_origin,
                 'school_id' => $authUser->school_id,
-                'is_student' => true,         
+                'is_student' => true,
             ]
         );
 
         Student::updateOrCreate(
             [
                 'user_id' => $user->id,
-            ], 
+            ],
             [
                 'program' => $request->program,
                 'date_of_entry' => $request->date_of_entry,
@@ -146,7 +146,7 @@ class StudentController extends Controller
         $user = User::find($id);
 
         //Redirect to the Role page if validation fails.
-         if (empty($user)) { 
+         if (empty($user)) {
            return $this->sendErrorResponse(['User record does not exists']);
         }
 
@@ -163,13 +163,13 @@ class StudentController extends Controller
     public function dashboard()
     {
         $authStudent = auth('student')->user();
-        
+
         $transcriptRequests = TranscriptRequest::where('user_id', $authStudent->id)->orderBy('created_at', 'DESC')->get();
 
         return view('student-portal.dashboard')->with('transcriptRequests', $transcriptRequests);
     }
 
-    public function logout(Request $request) 
+    public function logout(Request $request)
     {
         $user_id = auth('student')->id();
         $user = User::find($user_id);
@@ -204,7 +204,7 @@ class StudentController extends Controller
         $transcriptRequest = TranscriptRequest::find($request->id);
 
         //Redirect to the Role page if validation fails.
-        if (empty($transcriptRequest)) { 
+        if (empty($transcriptRequest)) {
            return $this->sendErrorResponse(['Invalid Transcript']);
         }
 
@@ -229,7 +229,7 @@ class StudentController extends Controller
         $transcriptRequest = TranscriptRequest::find($id);
 
         //Redirect to the Role page if validation fails.
-         if (empty($transcriptRequest)) { 
+         if (empty($transcriptRequest)) {
            return $this->sendErrorResponse(['Invalid Transcript Request']);
         }
 
@@ -241,7 +241,7 @@ class StudentController extends Controller
 
     public function showStudentChangePasswordForm(Request $request)
     {
-        return view('student-portal.edit-change-password'); 
+        return view('student-portal.edit-change-password');
     }
 
     public function processStudentChangePasswordForm(Request $request)
@@ -271,7 +271,7 @@ class StudentController extends Controller
     {
         $id = auth()->user()->id;
         $user = User::where('id', $id)->where('is_student', true)->first();
-        return view('student-portal.view-profile')->with('user', $user); 
+        return view('student-portal.view-profile')->with('user', $user);
     }
 
     public function validateChangePasswordForm( Request $request) {
@@ -306,7 +306,7 @@ class StudentController extends Controller
     {
         //dd($request);
         $userId = auth('student')->user()->id;
-       
+
         $user = User::find($userId);
         $user->first_name = $request->first_name;
         $user->middle_name= $request->middle_name;
@@ -315,6 +315,6 @@ class StudentController extends Controller
         $user->phone_no = $request->phone_no;
         $user->save();
         return redirect()->route('student.users.profile')->with('success', 'Profile Successfully updated');
-        
+
     }
 }

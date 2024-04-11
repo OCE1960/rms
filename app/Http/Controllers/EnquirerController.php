@@ -31,7 +31,7 @@ class EnquirerController extends Controller
     {
         $authStudent = Auth::user();
 
-        $schools = School::all();
+        $schools = School::orderBy('full_name', 'asc')->get();
 
         $veryResultRequests = ResultVerificationRequest::where('enquirer_user_id', $authStudent->id)->orderBy('created_at', 'DESC')->get();
 

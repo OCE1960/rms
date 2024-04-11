@@ -45,13 +45,17 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::prefix('students')->group(function() {
     Route::controller(UserController::class)->group(function () {
         Route::get('/login', 'showStudentLoginForm')->name('web.student.login');
+        Route::get('/register', 'registerStudent')->name('web.student.register');
+        Route::post('/register', 'storeStudent')->name('process.student.register');
+        Route::get('/activate', 'showAccountActivateForm')->name('student.activate');
+        Route::post('/activate', 'processAccountActivate')->name('student.activate.account');
     });
 
     Route::controller(StudentLoginController::class)->group(function () {
         Route::post('/login', 'authenticate')->name('process.student.login');
     });
 
-    Route::middleware(['auth:student'])->group(function() {
+    Route::middleware(['auth:student', 'is_account_activated'])->group(function() {
         Route::controller(StudentController::class)->group(function () {
             Route::get('/dashboard', 'dashboard')->name('student.dashboard');
             Route::post('/logout', 'logout')->name('student.logout');

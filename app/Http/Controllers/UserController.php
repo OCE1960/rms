@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ActivateStudentRequest;
 use App\Http\Requests\BulkUploadRequest;
 use App\Http\Requests\ResetUserPasswordRequest;
+use App\Http\Requests\StoreGuestStudentRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Mail\ResetUserPassword;
+use App\Models\School;
 use App\Models\Semester;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use App\Mail\StudentResultVerifierAccount;
 use Illuminate\Support\Facades\Mail;
 use Validator;
 
@@ -19,7 +23,7 @@ class UserController extends Controller
 {
     public function showChangePasswordForm(Request $request)
     {
-        return view('change-password'); 
+        return view('change-password');
     }
 
     public function validateChangePasswordForm( Request $request) {
@@ -70,7 +74,7 @@ class UserController extends Controller
     {
         $id = auth()->id();
         $user = User::where('id', $id)->first();
-        return view('view-profile')->with('user', $user); 
+        return view('view-profile')->with('user', $user);
     }
 
     public function viewStaff(Request $request, $id)
@@ -90,7 +94,7 @@ class UserController extends Controller
         ];
 
        return $this->sendSuccessResponse('Staff Record Successfully Retrived',$data);
-       
+
     }
 
     /**
@@ -102,13 +106,13 @@ class UserController extends Controller
      */
     public function updateProfile(UpdateProfileRequest $request, $id)
     {
- 
+
         $user = User::find($id);
 
          if (empty($user)) {
             return $this->sendErrorResponse(['User does not exist']);
         }
-       
+
         $user->phone_no = $request->phone_no;
         $user->first_name = $request->first_name;
         $user->middle_name = $request->middle_name;
@@ -118,12 +122,12 @@ class UserController extends Controller
         $user->save();
 
         return $this->sendSuccessMessage('Staff Successfully Updated');
-       
+
     }
 
     public function resetPassword(ResetUserPasswordRequest $request, $id)
     {
- 
+
         $user = User::find($id);
 
          if (empty($user)) {
@@ -137,7 +141,7 @@ class UserController extends Controller
         Mail::to($user->email)->send(new ResetUserPassword($password));
 
        return $this->sendSuccessMessage('Staff Password Successfully Reset');
-       
+
     }
 
     public function processStudentBulkUpload(BulkUploadRequest $request)
@@ -225,7 +229,7 @@ class UserController extends Controller
                     }
                 }
                 $loop++;
-            }   
+            }
         }else{
             $errors[] = 'The uploaded csv file is empty';
         }
@@ -235,7 +239,7 @@ class UserController extends Controller
         if (count($errors) > 0) {
             $collectErrors = $this->array_flatten($errors);
 
-            return $this->sendErrorResponse($collectErrors);  
+            return $this->sendErrorResponse($collectErrors);
         }
 
         return $this->sendSuccessMessage('Student Bulk Upload Successful');
@@ -249,13 +253,13 @@ class UserController extends Controller
          if (!filter_var($data[2], FILTER_VALIDATE_EMAIL)) {
             $errors[] = 'The email: '.$data[2].' is invalid';
         }
-         
-     
+
+
 
         $user = User::where('email', $data[2])->where('registration_no', '<>', $data[3])->first();
         if ($user) {
             $errors[] = 'The email: '.$data[2].' already belongs to a user';
-        } 
+        }
 
         // validate matric number
         $registration_no = User::where('registration_no', $data[3])->where('email', '<>', $data[2])->first();
@@ -279,7 +283,7 @@ class UserController extends Controller
         $students = User::where('is_student', true)->orderBy('first_name', 'asc')
             ->orderBy('last_name', 'asc')->get();
 
-        return view('students.index')->with('students', $students)->with('semesters', $semesters); 
+        return view('students.index')->with('students', $students)->with('semesters', $semesters);
     }
 
     /**
@@ -289,7 +293,7 @@ class UserController extends Controller
     {
         $users = User::where('is_staff', true)->orderBy('first_name', 'asc')->orderBy('last_name', 'asc')->get();
 
-        return view('staffs.index')->with('users', $users); 
+        return view('staffs.index')->with('users', $users);
     }
 
     /**
@@ -299,14 +303,14 @@ class UserController extends Controller
     {
         $users = User::where('is_result_enquirer', true)->orderBy('first_name', 'asc')->orderBy('last_name', 'asc')->get();
 
-        return view('result-enquirers.index')->with('users', $users); 
+        return view('result-enquirers.index')->with('users', $users);
     }
 
     public function viewStudent($id)
     {
         $user = User::findOrFail($id);
 
-        return view('students.show')->with('user', $user); 
+        return view('students.show')->with('user', $user);
     }
 
     public function showStudentLoginForm()
@@ -314,5 +318,81 @@ class UserController extends Controller
 
         return view("auth.student-login");
     }
+
+    public function registerStudent()
+    {
+        $schools = School::orderBy('full_name', 'asc')->get();
+
+        return view('auth.student-register')->with('schools', $schools);
+    }
+
+        /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \App\Http\Requests\StoreGuestStudentRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeStudent(StoreGuestStudentRequest $request)
+    {
+        $user = User::updateOrCreate(
+            [
+                'registration_no' => $request->registration_no,
+            ],
+            [
+                'email' => $request->email,
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'is_account_activated' => false,
+                'is_disabled' => false,
+                'is_student' => true,
+                'password' => bcrypt($request->password),
+            ]
+        );
+
+        Student::updateOrCreate(
+            [
+                'user_id' => $user->id,
+            ],
+            [
+                'department' => $request->department,
+            ]
+        );
+
+        Mail::to($user->email)->send(new StudentResultVerifierAccount($user));
+
+        return redirect()->route('web.student.register')->with('success', 'Account Successfully created, please check your mail to activate your account');
+    }
+
+    public function showAccountActivateForm()
+    {
+
+        return view("auth.student-activate");
+    }
+
+    public function processAccountActivate(ActivateStudentRequest $request)
+    {
+        $user = User::where('id', $request->activation_code)
+                ->where('is_student', true)->first();
+
+        if ($user) {
+
+            $name = $user->full_name;
+            if ($user->is_account_activated == 0) {
+                $user->is_account_activated = true;
+                $user->save();
+                return redirect()->route('web.student.login')
+                ->with('success',"{$name}, your account has been successfully activated, login to start session");
+            } else {
+                return redirect()->route('student.activate')
+                ->with('error',"$name, Your account has been activated earlier before, please login to continue session");
+            }
+
+        } else {
+            return redirect()->route('student.activate')
+                ->with('error',"Invalid Activation Code");
+        }
+
+    }
+
 
 }

@@ -42,11 +42,11 @@
 
         <div class="card card-outline card-primary">
             <div class="card-body login-card-body">
-                {{-- <p class="login-box-msg">{{ __('adminlte::adminlte.login_message') }} or
-                    <a href="{{ route('register') }}">
+                <p class="login-box-msg">{{ __('adminlte::adminlte.login_message') }} or
+                    <a href="{{ route('web.student.register') }}">
                         {{ __('Create Student Account') }}
                     </a>
-                </p> --}}
+                </p>
 
                 @if (session('invalid-details'))
                     <div class="alert alert-danger">

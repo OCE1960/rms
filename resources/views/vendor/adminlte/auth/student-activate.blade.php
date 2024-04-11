@@ -20,19 +20,19 @@
         @if(session('success'))
             <div class="alert alert-success">
                 <i class="fas fa-check-double"></i>      {{ session('success') }}
-            </div> 
+            </div>
         @endif
 
         @if(session('error-message'))
             <div class="alert alert-danger">
                 <i class="fa fa-bug"></i>      {{ session('error-message') }}
-            </div> 
+            </div>
         @endif
 
         @if(session('error'))
             <div class="alert alert-danger">
                 <i class="fa fa-bug"></i>      {{ session('error') }}
-            </div> 
+            </div>
         @endif
 
         {{-- First Name field --}}
@@ -95,5 +95,5 @@
                 }
             }
     </script>
-    
+
 @endpush
