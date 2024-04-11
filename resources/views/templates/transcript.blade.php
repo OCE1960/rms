@@ -6,6 +6,11 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>Transcript Result</title>
+        <!-- Fonts -->
+        <link rel="dns-prefetch" href="//fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+
+        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     </head>
         <style>
 
@@ -16,6 +21,19 @@
             td {
                 padding:5px;
                 text-align: center;
+            }
+
+            .text-center {
+                text-align: center;
+                }
+
+            .margin-bottom {
+                margin-bottom: 20px;
+            }
+
+            .header {
+                font-size: 30px;
+                font-weight: 900;
             }
         </style>
     <body>
@@ -32,11 +50,13 @@
                 @endphp
 
                 <!-- <img src="{{ public_path('letter-head/header.jpg') }}" width="100%" height="65" /> -->
-                <h1 class="text-center">{{  $school->full_name  }} </h1>
-                <h3 class="text-center">{{  $school->address_mailbox  }} </h3>
-                <h3 class="text-center">{{  $school->address_street  }} </h3>
-                <h3 class="text-center">{{  $school->official_email}} </h3>
-                <h3 class="text-center">{{  $school->official_website  }} </h3>
+                <div class="text-center header">{{  $school->full_name  }} </div>
+                <div class="text-center margin-bottom">
+                    {{  $school->address_mailbox  }} <br/>
+                    {{  $school->address_street  }} <br/>
+                    {{  $school->official_email}} <br/>
+                    {{  $school->official_website  }}
+                </div>
                 @foreach($academicResults as $semesterId => $semesterResults)
 
                     @php
@@ -74,8 +94,8 @@
                                 <th colspan="2">Grade</th>
                             </tr> --}}
                             <tr>
-                            <th width="6%">Course <br> Code</th>
-                            <th width="50%" >Title of Course</th>
+                            <th width="10%">Course <br> Code</th>
+                            <th width="46%" >Title of Course</th>
                             <th  width="7%">Units</th>
                             <th  width="10%">Grade</th>
                             <th  width="17%">Total Grade <br> Points</th>
