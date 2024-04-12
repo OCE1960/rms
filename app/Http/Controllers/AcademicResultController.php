@@ -9,7 +9,6 @@ use App\Models\AcademicResult;
 use App\Models\Course;
 use App\Models\Grade;
 use App\Models\User;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\File;
 
 class AcademicResultController extends Controller
@@ -26,9 +25,9 @@ class AcademicResultController extends Controller
         $authUser = auth()->user();
         $user = User::find($request->user_id);
         $course = Course::where('id', $request->course_id)->firstOrFail();
-        
+
         //Redirect to Compiled Result Modal.
-        if (empty($user)) { 
+        if (empty($user)) {
             return $this->sendErrorResponse(['User does not exist']);
         }
 
@@ -58,7 +57,7 @@ class AcademicResultController extends Controller
         $schoolId = $academicResult->user->school_id;
 
         //Redirect to the Role page if validation fails.
-         if (empty($academicResult)) { 
+         if (empty($academicResult)) {
            return $this->sendErrorResponse(['Semester Result does not exist']);
         }
 
@@ -86,7 +85,7 @@ class AcademicResultController extends Controller
         $course = Course::where('id', $request->course_id)->firstOrFail();
 
         //Redirect to the Role page if validation fails.
-         if (empty($academicResult)) { 
+         if (empty($academicResult)) {
            return $this->sendErrorResponse(['Semester Result does not exist']);
         }
 
@@ -112,12 +111,12 @@ class AcademicResultController extends Controller
     {
         $academicResult = AcademicResult::find($id);
 
-        if (empty($academicResult)) { 
+        if (empty($academicResult)) {
             return $this->sendErrorResponse(['Semester Result deleted successfully']);
          }
- 
+
          $academicResult->delete();
- 
+
          return $this->sendSuccessMessage('Semester Result Successfully deleted');
     }
 
@@ -192,7 +191,7 @@ class AcademicResultController extends Controller
                     }
                 }
                 $loop++;
-            }   
+            }
         }else{
             $errors[] = 'The uploaded csv file is empty';
         }
@@ -202,7 +201,7 @@ class AcademicResultController extends Controller
         if (count($errors) > 0) {
             $collectErrors = $this->array_flatten($errors);
 
-            return $this->sendErrorResponse($collectErrors);  
+            return $this->sendErrorResponse($collectErrors);
         }
 
         return $this->sendSuccessMessage('Student Bulk Upload Successful');
@@ -215,7 +214,7 @@ class AcademicResultController extends Controller
         $course = Course::where('course_code', $data[1])->where('school_id', $authUser->school_id)->first();
         if (is_null($course)) {
             $errors[] = 'The course_code: '.$data[1].' does not exist';
-        } 
+        }
 
         // validate matric number
         $registration_no = User::where('registration_no', $data[0])->where('school_id', $authUser->school_id)->where('is_student', true)->first();

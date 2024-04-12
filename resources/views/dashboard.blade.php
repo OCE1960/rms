@@ -15,30 +15,29 @@
 
 
 @section('content')
-             
-    @canany(['Super Admin', 'Registry'])
+
+    @canany(['Super Admin', 'Result Compiler', 'Checking Officer', 'Registry','Dispatching Officer',
+    'Recommending Officer', 'Approving Officer', 'School Admin', 'Result Uploader',])
             @include('partials.dashboard-analytics')
-    @endcanany 
-    
+    @endcanany
+
     <div class="row shadow p-3 bg-white rounded" id="info">
 
-        @canany(['Super Admin'])
+        @canany(['Super Admin', 'Result Compiler', 'Checking Officer', 'Registry','Dispatching Officer',
+        'Recommending Officer', 'Approving Officer', 'School Admin', 'Result Uploader',])
             @include('partials.admin-dashboard-content')
         @endcanany
-        
-        @canany(['Result Compiler', 'Checking Officer'])
-            @include('partials.staff-dashboard-content')
-        @endcanany
+
     </div> <!-- /#info-box -->
 
 @stop
 
 @push('js')
 
-    <script>       
+    <script>
         $(document).ready(function() {
-            $('#leave-requets').DataTable();
+            $('#transcripts-requests').DataTable();
         })
     </script>
-    
+
 @endpush

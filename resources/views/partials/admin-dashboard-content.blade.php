@@ -1,65 +1,65 @@
-@if(isset($leaveRequets))
-    <div class="table-responsive">
-        <h4 class="text-primary"> List of Submitted Leave Requests</h4>
-        <table id="leave-requets" class="table table-striped table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col" >Name</th>
-                    <th scope="col" >title</th>
-                    <th scope="col" width="30%" >description</th>
-                    <th scope="col" style="width:120px;"  >Start Date</th>
-                    <th scope="col" style="width:120px;" >End Date</th>
-                    <th scope="col">Status</th>
-                    <th scope="col" style="width:190px;"></th>
-                </tr>
-            </thead>
-            <tbody>
 
-                @php
-                    $x = 0;
-                @endphp
+<div class="col-md-12">
+    @if(isset($transcriptRequests) & $transcriptRequests->count() > 0)
+        <div class="table-responsive">
+            <table id="transcripts-requests" class="table table-striped table-hover">
+                <thead>
+                    <tr class="text-center">
+                        <th scope="col">#</th>
+                        <th scope="col">Requested By</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">School</th>
+                        <th scope="col">Status</th>
 
-                <!-- @foreach($leaveRequets as $leaveRequet)
-
-                    <tr>
-                        <th scope="row"> {{ ++$x }} </th>
-                        <td> <strong> {{ $leaveRequet->user->name }} </strong> <br></td>
-
-                        <td> {{ $leaveRequet->title }}   </td>
-
-                        <td> {!! Str::limit(strip_tags($leaveRequet->description), 250, ' ...') !!} </td>
-
-                        <th>{{ $leaveRequet->start_date }}</th>
-                        <th>{{ $leaveRequet->end_date }}</th>
-
-                        <td>  
-                            @if( $leaveRequet->status === null)
-                                <button class="btn btn-warning btn-xs"> Pending </button>
-                            @elseif( $leaveRequet->status === 0)
-                                <button class="btn btn-danger btn-xs"> Rejected </button>
-                            @elseif(($leaveRequet->status))
-                                <button class="btn btn-success btn-xs"> Approved </button>
-                            @endif
-                        
-                        </td>
-
-                        <td class="text-center">  
-                            <button title="View" class="btn btn-xs btn-info mr-2 mb-2" data-view-leave-request="{{ $leaveRequet->id }}"> <i class="fas fa-eye"></i> View  </button>  
-                            
-                            @canany(['Manager'])
-                                <button title="View" class="btn btn-xs btn-primary mr-2 mb-2" data-approve-leave-request="{{ $leaveRequet->id }}"> <i class="fas fa-eye"></i> Process </button>  
-                            @endcanany
-                        </td>
                     </tr>
-            
-                @endforeach -->
-                
+                </thead>
+                <tbody>
+
+                    @php
+                        $x = 0;
+                    @endphp
+
+                    @foreach($transcriptRequests as $transcriptRequest)
+
+                        <tr class="text-center">
+                            <td scope="row"> {{ ++$x }} </td>
+                            <td scope="col"> {{ $transcriptRequest->requestedBy->full_name }}  <br>
+                                <strong>{{ $transcriptRequest->requestedBy->registration_no }} </strong>
+                            </td>
+                            <td scope="col"> {{ $transcriptRequest->title_of_request }} </td>
+                            <td scope="col"> {{ $transcriptRequest->school?->full_name }} </td>
+                            <td scope="col">
+                                @if ($transcriptRequest->workItem == null)
+                                    <span class="text-warning">Pending</span>
+                                @elseif ($transcriptRequest->is_result_dispatched)
+                                    <span class="text-success">Dispatched</span>
+                                @elseif ($transcriptRequest->is_result_approved)
+                                    <span class="text-info">Approved</span>
+                                @elseif ($transcriptRequest->is_result_compiled)
+                                    <span class="text-primary">In Process</span>
+                                @else
+                                    <span class="text-danger">No Progress</span>
+                                @endif
+                            </td>
+                        </tr>
+
+                    @endforeach
+
+                </tbody>
+
+            </table>
+        </div>
+
+    @else
+
+        <div class="col-md-12">
+            <p class="text-center text-danger my-5">No Transcript Requests to display</p>
+        </div>
+
+    @endif
+</div> <!-- end of col-6 -->
 
 
-            </tbody>
-        </table>
-    </div>
-@else
-    <div class="text-center text-danger col-sm-12"> No content</div>          
-@endif 
+
+
+

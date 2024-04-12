@@ -10,20 +10,42 @@ use App\Models\School;
 use App\Models\TranscriptRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
     public function index(Request $request)
     {
-        $transcriptRequets = TranscriptRequest::all();
-        $resultVerificationRequets = ResultVerificationRequest::all();
+        $authUser = Auth::user();
+        $admin = Role::where('key', 'super-admin')->first();
+        $registry = Role::where('key', 'registry')->first();
+        $transcriptRequests = TranscriptRequest::orderBy('created_at', 'asc')->get();
+        $resultVerificationRequests = ResultVerificationRequest::orderBy('created_at', 'asc')->get();
         $schools = School::all();
+        $staffs = User::where('is_staff', true)->get();
+        $students = User::where('is_student', true)->get();
         $users = User::all();
 
-        return view('dashboard')->with('transcriptRequets', $transcriptRequets)
+        if (($authUser->hasRole($admin->id)) || ($authUser->hasRole($registry->id)) ) {
+            $transcriptRequests = $transcriptRequests;
+            $resultVerificationRequests = $resultVerificationRequests;
+            $schools = $schools;
+            $staffs = $staffs;
+            $students = $students;
+        } else {
+            $transcriptRequests = $transcriptRequests->where('school_id', $authUser->school_id);
+            $resultVerificationRequests = $resultVerificationRequests->where('school_id', $authUser->school_id);
+            $schools = $schools->where('id', $authUser->school_id);
+            $staffs = $staffs->where('school_id', $authUser->school_id);
+            $students = $students->where('school_id', $authUser->school_id);
+        }
+
+        return view('dashboard')->with('transcriptRequests', $transcriptRequests)
             ->with('users', $users)
-            ->with('resultVerificationRequets', $resultVerificationRequets)
-            ->with('schools', $schools); 
+            ->with('staffs', $staffs)
+            ->with('students', $students)
+            ->with('resultVerificationRequests', $resultVerificationRequests)
+            ->with('schools', $schools);
     }
 
     public function getUsers()
@@ -31,7 +53,7 @@ class DashboardController extends Controller
         $users = User::all();
         $roles = Role::all();
         return view('users')->with('users', $users)
-            ->with('roles', $roles); 
+            ->with('roles', $roles);
     }
 
     public function store(StoreUserRequest $request)
@@ -47,7 +69,7 @@ class DashboardController extends Controller
         $user->roles()->sync($request->role);
 
        return $this->sendSuccessMessage('Staff Record Successfully Saved');
-       
+
     }
 
     public function viewUser(Request $request, $id)
@@ -65,12 +87,12 @@ class DashboardController extends Controller
                 ];
 
        return $this->sendSuccessResponse('Staff Record Successfully Retrived',$data);
-       
+
     }
 
     public function update(UpdateUserRequest $request, $id)
     {
- 
+
         $user = User::find($id);
 
          if (empty($user)) {
@@ -85,6 +107,6 @@ class DashboardController extends Controller
         $user->roles()->sync($request->role);
 
         return $this->sendSuccessMessage('Staff Successfully Updated');
-       
+
     }
 }
