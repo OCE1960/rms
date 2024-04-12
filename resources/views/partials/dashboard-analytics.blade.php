@@ -40,7 +40,7 @@
             <div class="col-sm-3">
                 <div class="info-box">
                     <!-- Apply any bg-* class to to the icon to color it -->
-                    <span class="info-box-icon bg-primary"><i class="fas fa-users"></i></span>
+                    <span class="info-box-icon bg-primary"><i class="fas fa-user-friends"></i></span>
                     <div class="info-box-content">
                             <span class="info-box-text">Staffs</span>
                             <span class="info-box-number"> {{ count($staffs) }} </span>

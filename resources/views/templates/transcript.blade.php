@@ -57,6 +57,13 @@
                     {{  $school->official_email}} <br/>
                     {{  $school->official_website  }}
                 </div>
+
+                <div class="text-center margin-bottom">
+                    <strong> Department: </strong> {{  $userRequestingTranscript->student->department  }}<br/>
+                    <strong>Student Name: </strong> {{  $userRequestingTranscript->full_name  }} <br/>
+                    <strong>Registration No.:   </strong> {{  $userRequestingTranscript->registration_no  }}<br/>
+                </div>
+
                 @foreach($academicResults as $semesterId => $semesterResults)
 
                     @php
@@ -139,11 +146,23 @@
 
                     </table>
 
-                    @if ($even == 0  && $x < count($academicResults))
+                    @if ($even != 0  && $x < count($academicResults))
 
                      <pagebreak>
 
-                      <h3>Transcript Results</h3>
+                        <div class="text-center header">{{  $school->full_name  }} </div>
+                        <div class="text-center margin-bottom">
+                            {{  $school->address_mailbox  }} <br/>
+                            {{  $school->address_street  }} <br/>
+                            {{  $school->official_email}} <br/>
+                            {{  $school->official_website  }}
+                        </div>
+
+                        <div class="text-center margin-bottom">
+                            <strong> Department: </strong> {{  $userRequestingTranscript->student->department  }}<br/>
+                            <strong>Student Name: </strong> {{  $userRequestingTranscript->full_name  }} <br/>
+                            <strong>Registration No.:   </strong> {{  $userRequestingTranscript->registration_no  }}<br/>
+                        </div>
 
                     @endif
 
