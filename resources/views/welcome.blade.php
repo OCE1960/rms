@@ -96,7 +96,7 @@
 
                                 <div class="ml-12">
                                     <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                        Nigerian Students can Order for their Transcript on this Platform, Monitor the status of their transcripts requests and downlaod their student copy of their transcript.
+                                        Nigerian Students can order for their Transcript on this platform, monitor the status of their transcripts requests and download the student copy of their transcript.
                                     </div>
                                 </div>
                             </div>
@@ -111,7 +111,7 @@
 
                                 <div class="ml-12">
                                     <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    External Bodies can verifies the academic record of a Nigerian Graduate.
+                                    External bodies can verifies the academic record of a Nigerian Graduate.
                                     </div>
                                 </div>
                             </div>
