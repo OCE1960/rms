@@ -63,7 +63,8 @@ class DashboardController extends Controller
         $user->email = $request->email;
         $user->phone_no = $request->phone_no;
         $user->password = bcrypt($request->password);
-        $user->name = $request->name;
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
         $user->save();
 
         $user->roles()->sync($request->role);
@@ -101,7 +102,8 @@ class DashboardController extends Controller
 
         $user->email = $request->email;
         $user->phone_no = $request->phone_no;
-        $user->name = $request->name;
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
         $user->save();
 
         $user->roles()->sync($request->role);

@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use App\Models\Role;
 use App\Models\User;
@@ -59,7 +58,8 @@ class DashboardControllerTest extends TestCase
             'email' => $this->faker->safeEmail(),
             'phone_no' => $phone_no,
             'password' => 'password123',
-            'name' => $this->faker->name(),
+            'first_name' => $this->faker->name(),
+            'last_name' => $this->faker->name(),
             'role' => $role->id,
         ];
         $response = $this->post('api/users', $data);
@@ -83,7 +83,8 @@ class DashboardControllerTest extends TestCase
         $data = [
             'email' => fake()->unique()->safeEmail(),
             'phone_no' => $phone_no,
-            'name' => $this->faker->name(),
+            'first_name' => $this->faker->name(),
+            'last_name' => $this->faker->name(),
             'role' => $role->id,
         ];
         $response = $this->post('api/users/update/'.$user->id, $data);
