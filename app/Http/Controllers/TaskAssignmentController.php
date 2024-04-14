@@ -8,6 +8,7 @@ use App\Http\Requests\StoreDecisionRequest;
 use App\Http\Requests\StoreDispatchRequest;
 use App\Http\Requests\StoreMoveFileRequest;
 use App\Mail\ApprovalMail;
+use App\Mail\DispatchMail;
 use App\Mail\DispatchTranscriptMail;
 use App\Mail\DispatchVerifyResultMail;
 use App\Mail\MoveFile;
@@ -337,6 +338,8 @@ class TaskAssignmentController extends Controller
         $transcriptRequest->dispatched_by = $authUser->id;
         $transcriptRequest->save();
 
+        Mail::to($transcriptRequest->requestedBy->email)->send(new DispatchMail($transcriptRequest, null));
+
         return $this->sendSuccessMessage('Compiled Result Successfully Dispatch');
     }
 
@@ -527,6 +530,8 @@ class TaskAssignmentController extends Controller
         $receiver = $verifyResultRequest->requestedBy;
 
         Mail::to($receiver->email)->send(new DispatchVerifyResultMail($verifyResultRequest));
+
+        Mail::to($receiver->email)->send(new DispatchMail(null, $verifyResultRequest));
 
         return $this->sendSuccessMessage('Verify Result Dispatch Operation Successful');
     }
