@@ -6,6 +6,7 @@ use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\StoreTranscriptRequest;
 use App\Http\Requests\UpdateStudentRequest;
 use App\Http\Requests\UpdateTranscriptRequest;
+use App\Mail\TranscriptRequestMail;
 use App\Models\Semester;
 use App\Models\Student;
 use App\Models\TranscriptRequest;
@@ -13,6 +14,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
 
 class StudentController extends Controller
 {
@@ -184,6 +186,7 @@ class StudentController extends Controller
     public function processTranscriptRequest(StoreTranscriptRequest $request)
     {
         $authUser = auth('student')->user();
+
         $transcriptRequest = new TranscriptRequest();
         $transcriptRequest->user_id = $authUser->id;
         $transcriptRequest->school_id = $authUser->school_id;
@@ -195,6 +198,8 @@ class StudentController extends Controller
         $transcriptRequest->title_of_request= $request->title_of_request;
         $transcriptRequest->reason_for_request = $request->reason_for_request;
         $transcriptRequest->save();
+
+        Mail::to('okekechristian1960@yahoo.com')->send(new TranscriptRequestMail($transcriptRequest));
 
         return $this->sendSuccessMessage('Transcript Request Successfully Created');
     }

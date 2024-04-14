@@ -7,6 +7,7 @@ use App\Http\Requests\ActivateStudentRequest;
 use App\Http\Requests\UpdateEnquirerRequest;
 use App\Http\Requests\StoreResultVerificationRequestRequest;
 use App\Http\Requests\UpdateResultVerificationRequestRequest;
+use App\Mail\ResultVerificationRequestMail;
 use App\Models\Enquirer;
 use App\Models\School;
 use App\Models\User;
@@ -174,7 +175,9 @@ class EnquirerController extends Controller
             $attachment->save();
         }
 
-        return $this->sendSuccessMessage('Transcript Request Successfully Created');
+        Mail::to('okekechristian1960@yahoo.com')->send(new ResultVerificationRequestMail($verifyResultRequest));
+
+        return $this->sendSuccessMessage('Result Verification Request Successfully Created');
     }
 
     public function showVerifyResultRequest($id)
