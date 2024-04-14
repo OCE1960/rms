@@ -7,6 +7,7 @@ use App\Http\Requests\StoreCompileTranscriptRequest;
 use App\Http\Requests\StoreDecisionRequest;
 use App\Http\Requests\StoreDispatchRequest;
 use App\Http\Requests\StoreMoveFileRequest;
+use App\Mail\ApprovalMail;
 use App\Mail\DispatchTranscriptMail;
 use App\Mail\DispatchVerifyResultMail;
 use App\Mail\MoveFile;
@@ -286,6 +287,7 @@ class TaskAssignmentController extends Controller
 
         if ($request->decision) {
             $attachment = AttachmentController::generateTranscriptResult($transcriptRequest, $transcriptTemplate);
+            Mail::to($transcriptRequest->requestedBy->email)->send(new ApprovalMail($transcriptRequest, null));
         }
 
         $transcriptRequest->is_result_approved = $request->decision;
@@ -479,6 +481,8 @@ class TaskAssignmentController extends Controller
         $verifyResultRequest->is_result_approved = $request->decision;
         $verifyResultRequest->approved_by= $authUser->id;
         $verifyResultRequest->save();
+
+        Mail::to($verifyResultRequest->requestedBy->email)->send(new ApprovalMail(null, $verifyResultRequest));
 
         return $this->sendSuccessMessage('Approve Verify Result Operation Successful');
     }
