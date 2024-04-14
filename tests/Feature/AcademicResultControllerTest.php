@@ -108,11 +108,9 @@ class AcademicResultControllerTest extends TestCase
             $user,
             ['*']
         );
-        
+
         $response = $this->post('api/academic-results/delete/'. $academicResult->id);
 
         $response->assertStatus(200);
     }
-
-
 }
