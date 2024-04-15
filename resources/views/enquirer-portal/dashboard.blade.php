@@ -85,7 +85,7 @@
                                 </td>
                                 <td>
                                         <a href="#" title="View"><button class="btn btn-xs btn-info mr-2" data-view-verify-result="{{ $veryResultRequest->id }}"> <i class="fas fa-eye"></i>  </button> </a>
-                                        @if ($veryResultRequest->has_paid == false)
+                                        @if ($veryResultRequest->is_result_verified == false)
                                             <a href="#" title="Edit"><button class="btn btn-xs btn-success mr-2" data-edit-verify-result="{{ $veryResultRequest->id }}"> <i class="fas fa-edit"></i>  </button> </a>
                                         @endif
 
