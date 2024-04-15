@@ -36,7 +36,7 @@
         <div class="col-12">
 
             @php
-                $school = $userVerifyingResult->school;
+                $school = $verifyResultRequest->school;
             @endphp
 
             <!-- <img src="{{ public_path('letter-head/header.jpg') }}" width="100%" height="65" /> -->

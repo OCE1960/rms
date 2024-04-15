@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ActivateStudentRequest;
 use App\Http\Requests\UpdateEnquirerRequest;
+use App\Http\Requests\StoreEnquirerRequest;
 use App\Http\Requests\StoreResultVerificationRequestRequest;
 use App\Http\Requests\UpdateResultVerificationRequestRequest;
 use App\Mail\ResultVerificationRequestMail;
