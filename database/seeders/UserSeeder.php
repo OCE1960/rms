@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
 
         $user1 = User::updateOrCreate(
             [
-                'email' => 'admin@rms.com',
+                'email' => 'okekechristian1960@yahoo.com',
                 'phone_no' => '07033792383',
             ],
             [
@@ -26,7 +26,7 @@ class UserSeeder extends Seeder
                 'password' => bcrypt('password')
             ]
         );
-     
+
         $superAdmin = Role::where('key', 'super-admin')->firstOrFail();
 
         $user1->roles()->attach($superAdmin->id);
@@ -43,7 +43,7 @@ class UserSeeder extends Seeder
                 'password' => bcrypt('password')
             ]
         );
-     
+
         $registry = Role::where('key', 'registry')->firstOrFail();
 
         $user2->roles()->attach($registry->id);

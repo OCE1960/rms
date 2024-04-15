@@ -38,6 +38,11 @@ Route::get('/clear-cache', function () {
     return "Cache is cleared ... Check again";
 });
 
+Route::get('/db-seed', function () {
+    Artisan::call('migrate:fresh --seed');
+    return "Migration Complete ... Check again";
+});
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
