@@ -62,9 +62,10 @@ class TaskAssignmentController extends Controller
             $courses = Course::where('school_id', $taskItemMorph->school_id)->get();
 
             if ($authUser->hasRole($admin->id) || $authUser->hasRole($registry->id)) {
-                $users = User::where('is_staff', true)->where('school_id', $taskItemMorph->school_id)->get();
+                $users = User::where('is_staff', true)->where('id', '<>', $authUser->id)
+                    ->where('school_id', $taskItemMorph->school_id)->get();
             } else {
-                $users = User::where('is_staff', true)
+                $users = User::where('is_staff', true)->where('id', '<>', $authUser->id)
                     ->where('school_id', $authUser->school_id)->get();
             }
         }
