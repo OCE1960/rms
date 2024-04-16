@@ -75,8 +75,17 @@
                                         <a href="{{ asset($transcriptRequest->studentTranscriptFilePath()->file_path) }}" title="Transcript" class="btn btn-xs btn-success mr-2" target="_blank">
                                             <i class="fas fa-edit"></i> View Transcript
                                         </a>
-
                                     @endif
+
+                                    @if ($transcriptRequest->is_result_dispatched == true && $transcriptRequest->has_provided_feedback == false)
+                                        <p>
+                                            <button  id="request-for-feedback"  class="btn btn-info btn-sm" data-request-for-feedback="{{ $transcriptRequest->id }}" >
+                                                <i class="fas fa-comments mr-2"></i>Request for Feedback
+                                            </button>
+                                        </p>
+                                    @endif
+
+
                                 </td>
                                 <td>
                                         <a href="#" title="View"><button class="btn btn-xs btn-info mr-2" data-view-transcript="{{ $transcriptRequest->id }}"> <i class="fas fa-eye"></i>  </button> </a>
@@ -109,6 +118,7 @@
     @include('student-portal.modals.add-transcript-modal')
     @include('student-portal.modals.edit-transcript-modal')
     @include('student-portal.modals.view-transcript-modal')
+    @include('modals.request-for-feedback-modal')
 
 @stop
 
@@ -118,6 +128,69 @@
 
         $(document).ready(function() {
             $('#transcripts').DataTable();
+
+            $(document).on('click','#request-for-feedback',function(e) {
+                e.preventDefault();
+                $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val()}});
+                $('.spms-loader').hide();
+                $('.backend-json-response').html('');
+                $('#feedback_transcript_request_id').val($(this).attr('data-request-for-feedback'));
+                $.fn.modal.Constructor.prototype._enforceFocus = function() {};
+                $('#request-for-feedback-modal').modal('show');
+            })
+
+            $(document).on('click','#save-new-feedback',function(e) {
+                e.preventDefault();
+                $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val()}});
+                $('#save-new-feedback').attr('disabled', true);
+                $('.spms-loader').show();
+                let formData = new FormData();
+                formData.append('_token', $('input[name="_token"]').val());
+                formData.append('comment', $('#feedback').val());
+                formData.append('transcript_request_id', $('#feedback_transcript_request_id').val());
+                formData.append('result_verification_request_id', $('#feedback_result_verification_request_id').val());
+
+                let role_url = "{{ route('student.feedback.store') }}";
+
+                $.ajax({
+                    url: role_url,
+                    type: "POST",
+                    data: formData,
+                    cache: false,
+                    processData:false,
+                    contentType: false,
+                    success: function(result){
+                        $('.spms-loader').hide();
+                        $('.backend-json-response').hide();
+                        swal.fire({
+                                    title: "Saved",
+                                    text: "Feedback Successfull Created",
+                                    type: "success",
+                                    showCancelButton: false,
+                                    closeOnConfirm: false,
+                                    confirmButtonClass: "btn-success",
+                                    confirmButtonText: "OK",
+                                    closeOnConfirm: false
+                                });
+                        window.setTimeout( function(){
+                            $('#request-for-feedback-modal').modal('hide');
+                                location.reload(true);
+                        },500);
+                    },
+                    error : function(response, textStatus, errorThrown){
+
+                        $('.spms-loader').hide();
+                        $('#save-new-feedback').attr('disabled', false);
+                        $('.backend-json-response').html('');
+                        $.each(response.responseJSON.errors, function(key, value){
+                            $('.backend-json-response').append('<span class="alert alert-danger mr-4" style="display:inline-block;"> <i class="fa fa-times mr-2"></i>  '+value+'</span>');
+                        });
+                    },
+                    dataType: 'json'
+                });
+            })
+
+
         })
 
     </script>

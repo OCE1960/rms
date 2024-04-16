@@ -3,25 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreFeedbackRequest;
-use App\Http\Requests\UpdateFeedbackRequest;
 use App\Models\Feedback;
+use App\Models\ResultVerificationRequest;
+use App\Models\TranscriptRequest;
 
 class FeedbackController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $allFeedback = Feedback::orderBy('created_at', 'desc')->get();
+        return view('feedback.index')->with('allFeedback', $allFeedback);
     }
 
     /**
@@ -29,38 +25,26 @@ class FeedbackController extends Controller
      */
     public function store(StoreFeedbackRequest $request)
     {
-        //
-    }
+        $authUser = auth()->user();
+        $transcriptRequest = TranscriptRequest::find($request->transcript_request_id);
+        $resultVerificationRequest = ResultVerificationRequest::find($request->result_verification_request_id);
+        $feedback = new Feedback();
+        $feedback->transcript_request_id = $request->transcript_request_id;
+        $feedback->comment_by = $authUser->id;
+        $feedback->comment = $request->comment;
+        $feedback->result_verification_request_id = $request->result_verification_request_id;
+        $feedback->save();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Feedback $feedback)
-    {
-        //
-    }
+        if (!is_null($transcriptRequest)) {
+            $transcriptRequest->has_provided_feedback = true;
+            $transcriptRequest->save();
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Feedback $feedback)
-    {
-        //
-    }
+        if (!is_null($resultVerificationRequest)) {
+            $resultVerificationRequest->has_provided_feedback = true;
+            $resultVerificationRequest->save();
+        }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateFeedbackRequest $request, Feedback $feedback)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Feedback $feedback)
-    {
-        //
+       return $this->sendSuccessMessage('feedback Successfully Created');
     }
 }

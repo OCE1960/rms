@@ -55,6 +55,14 @@
                                         </a>
                                     @endif
 
+                                    @if ($veryResultRequest->is_result_dispatched == true && $veryResultRequest->has_provided_feedback == false)
+                                        <p>
+                                            <button  id="request-for-feedback"  class="btn btn-info btn-sm" data-request-for-feedback="{{ $veryResultRequest->id }}" >
+                                                <i class="fas fa-comments mr-2"></i>Request for Feedback
+                                            </button>
+                                        </p>
+                                    @endif
+
                                 </td>
                                 <td> {{ $veryResultRequest->registration_no }} </td>
 
@@ -76,10 +84,10 @@
                                     @else
 
                                         @if ($veryResultRequest->resultVerificationResponseAttachment() != null)
-                                        <a href="{{ asset($veryResultRequest->resultVerificationResponseAttachment()->file_path) }}"  target="_blank">
-                                            <i class="fa fa-folder-open" aria-hidden="true"></i> <span class="text-success ml-2">View Verication Response</span>
-                                        </a>
-                                    @endif
+                                            <a href="{{ asset($veryResultRequest->resultVerificationResponseAttachment()->file_path) }}"  target="_blank">
+                                                <i class="fa fa-folder-open" aria-hidden="true"></i> <span class="text-success ml-2">View Verication Response</span>
+                                            </a>
+                                        @endif
 
                                     @endif
                                 </td>
@@ -114,16 +122,79 @@
     @include('enquirer-portal.modals.add-verify-result-modal')
     @include('enquirer-portal.modals.view-result-verification-modal')
     @include('enquirer-portal.modals.edit-verify-result-modal')
+    @include('modals.request-for-feedback-modal')
 
 
 @stop
 
-@push('scripts')
+@push('js')
 
     <script>
 
         $(document).ready(function() {
             $('#transcripts').DataTable();
+
+            $(document).on('click','#request-for-feedback',function(e) {
+                e.preventDefault();
+                $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val()}});
+                $('.spms-loader').hide();
+                $('.backend-json-response').html('');
+                $('#feedback_result_verification_request_id').val($(this).attr('data-request-for-feedback'));
+                $.fn.modal.Constructor.prototype._enforceFocus = function() {};
+                $('#request-for-feedback-modal').modal('show');
+            })
+
+            $(document).on('click','#save-new-feedback',function(e) {
+                e.preventDefault();
+                $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val()}});
+                $('#save-new-feedback').attr('disabled', true);
+                $('.spms-loader').show();
+                let formData = new FormData();
+                formData.append('_token', $('input[name="_token"]').val());
+                formData.append('comment', $('#feedback').val());
+                formData.append('transcript_request_id', $('#feedback_transcript_request_id').val());
+                formData.append('result_verification_request_id', $('#feedback_result_verification_request_id').val());
+
+                let role_url = "{{ route('feedback.store') }}";
+
+                $.ajax({
+                    url: role_url,
+                    type: "POST",
+                    data: formData,
+                    cache: false,
+                    processData:false,
+                    contentType: false,
+                    success: function(result){
+                        $('.spms-loader').hide();
+                        $('.backend-json-response').hide();
+                        swal.fire({
+                                    title: "Saved",
+                                    text: "Feedback Successfull Created",
+                                    type: "success",
+                                    showCancelButton: false,
+                                    closeOnConfirm: false,
+                                    confirmButtonClass: "btn-success",
+                                    confirmButtonText: "OK",
+                                    closeOnConfirm: false
+                                });
+                        window.setTimeout( function(){
+                            $('#request-for-feedback-modal').modal('hide');
+                                location.reload(true);
+                        },500);
+                    },
+                    error : function(response, textStatus, errorThrown){
+
+                        $('.spms-loader').hide();
+                        $('#save-new-feedback').attr('disabled', false);
+                        $('.backend-json-response').html('');
+                        $.each(response.responseJSON.errors, function(key, value){
+                            $('.backend-json-response').append('<span class="alert alert-danger mr-4" style="display:inline-block;"> <i class="fa fa-times mr-2"></i>  '+value+'</span>');
+                        });
+                    },
+                    dataType: 'json'
+                });
+            })
+
         })
 
     </script>

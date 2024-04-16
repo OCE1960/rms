@@ -266,6 +266,14 @@ return [
             ],
         ],
         [
+            'text' => 'System Feddback',
+            'route'  => 'feedback',
+            'icon' => 'fas fa-comments',
+            'can' => [
+                'Super Admin', 'Registry',
+            ],
+        ],
+        [
             'text' => 'Schools',
             'route'  => 'schools',
             'icon' => 'fas fa-school',

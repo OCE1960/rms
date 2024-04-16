@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EnquirerController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\ResultVerificationRequestController;
 use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\GradeController;
@@ -74,6 +75,10 @@ Route::prefix('students')->group(function() {
             Route::post('/update/profile', 'updateStudentProfile' )->name('student.profile.update');
 
         });
+
+        Route::controller(FeedbackController::class)->group(function () {
+            Route::post('/feedback', 'store')->name('student.feedback.store');
+        });
     });
 });
 
@@ -109,6 +114,10 @@ Route::prefix('enquirers')->group(function() {
             Route::get('/users/student/password-reset','studentFirstLogin')->name('verify.result.password-reset');
             Route::post('/users/student/password-reset','firstLoginResetPassword')->name('verify.result.process.password-reset');
         });
+
+        Route::controller(FeedbackController::class)->group(function () {
+            Route::post('/feedback', 'store')->name('feedback.store');
+        });
     });
 });
 
@@ -140,6 +149,10 @@ Route::prefix('dashboard')->group(function() {
 
         Route::controller(StudentController::class)->group(function () {
             Route::get('/students', 'index')->name('students');
+        });
+
+        Route::controller(FeedbackController::class)->group(function () {
+            Route::get('/feedback', 'index')->name('feedback');
         });
 
         Route::controller(CoursesController::class)->group(function () {
