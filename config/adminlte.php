@@ -266,7 +266,7 @@ return [
             ],
         ],
         [
-            'text' => 'System Feddback',
+            'text' => 'System Feedback',
             'route'  => 'feedback',
             'icon' => 'fas fa-comments',
             'can' => [

@@ -342,7 +342,7 @@ class EnquirerController extends Controller
             return redirect()->intended('enquirers/dashboard');
 
         } else {
-            return redirect()->route('verify.result.login')->with('invalid-details', 'invalid login details');
+            return redirect()->route('web.verify.result.login')->with('invalid-details', 'invalid login details');
         }
     }
 
