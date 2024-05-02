@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'RMS',
+    'title' => 'NRMS',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'logo' => '<b>RMS</b>',
+    'logo' => '<b>NRMS</b>',
     'logo_img' => 'assets/icon.jpeg',
     'logo_img_class' => 'brand-image img-circle elevation-5',
     'logo_img_xl' => null,

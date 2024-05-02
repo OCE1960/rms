@@ -6,7 +6,7 @@
     <div class="row">
 
         <div class="col-sm-6">
-            <h4 class="m-0 text-dark">Transcript Requests Dashboard</h4>
+            <h4 class="m-0 text-dark">Result Verification Requests Dashboard</h4>
         </div>
 
     </div>
@@ -28,11 +28,11 @@
 @push('js')
 
     <script>
-            
+
         $(document).ready(function() {
             $('#verification-requests').DataTable();
         })
 
     </script>
-    
+
 @endpush
