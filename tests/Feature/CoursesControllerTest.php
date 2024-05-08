@@ -17,9 +17,7 @@ class CoursesControllerTest extends TestCase
     {
         $school = School::factory()->create();
         $user = User::factory()->create();
-
         $response = $this->actingAs($user)->get('/dashboard/courses');
-
         $response->assertStatus(200);
     }
 
