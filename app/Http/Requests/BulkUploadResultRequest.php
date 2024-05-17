@@ -24,7 +24,7 @@ class BulkUploadResultRequest extends FormRequest
     public function rules()
     {
         return [
-            'bulk_upload_file' => 'required|mimes:csv',
+            'bulk_upload_file' => 'required',
             'academic_session' => 'required'
         ];
     }

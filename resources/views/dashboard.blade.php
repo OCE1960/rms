@@ -29,28 +29,28 @@
         @endcanany --}}
         <div class="col-md-6 my-3">
             <div class="shadow p-3 bg-white rounded">
-                <h3>Bar Chart</h3>
+                <h3>Transcript Request</h3>
                 <canvas id="barChart" style="max-height: 500px"></canvas>
             </div>
         </div> <!-- end of col-md-6 -->
 
         <div class="col-md-6 my-3">
             <div class="shadow p-3 bg-white rounded">
-                <h3>Bar Chart</h3>
+                <h3>Verification Request</h3>
                 <canvas id="pieChart" style="max-height: 500px"></canvas>
             </div>
         </div> <!-- end of col-md-6 -->
 
         <div class="col-md-6 my-3">
             <div class="shadow p-3 bg-white rounded">
-                <h3>Bar Chart</h3>
+                <h3>Users</h3>
                 <canvas id="doughnutChart" style="max-height: 500px"></canvas>
             </div>
         </div> <!-- end of col-md-6 -->
 
         <div class="col-md-6 my-3">
             <div class="shadow p-3 bg-white rounded">
-                <h3>Bar Chart</h3>
+                <h3>Schools</h3>
                 <canvas id="lineChart" style="max-height: 500px"></canvas>
             </div>
         </div> <!-- end of col-md-6 -->
@@ -71,7 +71,7 @@
                 data: {
                     labels: ['January', 'February', 'March', 'April', 'May'],
                     datasets: [{
-                        label: 'Bar Chart',
+                        label: 'requests',
                         data: [65, 7, 12, 100, 23],
                     }],
                 },
@@ -110,7 +110,7 @@
                 data: {
                     labels: ['January', 'February', 'March', 'April', 'May'],
                     datasets: [{
-                        label: 'Bar Chart',
+                        label: 'School Chart',
                         data: [65, 7, 12, 100, 23],
                         fill: false,
                         borderColor: 'rgb(75, 192, 192)',

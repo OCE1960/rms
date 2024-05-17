@@ -78,7 +78,7 @@
                                     @endif
 
                                     @if ($transcriptRequest->is_result_dispatched == true && $transcriptRequest->has_provided_feedback == false)
-                                        <p>
+                                        <p class="mt-1">
                                             <button  id="request-for-feedback"  class="btn btn-info btn-sm" data-request-for-feedback="{{ $transcriptRequest->id }}" >
                                                 <i class="fas fa-comments mr-2"></i>Request for Feedback
                                             </button>
